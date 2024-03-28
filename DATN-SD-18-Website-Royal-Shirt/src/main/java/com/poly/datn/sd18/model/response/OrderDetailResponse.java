@@ -1,15 +1,23 @@
 package com.poly.datn.sd18.model.response;
 
-public interface OrderDetailResponse {
-    Integer getId();
+import lombok.*;
 
-    Integer getQuantity();
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+public class OrderDetailResponse {
+     private Integer id;
 
-    Float getPrice();
+    private Integer quantity;
 
-    Integer getStatus();
+    private Float price;
 
-    Integer getOrder();
+    private Integer status;
 
-    Integer getProductDetail();
+    private Integer orderId;
+
+    private Integer productDetailId;
 }

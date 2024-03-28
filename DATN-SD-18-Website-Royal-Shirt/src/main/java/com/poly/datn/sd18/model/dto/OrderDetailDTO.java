@@ -3,16 +3,16 @@ package com.poly.datn.sd18.model.dto;
 import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.OrderDetail;
 import com.poly.datn.sd18.entity.ProductDetail;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder
 public class OrderDetailDTO {
+    private Integer id;
     private Integer orderId;
     private Integer productDetailId;
     private Integer quantity;

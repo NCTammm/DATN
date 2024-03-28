@@ -11,12 +11,12 @@ import java.util.List;
 
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
-    @Query(value = """
-            SELECT *
+    @Query("""
+            SELECT new com.poly.datn.sd18.model.response.OrderDetailResponse(od.id, od.quantity, od.price, od.status, od.order.id, od.productDetail.id)
             FROM
-                order_details
+                OrderDetail od
             WHERE
-                order_id = :orderId
-            """, nativeQuery = true)
+                od.order.id = :orderId
+            """)
     List<OrderDetailResponse> findOrderDetailByOrderId(@Param("orderId") Integer id);
 }
