@@ -4,7 +4,19 @@ $(document).ready(function () {
     $('#sampleTableNoneDiscount').dataTable();
 
     $('#showFormNoneDiscount').click(function () {
-        $('#NoneDiscountModal').modal('show');
+        var discountStartDate = moment($("#discountStartDate").val(), 'YYYY-MM-DD');
+        var discountEndDate = moment($("#discountEndDate").val(), 'YYYY-MM-DD');
+        var currentDate = moment();
+
+        if (currentDate.isBetween(discountStartDate, discountEndDate, null, '[]')) {
+            $('#NoneDiscountModal').modal('show');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Giảm giá đã hết hạn sử dụng!'
+            });
+        }
     });
     $('#closeFormNoneDiscount').click(function () {
         $('#NoneDiscountModal').modal('hide');
