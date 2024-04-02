@@ -149,7 +149,7 @@
                                 </label>
                             </td>
                             <td class="table-td-center tinh_nang">
-                                <button class="btn btn-primary" id="showListProduct"><i class="fa-solid fa-eye" style="color: #6626fd;"></i>
+                                <button class="btn btn-primary" th:attr="data-discount-id=${discount.id}" onclick="showDiscountDetail(this)"><i class="fa-solid fa-eye" style="color: #6626fd;"></i>
                                 </button>
                                 <button class="btn btn-primary" type="button"
                                         th:attr="data-discount-id=${discount.id},id=#{${discount.id}}"

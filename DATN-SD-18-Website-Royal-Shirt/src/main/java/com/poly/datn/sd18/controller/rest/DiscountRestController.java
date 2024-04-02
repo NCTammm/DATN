@@ -52,4 +52,14 @@ public class DiscountRestController {
     public ResponseEntity<?> update(@PathVariable("id") int id) {
         return ResponseEntity.ok(discountService.setStatus(id));
     }
+
+    @PutMapping("/setDiscount")
+    public ResponseEntity<?> setDiscount(@RequestBody DiscountRequest discountRequest){
+        return ResponseEntity.ok(discountService.setDiscount(discountRequest));
+    }
+
+    @PutMapping("/removeDiscountFromProduct/{productId}")
+    public ResponseEntity<?> removeDiscountFromProduct(@PathVariable Integer productId){
+        return ResponseEntity.ok(discountService.removeDiscountFromProduct(productId));
+    }
 }

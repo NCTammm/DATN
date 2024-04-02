@@ -421,7 +421,7 @@ async function saveOrder() {
     var customerId = $("#select-customer").val();
     var note = $("#input-note").val();
     var shopping = $("#select-shopping").val()
-    var status = 0;
+    var status = 5;
     var successDate = moment().format("YYYY-MM-DDTHH:mm:ss");
 
     if (!checkInputSaveOrder(staffId, customerId, totalPrice, shopping)) {
@@ -479,7 +479,6 @@ async function saveOrder() {
                 }
             });
         },
-
         error: function (error) {
             console.error("Lỗi khi lưu Hóa đơn:", error);
 

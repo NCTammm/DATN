@@ -7,4 +7,6 @@ import lombok.Setter;
 @Setter
 public class DiscountRequest {
     private String name;
+    private Integer discountId;
+    private Integer productId;
 }

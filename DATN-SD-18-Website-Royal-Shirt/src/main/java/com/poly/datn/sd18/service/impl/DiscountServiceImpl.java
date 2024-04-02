@@ -1,9 +1,13 @@
 package com.poly.datn.sd18.service.impl;
 
+import com.poly.datn.sd18.dto.request.DiscountRequest;
+import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Discount;
 import com.poly.datn.sd18.entity.Discount;
+import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.repository.DiscountRepository;
 import com.poly.datn.sd18.repository.DiscountRepository;
+import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.DiscountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ import java.util.List;
 public class DiscountServiceImpl implements DiscountService {
     @Autowired
     DiscountRepository discountRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Override
     public List<Discount> getAll() {
@@ -62,5 +69,29 @@ public class DiscountServiceImpl implements DiscountService {
             return discountRepository.save(searchDiscount);
         }
         return null;
+    }
+
+    @Override
+    public List<ProductResponse> getListProductByDiscountId(Integer discountId) {
+        return discountRepository.getListProductByDiscountId(discountId);
+    }
+
+    @Override
+    public List<ProductResponse> getListProductNoneDiscount() {
+        return discountRepository.getListProductNoneDiscount();
+    }
+
+    @Override
+    public Product setDiscount(DiscountRequest discountRequest) {
+        Product product = productRepository.findById(discountRequest.getProductId()).get();
+        product.setDiscount(Discount.builder().id(discountRequest.getDiscountId()).build());
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product removeDiscountFromProduct(Integer productId) {
+        Product product = productRepository.findById(productId).get();
+        product.setDiscount(null);
+        return productRepository.save(product);
     }
 }

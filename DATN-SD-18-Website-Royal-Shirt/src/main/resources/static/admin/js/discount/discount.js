@@ -9,6 +9,15 @@ $(document).ready(function () {
     });
 });
 
+function showDiscountDetail(button) {
+    // Lấy giá trị của thuộc tính data-discount-id từ nút
+    var discountId = button.getAttribute('data-discount-id');
+
+    // Chuyển hướng trình duyệt đến URL mới
+    window.location.href = '/admin/discount/' + discountId;
+}
+
+
 //Add and update discount
 function saveDiscount() {
     // Lấy dữ liệu từ biểu mẫu
@@ -95,17 +104,6 @@ function checkInputDiscount(discountName, discountDiscount, discountStartDate, d
         });
         return false;
     }
-
-    //Check Tên giảm giá
-    // var nameRegex = /^[a-zA-ZÀ-ỹ\s]+$/;
-    // if (!nameRegex.test(discountName)) {
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'Lỗi!',
-    //         text: 'Tên giảm giá chỉ được chứa chữ cái và khoảng trắng!'
-    //     });
-    //     return false;
-    // }
 
     var numberRegex = /^\d+$/;
     if (!numberRegex.test(discountDiscount)) {
