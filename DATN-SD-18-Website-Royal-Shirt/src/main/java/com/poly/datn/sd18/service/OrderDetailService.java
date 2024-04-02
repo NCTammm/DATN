@@ -9,4 +9,5 @@ import java.util.List;
 public interface OrderDetailService {
     OrderDetail addOrderDetail(OrderDetailDTO orderDetailDTO);
     List<OrderDetailResponse> findOrderDetailByOrderId(Integer orderId);
+    List<OrderDetail> findByOrderId(Integer id);
 }

@@ -19,4 +19,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Intege
                 od.order.id = :orderId
             """)
     List<OrderDetailResponse> findOrderDetailByOrderId(@Param("orderId") Integer id);
+
+    List<OrderDetail> findByOrderId(Integer id);
 }

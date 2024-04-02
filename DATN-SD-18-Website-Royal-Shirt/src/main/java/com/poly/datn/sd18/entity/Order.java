@@ -47,11 +47,23 @@ public class Order extends BaseEntity implements Serializable {
     @Column(name = "confirm_date")
     private Date confirmDate;
 
+    @Column(name = "confirm_wait_date")
+    private Date confirmWaitDate;
+
     @Column(name = "ship_date")
     private Date shipDate;
 
+    @Column(name = "ship_wait_date")
+    private Date shipWaitDate;
+
     @Column(name = "success_date")
     private Date successDate;
+
+    @Column(name = "cancel_date")
+    private Date cancelDate;
+
+    @Column(name = "type")
+    private Integer type;
 
     @ManyToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "id")
