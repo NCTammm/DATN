@@ -1,14 +1,11 @@
 package com.poly.datn.sd18.controller.admin;
 
-import com.poly.datn.sd18.dto.ProductRequest;
-import com.poly.datn.sd18.dto.ProductResponse;
+import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Brand;
 import com.poly.datn.sd18.entity.Category;
 import com.poly.datn.sd18.entity.Material;
-import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

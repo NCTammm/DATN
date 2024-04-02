@@ -13,8 +13,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "evaluates")
-public class
-Evaluate extends BaseEntity implements Serializable {
+public class Evaluate extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

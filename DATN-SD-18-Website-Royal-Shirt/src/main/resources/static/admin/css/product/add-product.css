@@ -169,11 +169,11 @@
 }
 
 #gia_ban::after {
-    content: attr(data-raw-value) " VND";
+    content: attr(data-raw-value) " VNĐ";
     width: 100%; /* Đảm bảo nằm ở cuối cùng */
 }
 
 #trong_luong::after {
-    content: attr(data-raw-value) " gram";
+    content: attr(data-raw-value) " Gram";
     width: 100%; /* Đảm bảo nằm ở cuối cùng */
 }

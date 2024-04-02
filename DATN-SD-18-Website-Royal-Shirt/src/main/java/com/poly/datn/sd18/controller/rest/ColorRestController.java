@@ -1,6 +1,6 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.ColorRequest;
+import com.poly.datn.sd18.dto.request.ColorRequest;
 import com.poly.datn.sd18.entity.Color;
 import com.poly.datn.sd18.service.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;

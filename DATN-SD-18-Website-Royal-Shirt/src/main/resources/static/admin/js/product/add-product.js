@@ -118,6 +118,14 @@ function checkInputShowList(productName, productCategory, productBrand, productM
         });
         return false;
     }
+    if(!checkDuplicateProduct(productName)){
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Tên Sản phẩm đã tồn tại!'
+        });
+        return false;
+    }
     if (productCategory === null) {
         Swal.fire({
             icon: 'error',
@@ -394,6 +402,27 @@ function save() {
             });
         }
     });
+}
+
+// Check trùng Tên danh mục
+function checkDuplicateProduct(productName) {
+    var isDuplicateName;
+    // Gửi yêu cầu AJAX để kiểm tra trùng tên danh mục
+    $.ajax({
+        type: "POST",
+        url: "/admin/rest/add-product/checkDuplicateName",
+        contentType: "application/json",
+        data: JSON.stringify({name: productName}),
+        async: false,
+        success: function (response) {
+            console.log("Kiểm tra trùng tên Sản phẩm thành công!");
+            isDuplicateName = response.isDuplicateName;
+        },
+        error: function (error) {
+            console.error("Lỗi khi kiểm tra trùng tên Sản phẩm:", error);
+        }
+    });
+    return isDuplicateName;
 }
 
 function saveImage(productId) {

@@ -1,6 +1,6 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.MaterialRequest;
+import com.poly.datn.sd18.dto.request.MaterialRequest;
 import com.poly.datn.sd18.entity.Material;
 import com.poly.datn.sd18.service.MaterialService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.SizeRequest;
+import com.poly.datn.sd18.dto.request.SizeRequest;
 import com.poly.datn.sd18.entity.Size;
 import com.poly.datn.sd18.service.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;

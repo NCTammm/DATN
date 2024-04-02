@@ -1,6 +1,6 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.ProductRequest;
+import com.poly.datn.sd18.dto.request.ProductRequest;
 import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +49,17 @@ public class ProductRestController {
     }
 
     @PostMapping("/setStatus/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id) {
+    public ResponseEntity<?> setStatus(@PathVariable("id") int id) {
         return ResponseEntity.ok(productService.setStatus(id));
+    }
+
+    @GetMapping("/quantityByColorId")
+    public ResponseEntity<?> quantityByColorId(@RequestParam Integer productId, @RequestParam Integer colorId){
+        return ResponseEntity.ok(productService.quantityByColorId(productId,colorId));
+    }
+
+    @GetMapping("/quantityBySizeId")
+    public ResponseEntity<?> quantityBySizeId(@RequestParam Integer productId, @RequestParam Integer sizeId){
+        return ResponseEntity.ok(productService.quantityBySizeId(productId,sizeId));
     }
 }

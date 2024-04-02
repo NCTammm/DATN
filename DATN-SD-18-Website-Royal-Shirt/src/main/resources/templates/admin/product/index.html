@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group modal-footer">
-                                    <button type="button" class="btn btn-primary">Danh sách biến thể</button>
+                                    <button type="button" class="btn btn-primary" onclick="getListProductDetail()" >Danh sách biến thể</button>
                                     <button type="button" class="btn btn-success" onclick="save()">Lưu
                                     </button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -167,9 +167,9 @@
                         <tr th:each="product, index : ${lists}">
                             <td class="stt" th:text="${index.index + 1}"></td>
                             <td class="ten_san_pham" th:text="${product.name}"></td>
-                            <th class="anh"><img th:src="${product.image}" alt="Hình ảnh sản phẩm"></th>
-                            <th class="mo_ta" th:utext="${product.description}"></th>
-                            <th class="so_luong_ton" th:text="${product.quantity}"></th>
+                            <td class="anh"><img th:src="${product.image}" alt="Hình ảnh sản phẩm"></td>
+                            <td class="mo_ta" th:utext="${product.description}"></td>
+                            <td class="so_luong_ton" th:text="${product.quantity}"></td>
                             <td class="trang_thai">
                                 <label class="switch">
                                     <input type="checkbox" onclick="toggleStatus(this)"
@@ -197,7 +197,6 @@
 
 <div th:replace="~{admin/layout/script :: script}"></div>
 <script th:src="@{/admin/js/product/product.js}"></script>
-
 </body>
 
 </html>

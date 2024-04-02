@@ -129,7 +129,7 @@ function toggleStatus(checkbox) {
 }
 
 // Hàm để cập nhật biểu mẫu với dữ liệu Sản phẩm
-function customerid(element) {
+function updateProductForm(element) {
     // Sự kiện khi click sửa
     $('#thumbbox').empty();
     $("#myfileupload").html('<input type="file" id="uploadfile" name="ImageUpload" multiple onchange="readURL(this)"/>');
@@ -157,8 +157,6 @@ function customerid(element) {
             $('#product-brand').val(product.brand.id);
             $('#product-material').val(product.material.id);
             CKEDITOR.instances['product-description'].setData(product.description);
-
-
         },
         error: function (error) {
             console.log('Error fetching product data:', error);
@@ -167,12 +165,12 @@ function customerid(element) {
     });
 }
 
-function getListURL(productId){
+function getListURL(productId) {
     listUrlImage = [];
     $.ajax({
         type: "GET",
         url: "/admin/rest/image/findByProductId/" + productId,
-        success: function (response){
+        success: function (response) {
             console.log("Lấy ảnh thành công!");
             for (var i = 0; i < response.length; i++) {
                 listUrlImage.push(response[i].urlImage);
@@ -237,7 +235,7 @@ function save() {
     });
 }
 
-function saveImage(productId){
+function saveImage(productId) {
     // Clear tất cả sản phẩm có id = productId
     $.ajax({
         type: "DELETE",
@@ -272,4 +270,9 @@ function saveImage(productId){
             return false;
         }
     });
+}
+
+function getListProductDetail() {
+    var productId = $('#ProductModal').attr("product-id-update");
+    window.location.href = "/admin/product-detail/" + productId;
 }

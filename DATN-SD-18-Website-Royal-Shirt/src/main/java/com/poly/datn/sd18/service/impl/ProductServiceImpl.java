@@ -1,7 +1,7 @@
 package com.poly.datn.sd18.service.impl;
 
-import com.poly.datn.sd18.dto.ProductRequest;
-import com.poly.datn.sd18.dto.ProductResponse;
+import com.poly.datn.sd18.dto.request.ProductRequest;
+import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.ProductService;
@@ -62,6 +62,13 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    @Override
+    public Integer quantityByColorId(Integer productId, Integer colorId) {
+        return productRepository.quantityByColorId(productId,colorId);
+    }
 
-
+    @Override
+    public Integer quantityBySizeId(Integer productId, Integer colorId) {
+        return productRepository.quantityBySizeId(productId,colorId);
+    }
 }

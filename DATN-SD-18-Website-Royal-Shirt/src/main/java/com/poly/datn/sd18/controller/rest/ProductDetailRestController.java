@@ -1,49 +1,47 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.ProductDetailRequest;
-import com.poly.datn.sd18.dto.ProductResponse;
+import com.poly.datn.sd18.dto.request.ProductDetailRequest;
 import com.poly.datn.sd18.entity.ProductDetail;
-import com.poly.datn.sd18.exceptions.DataNotFoundException;
 import com.poly.datn.sd18.service.ProductDetailService;
-import com.poly.datn.sd18.service.ProductService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/admin/rest/product-detail")
-@AllArgsConstructor
 public class ProductDetailRestController {
+    @Autowired
     ProductDetailService productDetailService;
 
-    @Autowired
-    ProductService productService;
-
-    @GetMapping("")
-    public ResponseEntity<List<ProductDetail>> getAllProductDetails() {
-        return ResponseEntity.ok().body(productDetailService.getProductDetails());
+    @GetMapping("/getListSizeAddProductDetail")
+    public ResponseEntity<?> getListSizeAddProductDetail(@RequestParam Integer productId, @RequestParam Integer colorId){
+        return ResponseEntity.ok(productDetailService.getListSizeAddProductDetail(productId, colorId));
     }
+
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody ProductDetailRequest productDetailRequest) {
         return ResponseEntity.ok(productDetailService.add(productDetailRequest));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getProductDetail(@PathVariable("id") Integer productDetailId) {
-        try {
-            ProductDetail productDetail = productDetailService.getProductDetail(productDetailId);
+    @GetMapping("/formUpdate/{id}")
+    public ResponseEntity<?> formUpdate(@PathVariable("id") int id, Model model) {
+        ProductDetail productDetail = productDetailService.findById(id);
+        if (productDetail != null) {
+            model.addAttribute("productDetail", productDetail);
             return ResponseEntity.ok(productDetail);
-        } catch (DataNotFoundException e) {
-            return ResponseEntity.badRequest().body("Không tìm thấy sản phẩm");
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("1")
-    public ResponseEntity<List<ProductResponse>> getAllProductDetails1() {
-        return ResponseEntity.ok().body(productService.getAll());
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@RequestBody ProductDetail productDetail, @PathVariable("id") int id) {
+        return ResponseEntity.ok(productDetailService.update(productDetail, id));
     }
 
-
+    @PostMapping("/setStatus/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") int id) {
+        return ResponseEntity.ok(productDetailService.setStatus(id));
+    }
 }

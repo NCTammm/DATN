@@ -1,6 +1,6 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.CategoryRequest;
+import com.poly.datn.sd18.dto.request.CategoryRequest;
 import com.poly.datn.sd18.entity.Category;
 import com.poly.datn.sd18.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

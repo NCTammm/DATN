@@ -25,11 +25,8 @@ public class Discount extends BaseEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "discount")
-    private Float discount;
+    private Integer discount;
 
     @Column(name = "start_date")
     private Date startDate;

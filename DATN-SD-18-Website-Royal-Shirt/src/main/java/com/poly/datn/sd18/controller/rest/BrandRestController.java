@@ -1,6 +1,6 @@
 package com.poly.datn.sd18.controller.rest;
 
-import com.poly.datn.sd18.dto.BrandRequest;
+import com.poly.datn.sd18.dto.request.BrandRequest;
 import com.poly.datn.sd18.entity.Brand;
 import com.poly.datn.sd18.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;

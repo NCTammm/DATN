@@ -11,7 +11,7 @@
         <hr>
         <ul class="app-menu">
             <li>
-                <a class="app-menu__item haha" th:href="@{/admin/counter1}">
+                <a class="app-menu__item haha" th:href="@{/admin/counter}">
                     <i class='app-menu__icon bx bx-cart-alt'></i>
                     <span class="app-menu__label">POS Bán Hàng</span>
                 </a>
@@ -23,13 +23,13 @@
                 </a>
             </li>
             <li>
-                <a class="app-menu__item " th:href="@{/admin/staffs}">
+                <a class="app-menu__item " href="table-data-table.html">
                     <i class='app-menu__icon bx bx-id-card'></i> <span
                         class="app-menu__label">Quản lý nhân viên</span>
                 </a>
             </li>
             <li>
-                <a class="app-menu__item" href="customers">
+                <a class="app-menu__item" href="table-data-table-kh.html">
                     <i class='app-menu__icon bx bx-user-voice'></i><span
                         class="app-menu__label">Quản lý khách hàng</span>
                 </a>
@@ -68,6 +68,12 @@
                 <a class="app-menu__item" th:href="@{/admin/size}">
                     <i class='app-menu__icon bx bx-purchase-tag-alt'></i>
                     <span class="app-menu__label">Quản lý Kích Thước</span>
+                </a>
+            </li>
+            <li>
+                <a class="app-menu__item" th:href="@{/admin/discount}">
+                    <i class='app-menu__icon bx bx-task'></i>
+                    <span class="app-menu__label">Quản lý Giảm Giá</span>
                 </a>
             </li>
             <li>

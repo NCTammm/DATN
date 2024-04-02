@@ -15487,9 +15487,9 @@ be a descendant of the grid when it is being dragged.
     text-align: left;
     padding: 8px;
   }
-.du--lieu-san-pham{
-  margin-top: 20px;
-}
+/*.du--lieu-san-pham{*/
+/*  margin-top: 20px;*/
+/*}*/
 .tieu--de{
   background-color: #ddd;
   border: 1px solid black;
@@ -15546,7 +15546,7 @@ text-align:center;
   color: rgb(209, 0, 0);
 }
 .control-all-money-total{
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 600;
   color:var(--green);
 }
