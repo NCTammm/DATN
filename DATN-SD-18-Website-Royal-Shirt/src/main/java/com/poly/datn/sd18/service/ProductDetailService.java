@@ -22,4 +22,5 @@ public interface ProductDetailService {
 
     ProductDetail setStatus(int id);
 
+    List<ProductDetail> getListProduct();
 }

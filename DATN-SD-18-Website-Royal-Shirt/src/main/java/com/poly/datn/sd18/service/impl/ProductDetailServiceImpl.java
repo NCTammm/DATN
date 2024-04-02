@@ -8,6 +8,9 @@ import com.poly.datn.sd18.repository.ProductDetailRepository;
 import com.poly.datn.sd18.service.ProductDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,5 +71,17 @@ public class ProductDetailServiceImpl implements ProductDetailService {
             return productDetailRepository.save(searchProductDetail);
         }
         return null;
+    }
+
+    public int countProduct(int number) {
+        return productDetailRepository.countProduct(number);
+    }
+
+    public List<ProductDetail> listProduct(int number) {
+        return productDetailRepository.listProduct(number);
+    }
+
+    public List<ProductDetail> getListProduct() {
+        return productDetailRepository.getListProduct();
     }
 }

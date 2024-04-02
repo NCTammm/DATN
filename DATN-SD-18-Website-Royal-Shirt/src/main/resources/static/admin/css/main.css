@@ -484,3 +484,28 @@ input[type=submit]{
   padding-bottom:5px;
   font-weight: 900;
 }
+
+.step {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+.title {
+  font-weight: bold;
+}
+.timestamp {
+  font-size: 0.9em;
+}
+.waiting {
+  background-color: #e9ecef;
+}
+.editing {
+  background-color: #e9ecef;
+}
+.delivering {
+  background-color: #e9ecef;
+}
+.received {
+  background-color: #28a745;
+  color: white;
+}

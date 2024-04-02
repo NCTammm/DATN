@@ -5,7 +5,8 @@ import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
 
 import java.util.List;
-
+import com.poly.datn.sd18.entity.Order;
+import com.poly.datn.sd18.entity.Product;
 public interface ProductService {
     List<ProductResponse> getAll();
 
@@ -22,4 +23,7 @@ public interface ProductService {
     Integer quantityByColorId(Integer productId, Integer colorId);
 
     Integer quantityBySizeId(Integer productId, Integer colorId);
+
+    List<Product> getListProduct();
+
 }

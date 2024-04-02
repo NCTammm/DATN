@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -29,7 +29,10 @@ public class Order extends BaseEntity implements Serializable {
     @Column(name = "total_price")
     private Float totalPrice;
 
-    @Column(name = "ship_cost")
+    @Column(name = "weight")
+    private Float weight;
+
+    @Column(name = "ship_cost   ")
     private Float shipCost;
 
     @Column(name = "note")
@@ -47,11 +50,23 @@ public class Order extends BaseEntity implements Serializable {
     @Column(name = "confirm_date")
     private Date confirmDate;
 
+    @Column(name = "confirm_wait_date")
+    private Date confirmWaitDate;
+
     @Column(name = "ship_date")
     private Date shipDate;
 
+    @Column(name = "ship_wait_date")
+    private Date shipWaitDate;
+
     @Column(name = "success_date")
-    private LocalDateTime successDate;
+    private Date successDate;
+
+    @Column(name = "cancel_date")
+    private Date cancelDate;
+
+    @Column(name = "type")
+    private boolean type;
 
     @ManyToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "id")
@@ -64,4 +79,8 @@ public class Order extends BaseEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "transaction_id", referencedColumnName = "id")
     private Transaction transaction;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderDetail> orderDetails;
+
 }

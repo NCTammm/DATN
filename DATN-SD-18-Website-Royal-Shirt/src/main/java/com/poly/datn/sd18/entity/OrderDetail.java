@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -26,7 +28,7 @@ public class OrderDetail extends BaseEntity implements Serializable {
 
     @Column(name = "status")
     private Integer status;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;

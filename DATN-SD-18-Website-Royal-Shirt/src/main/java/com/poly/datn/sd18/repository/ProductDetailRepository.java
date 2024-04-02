@@ -4,6 +4,9 @@ import com.poly.datn.sd18.dto.response.ProductDetailCounterResponse;
 import com.poly.datn.sd18.dto.response.ProductDetailResponse;
 import com.poly.datn.sd18.dto.response.SizeResponse;
 import com.poly.datn.sd18.entity.ProductDetail;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -59,4 +62,13 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
             "              AND size_id = sizes.id\n" +
             "              AND product_id = :productId)",nativeQuery = true)
     List<SizeResponse> getListSizeAddProductDetail(@Param("productId") Integer productId,@Param("colorId") Integer colorId);
+
+    @Query("Select Count(p.id) From ProductDetail p Where p.quantity < :number")
+    int countProduct(int number);
+
+    @Query("Select p From ProductDetail p Where p.quantity < :number")
+    List<ProductDetail> listProduct(int number);
+
+    @Query("Select p From ProductDetail p")
+    List<ProductDetail> getListProduct();
 }

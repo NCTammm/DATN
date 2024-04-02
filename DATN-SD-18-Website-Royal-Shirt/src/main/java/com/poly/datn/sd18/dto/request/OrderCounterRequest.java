@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class OrderCounterRequest {
     private String note;
     private String shopping;
     private Integer status;
-    private LocalDateTime successDate;
+    private Date successDate;
 
     public Order map(Order order){
         order.setPhone(Customer.builder().id(this.customerId).build().getPhone());

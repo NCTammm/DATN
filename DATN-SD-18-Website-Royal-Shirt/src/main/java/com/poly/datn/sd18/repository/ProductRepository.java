@@ -1,9 +1,14 @@
 package com.poly.datn.sd18.repository;
 
 import com.poly.datn.sd18.dto.response.ProductResponse;
+import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.Product;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -44,4 +49,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "                  dbo.products ON dbo.product_details.product_id = dbo.products.id \n" +
             "WHERE dbo.products.id = :productId and dbo.sizes.id = :sizeId",nativeQuery = true)
     Integer quantityBySizeId(@Param("productId") Integer productId,@Param("sizeId") Integer sizeId);
+    @Query("Select Count(p.id) From Product p")
+    int countOrder();
+
+    @Procedure(name = "hotSelling")
+    List<Object> hotSelling(@Param("minQuantity") int minQuantity);
+
+    @Query("Select p From Product p")
+    List<Product> getListProduct();
 }

@@ -4,6 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -42,4 +46,12 @@ public class Product extends BaseEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "discount_id", referencedColumnName = "id")
     private Discount discount;
+
+    @OneToMany(mappedBy = "product")
+    private List<Image> images;
+
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    private ProductDetail productDetail;
 }

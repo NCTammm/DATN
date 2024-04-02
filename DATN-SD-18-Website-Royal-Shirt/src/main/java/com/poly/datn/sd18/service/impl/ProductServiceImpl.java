@@ -5,8 +5,13 @@ import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.ProductService;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -70,5 +75,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Integer quantityBySizeId(Integer productId, Integer colorId) {
         return productRepository.quantityBySizeId(productId,colorId);
+    }
+    public int countOrder() {
+        return productRepository.countOrder();
+    }
+
+    @Transactional
+    public List<Object> listHotSelling(int num) {
+        return productRepository.hotSelling(num);
+    }
+
+    @Override
+    public List<Product> getListProduct() {
+        return productRepository.getListProduct();
     }
 }
