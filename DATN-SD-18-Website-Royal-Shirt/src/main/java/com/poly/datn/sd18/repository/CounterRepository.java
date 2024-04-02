@@ -38,7 +38,10 @@ public interface CounterRepository extends JpaRepository<ProductDetail, Integer>
             "    dbo.sizes.name AS sizeName,\n" +
             "    dbo.product_details.quantity AS quantity,\n" +
             "    dbo.product_details.price AS price,\n" +
-            "    COALESCE(dbo.discounts.discount, 0) AS discount\n" +
+            "    CASE \n" +
+            "        WHEN dbo.discounts.status = 1 THEN 0\n" +
+            "        ELSE COALESCE(dbo.discounts.discount, 0)\n" +
+            "    END AS discount\n" +
             "FROM   \n" +
             "    dbo.product_details\n" +
             "    INNER JOIN dbo.colors ON dbo.product_details.color_id = dbo.colors.id\n" +
@@ -57,10 +60,13 @@ public interface CounterRepository extends JpaRepository<ProductDetail, Integer>
             "    dbo.sizes.name,\n" +
             "    dbo.product_details.quantity,\n" +
             "    dbo.product_details.price,\n" +
-            "    COALESCE(dbo.discounts.discount, 0),\n" +
+            "    CASE \n" +
+            "        WHEN dbo.discounts.status = 1 THEN 0\n" +
+            "        ELSE COALESCE(dbo.discounts.discount, 0)\n" +
+            "    END,\n" +
             "    SizesOrder.SizeOrder\n" +
             "ORDER BY \n" +
-            "\tdbo.products.name,\n" +
+            "    dbo.products.name,\n" +
             "    dbo.colors.name,\n" +
             "    SizesOrder.SizeOrder;\n", nativeQuery = true)
     List<ProductDetailCounterResponse> getListProductDetailCounter();
