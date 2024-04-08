@@ -63,7 +63,7 @@ public class Order extends BaseEntity implements Serializable {
     private Date cancelDate;
 
     @Column(name = "type")
-    private Integer type;
+    private Boolean type;
 
     @ManyToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "id")
