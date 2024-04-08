@@ -319,6 +319,31 @@ function checkQuantityAddToCart(quantity, productQuantity) {
         });
         return false;
     }
+    if (quantity <= 0 ){
+        swal.fire({
+            icon:'error',
+            title:'lỗi',
+            text:'số lượng phải lớn hơn 0'
+        });
+        return false;
+    }undefined
+    if (quantity==null ){
+            swal.fire({
+                icon:'error',
+                title:'lỗi',
+                text:'không được bỏ trống'
+            });
+            return false;
+        }
+    if (isNaN(quantity) ){
+                swal.fire({
+                    icon:'error',
+                    title:'lỗi',
+                    text:'không được bỏ trống '
+                });
+                return false;
+            }
+
     return true;
 }
 
@@ -412,6 +437,17 @@ async function saveOrder() {
         });
         return;
     }
+    checktienkhach = $("#khach-hang-dua-tien").val();
+    if ( checktienkhach < 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'tiền khách đưa phải là dương!'
+            });
+            return;
+        }
+
+    console.log("Tien khach tra: " + $("#khach-hang-dua-tien").val());
 
     if (!await checkQuantitySaveOrderDetail()) {
         return;
