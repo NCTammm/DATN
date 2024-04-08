@@ -35,7 +35,4 @@ public class Customer extends BaseEntity implements Serializable {
 
     @Column(name = "status")
     private Integer status;
-
-    @OneToOne(mappedBy = "customer")
-    private Cart cart;
 }

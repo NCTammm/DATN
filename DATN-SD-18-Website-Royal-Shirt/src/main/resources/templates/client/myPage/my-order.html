@@ -144,42 +144,42 @@
 <!-- jQuery và Bootstrap JS -->
 <script th:replace="~{client/layout/script::script}"></script>
 <script th:src="@{/client/js/my-order/my-order.js}"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.edit').click(function () {
-            var orderId = $(this).data('id');
-            getOrderDetails(orderId);
-            $('#showModal').modal('show');
-        });
-    });
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function () {-->
+<!--        $('.edit').click(function () {-->
+<!--            var orderId = $(this).data('id');-->
+<!--            getOrderDetails(orderId);-->
+<!--            $('#showModal').modal('show');-->
+<!--        });-->
+<!--    });-->
 
-    function getOrderDetails(button) {
-        var orderId = button.getAttribute("data-id");
-        $.ajax({
-            type: "GET",
-            url: "/rest/order-detail/" + orderId,
-            success: function(data) {
-                console.log(data);
-                $('#orderDetailBody').empty();
-                $.each(data, function(index, od) {
-                    var row = '<tr>' +
-                        '<td>' + (index + 1) + '</td>' +
-                        '<td><img src="' + od.productDetail.product.image + '" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px;"></td>' +
-                        '<td>' + od.product.name + '</td>' +
-                        '<td>' + od.price + '</td>' +
-                        '<td>' + od.quantity + '</td>' +
-                        '<td>' + (od.price * od.quantity) + '</td>' +
-                        '</tr>';
-                    $('#orderDetailBody').append(row);
-                });
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error("AJAX Error:", textStatus, errorThrown);
-                alert('Có lỗi xảy ra khi lấy chi tiết đơn hàng.');
-            }
-        });
-    }
-</script>
+<!--    function getOrderDetails(button) {-->
+<!--        var orderId = button.getAttribute("data-id");-->
+<!--        $.ajax({-->
+<!--            type: "GET",-->
+<!--            url: "/rest/order-detail/" + orderId,-->
+<!--            success: function(data) {-->
+<!--                console.log(data);-->
+<!--                $('#orderDetailBody').empty();-->
+<!--                $.each(data, function(index, od) {-->
+<!--                    var row = '<tr>' +-->
+<!--                        '<td>' + (index + 1) + '</td>' +-->
+<!--                        '<td><img src="' + od.productDetail.product.image + '" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px;"></td>' +-->
+<!--                        '<td>' + od.product.name + '</td>' +-->
+<!--                        '<td>' + od.price + '</td>' +-->
+<!--                        '<td>' + od.quantity + '</td>' +-->
+<!--                        '<td>' + (od.price * od.quantity) + '</td>' +-->
+<!--                        '</tr>';-->
+<!--                    $('#orderDetailBody').append(row);-->
+<!--                });-->
+<!--            },-->
+<!--            error: function(jqXHR, textStatus, errorThrown) {-->
+<!--                console.error("AJAX Error:", textStatus, errorThrown);-->
+<!--                alert('Có lỗi xảy ra khi lấy chi tiết đơn hàng.');-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
 
 </body>
 
