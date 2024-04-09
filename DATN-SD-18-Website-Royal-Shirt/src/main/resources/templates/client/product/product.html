@@ -169,7 +169,8 @@
                                                                 <i class="mdi mdi-star-half"></i>
                                                                 <i class="mdi mdi-star-outline"></i>
                                                             </div>
-                                                            <span th:text="${product.minPrice} + ' - ' + ${product.maxPrice} + ' $'"></span>
+                                                            <span th:text="${#numbers.formatDecimal((product.minPrice), 0, 'POINT', 0, 'POINT')} +
+                                                             ' - ' + ${#numbers.formatDecimal((product.minPrice), 0, 'POINT', 0, 'POINT')} + ' VNĐ'"></span>
                                                         </div>
                                                     </div>
                                                 </form>

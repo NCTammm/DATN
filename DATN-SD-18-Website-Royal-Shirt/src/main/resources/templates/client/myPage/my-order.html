@@ -3,6 +3,12 @@
 
 <head th:replace="~{client/layout/head::head}"></head>
 <link rel="stylesheet" th:href="@{/client/css/myPages/my-order.css}">
+<style>
+    .modal-lg {
+        max-width: 60%;
+        max-height: 60%;
+    }
+</style>
 <body>
 
 <!-- header section start -->
@@ -50,19 +56,24 @@
                                 <tr th:each="o : ${listOrders}">
                                     <td th:text="${o.id}"></td>
                                     <td></td>
-                                    <td th:text="${o.totalPrice}"></td>
+                                    <td th:text="${#numbers.formatDecimal((o.totalPrice), 0, 'POINT', 0, 'POINT')} + ' đ'"></td>
                                     <td th:text="${o.createdAt}"></td>
                                     <td>
-                                        <span th:switch="${o.status}" class="badge bg-success">
-                                            <span th:case="1">Chờ xác nhận</span>
-                                            <span th:case="2">Xác nhận</span>
-                                            <span th:case="3">Chờ vận chuyển</span>
-                                            <span th:case="4">Đang vận chuyển</span>
-                                            <span th:case="5">Hoàn thành</span>
-                                            <span th:case="*">Hủy</span>
+                                        <span th:switch="${o.status}">
+                                            <span th:case="1" class="badge bg-warning">Chờ xác nhận</span>
+                                            <span th:case="2" class="badge bg-primary">Xác nhận</span>
+                                            <span th:case="3" class="badge bg-secondary">Chờ vận chuyển</span>
+                                            <span th:case="4" class="badge bg-info">Đang vận chuyển</span>
+                                            <span th:case="5" class="badge bg-success">Hoàn thành</span>
+                                            <span th:case="*" class="badge bg-danger">Hủy</span>
                                         </span>
                                     </td>
                                     <td>
+                                        <button th:if="${o.status == 1}" class="btn btn-danger btn-sm edit" type="button"
+                                                th:attr="data-id=${o.id}"
+                                                title="Hủy">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
                                         <button class="btn btn-primary btn-sm edit" type="button"
                                                 th:attr="data-id=${o.id}"
                                                 title="Xem chi tiết" data-toggle="modal"
@@ -98,13 +109,13 @@
 <!--MODAL-->
 <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
      data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <div class="row">-->
+                <div class="row">
                     <div class="form-group  col-md-12">
                         <span class="thong-tin-thanh-toan">
-                            <h5>Chi tiết đơn hàng</h5>
+                            <h5 class="text-center">Chi tiết đơn hàng</h5>
                         </span>
                     </div>
                 </div>
@@ -114,8 +125,9 @@
                             <td>STT</td>
                             <td>Ảnh</td>
                             <td>Tên sản phẩm</td>
+                            <td>Màu sắc</td>
+                            <td>Size</td>
                             <td>Giá sản phẩm</td>
-                            <td>Giá sau khi giảm</td>
                             <td>Số lượng</td>
                             <td>Tổng tiền</td>
                         </tr>
@@ -126,7 +138,7 @@
                 </table>
                 <BR>
                 <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal" id="close">Đóng
+                        data-dismiss="modal" id="closeModal">Đóng
                 </button>
                 <BR>
             </div>
@@ -144,43 +156,6 @@
 <!-- jQuery và Bootstrap JS -->
 <script th:replace="~{client/layout/script::script}"></script>
 <script th:src="@{/client/js/my-order/my-order.js}"></script>
-<!--<script type="text/javascript">-->
-<!--    $(document).ready(function () {-->
-<!--        $('.edit').click(function () {-->
-<!--            var orderId = $(this).data('id');-->
-<!--            getOrderDetails(orderId);-->
-<!--            $('#showModal').modal('show');-->
-<!--        });-->
-<!--    });-->
-
-<!--    function getOrderDetails(button) {-->
-<!--        var orderId = button.getAttribute("data-id");-->
-<!--        $.ajax({-->
-<!--            type: "GET",-->
-<!--            url: "/rest/order-detail/" + orderId,-->
-<!--            success: function(data) {-->
-<!--                console.log(data);-->
-<!--                $('#orderDetailBody').empty();-->
-<!--                $.each(data, function(index, od) {-->
-<!--                    var row = '<tr>' +-->
-<!--                        '<td>' + (index + 1) + '</td>' +-->
-<!--                        '<td><img src="' + od.productDetail.product.image + '" alt="Product Image" class="img-thumbnail" style="width: 50px; height: 50px;"></td>' +-->
-<!--                        '<td>' + od.product.name + '</td>' +-->
-<!--                        '<td>' + od.price + '</td>' +-->
-<!--                        '<td>' + od.quantity + '</td>' +-->
-<!--                        '<td>' + (od.price * od.quantity) + '</td>' +-->
-<!--                        '</tr>';-->
-<!--                    $('#orderDetailBody').append(row);-->
-<!--                });-->
-<!--            },-->
-<!--            error: function(jqXHR, textStatus, errorThrown) {-->
-<!--                console.error("AJAX Error:", textStatus, errorThrown);-->
-<!--                alert('Có lỗi xảy ra khi lấy chi tiết đơn hàng.');-->
-<!--            }-->
-<!--        });-->
-<!--    }-->
-<!--</script>-->
-
 </body>
 
 </html>

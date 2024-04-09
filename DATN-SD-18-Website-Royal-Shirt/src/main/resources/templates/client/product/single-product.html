@@ -101,7 +101,7 @@
                         </div>
                         <br>
                         <h6 style="color:red">
-                            [[${product.productDetails[1].price} + ' VNĐ']]
+                            [[${#numbers.formatDecimal((product.productDetails[1].price), 0, 'POINT', 0, 'POINT')} + ' VNĐ']]
                         </h6>
                         <span th:utext="${product.description}"></span>
                         <br>
@@ -361,9 +361,20 @@
             var colorId = $('#colorSelect').val();
             var sizeId = $('#sizeSelect').val();
             var quantity = $('#quantity').val();
+            var maxQuantity = parseInt($('#quantity').attr('max'));
 
             if (!colorId || !sizeId || !quantity) {
                 alert('Vui lòng chọn màu sắc, kích thước và nhập số lượng.');
+                return;
+            }
+
+            // Kiểm tra số lượng tồn kho
+            if (parseInt(quantity) > maxQuantity) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Số lượng vượt quá số lượng tồn kho.'
+                });
                 return;
             }
 
