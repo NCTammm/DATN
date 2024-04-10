@@ -18,4 +18,111 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                 ORDER BY id DESC;
             """, nativeQuery = true)
     List<Order> findOrderByCustomerId(@Param("customerId") Integer customerId);
+
+    @Query(value = """
+                SELECT
+                    o.id,
+                    o.phone,
+                    o.username,
+                    o.total_price,
+                    o.ship_cost,
+                    o.weight,
+                    o.note,
+                    o.shopping,
+                    o.address,
+                    o.status,
+                    o.confirm_date,
+                    o.confirm_wait_date,
+                    o.ship_date,
+                    o.ship_wait_date,
+                    o.success_date,
+                    o.cancel_date,
+                    o.created_date,
+                    o.updated_date,
+                    o.type,
+                    s.id AS staff_id,
+                    s.name AS staff_name,
+                    c.id AS customer_id,
+                    c.name AS customer_name,
+                    t.id AS transaction_id,
+                    t.name AS transaction_name,
+                    t.description AS transaction_description
+                FROM
+                    orders o
+                LEFT JOIN
+                    staffs s ON o.staff_id = s.id
+                LEFT JOIN
+                    customers c ON o.customer_id = c.id
+                LEFT JOIN
+                    transactions t ON o.transaction_id = t.id
+                WHERE
+                    o.id = :orderId
+            """, nativeQuery = true)
+    Order findOrderById(@Param("orderId") Integer orderId);
+
+    @Query(value = """
+                SELECT
+                    SUM(od.quantity * pd.price) AS total_price
+                FROM
+                    order_details od
+                INNER JOIN
+                    product_details pd ON od.product_detail_id = pd.id
+                WHERE
+                    od.order_id = :orderId
+            """, nativeQuery = true)
+    Float calculateTotalPriceByOrderId(@Param("orderId") Integer orderId);
+
+    @Query(value = """
+                SELECT
+                    o.id,
+                    COUNT(od.id) AS total_product,
+                    o.phone,
+                    o.username,
+                    o.total_price,
+                    o.ship_cost,
+                    o.weight,
+                    o.note,
+                    o.shopping,
+                    o.address,
+                    o.status,
+                    o.confirm_date,
+                    o.confirm_wait_date,
+                    o.ship_date,
+                    o.ship_wait_date,
+                    o.success_date,
+                    o.cancel_date,
+                    CONVERT(varchar, o.created_date, 120) AS created_date,
+                    o.updated_date,
+                    o.type,
+                    s.id AS staff_id,
+                    s.name AS staff_name,
+                    c.id AS customer_id,
+                    c.name AS customer_name,
+                    t.id AS transaction_id,
+                    t.name AS transaction_name,
+                    t.description AS transaction_description
+                FROM
+                    orders o
+                LEFT JOIN
+                    staffs s ON o.staff_id = s.id
+                LEFT JOIN
+                    customers c ON o.customer_id = c.id
+                LEFT JOIN
+                    transactions t ON o.transaction_id = t.id
+                JOIN
+                    order_details od ON o.id = od.order_id
+                WHERE
+                    o.customer_id = :customerId
+                GROUP BY
+                    o.id, o.phone, o.username, o.total_price, o.ship_cost,
+                    o.weight, o.note, o.shopping, o.address, o.status,
+                    o.confirm_date, o.confirm_wait_date, o.ship_date,
+                    o.ship_wait_date, o.success_date, o.cancel_date,
+                    o.created_date, o.updated_date, o.staff_id,
+                    o.customer_id, o.transaction_id, o.type,
+                    s.id, s.name,
+                    c.id, c.name,
+                    t.id, t.name, t.description
+            """, nativeQuery = true)
+    List<Order> getAllOrderByCustomerId(@Param("customerId") Integer customerId);
 }

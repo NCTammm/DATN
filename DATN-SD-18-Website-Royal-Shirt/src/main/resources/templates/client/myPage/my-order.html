@@ -8,6 +8,26 @@
         max-width: 60%;
         max-height: 60%;
     }
+
+    #closeModal {
+        float: right;
+        margin-top: 10px;
+    }
+
+    #totalPriceContainer {
+        text-align: right;
+        margin-top: 10px;
+    }
+
+    .total-label {
+        color: red;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .total-amount {
+        margin-left: 10px;
+    }
 </style>
 <body>
 
@@ -56,8 +76,9 @@
                                 <tr th:each="o : ${listOrders}">
                                     <td th:text="${o.id}"></td>
                                     <td></td>
+<!--                                    <td th:text="${o.totalProduct}"></td>-->
                                     <td th:text="${#numbers.formatDecimal((o.totalPrice), 0, 'POINT', 0, 'POINT')} + ' đ'"></td>
-                                    <td th:text="${o.createdAt}"></td>
+                                    <td th:text="${#dates.format(o.confirmDate, 'dd/MM/yyyy')}"></td>
                                     <td>
                                         <span th:switch="${o.status}">
                                             <span th:case="1" class="badge bg-warning">Chờ xác nhận</span>
@@ -65,21 +86,21 @@
                                             <span th:case="3" class="badge bg-secondary">Chờ vận chuyển</span>
                                             <span th:case="4" class="badge bg-info">Đang vận chuyển</span>
                                             <span th:case="5" class="badge bg-success">Hoàn thành</span>
-                                            <span th:case="*" class="badge bg-danger">Hủy</span>
+                                            <span th:case="*" class="badge bg-danger">Đã hủy</span>
                                         </span>
                                     </td>
                                     <td>
                                         <button th:if="${o.status == 1}" class="btn btn-danger btn-sm edit" type="button"
                                                 th:attr="data-id=${o.id}"
-                                                title="Hủy">
-                                            <i class="fas fa-edit"></i>
+                                                title="Hủy" onclick="setStatusOrder(this)">
+                                            <i class="bi bi-x"></i>
                                         </button>
                                         <button class="btn btn-primary btn-sm edit" type="button"
                                                 th:attr="data-id=${o.id}"
                                                 title="Xem chi tiết" data-toggle="modal"
                                                 onclick="getOrderDetails(this)"
                                                 data-target="#showModal">
-                                            <i class="fas fa-edit"></i>
+                                            <i class="bi bi-eye-fill"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -137,7 +158,11 @@
                     </tbody>
                 </table>
                 <BR>
-                <button type="button" class="btn btn-secondary"
+                <div id="totalPriceContainer">
+                    <span class="total-label">Tổng tiền: </span>
+                    <span id="totalPrice" class="total-amount"></span>
+                </div>
+                <button type="button" class="btn btn-secondary float-right"
                         data-dismiss="modal" id="closeModal">Đóng
                 </button>
                 <BR>

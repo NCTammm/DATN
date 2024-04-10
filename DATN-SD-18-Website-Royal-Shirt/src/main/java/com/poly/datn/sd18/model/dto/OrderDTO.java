@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,6 +22,7 @@ public class OrderDTO {
     private Float totalPrice;
     private String shopping;
     private Integer status;
+    private Date conformDate;
 
     public Order map(Order order){
         order.setCustomer(Customer.builder().id(this.customerId).build());
@@ -30,6 +33,7 @@ public class OrderDTO {
         order.setTotalPrice(this.totalPrice);
         order.setShopping(this.shopping);
         order.setStatus(this.status);
+        order.setConfirmDate(new Date(System.currentTimeMillis()));
         return order;
     }
 }

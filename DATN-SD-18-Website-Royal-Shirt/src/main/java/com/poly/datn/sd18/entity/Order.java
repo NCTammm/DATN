@@ -1,10 +1,11 @@
 package com.poly.datn.sd18.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Setter
@@ -29,7 +30,7 @@ public class Order extends BaseEntity implements Serializable {
     @Column(name = "total_price")
     private Float totalPrice;
 
-    @Column(name = "ship_cost   ")
+    @Column(name = "ship_cost")
     private Float shipCost;
 
     @Column(name = "note")
@@ -77,6 +78,7 @@ public class Order extends BaseEntity implements Serializable {
     @JoinColumn(name = "transaction_id", referencedColumnName = "id")
     private Transaction transaction;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 }
