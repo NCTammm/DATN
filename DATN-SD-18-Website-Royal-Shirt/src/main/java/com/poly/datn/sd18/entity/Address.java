@@ -1,5 +1,6 @@
 package com.poly.datn.sd18.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class Address extends BaseEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;

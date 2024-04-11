@@ -23,4 +23,6 @@ public interface StaffRepository extends JpaRepository<Staff, Integer> {
             "  FROM [dbo].[staffs]\n" +
             "  WHERE [status] = 0",nativeQuery = true)
     List<Staff> getAllActive();
+
+    Staff findStaffByEmail(String email);
 }
