@@ -50,9 +50,11 @@ public class ProductDetail extends BaseEntity implements Serializable {
     @JoinColumn(name = "color_id", referencedColumnName = "id")
     private Color color;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productDetail")
     private List<Evaluate> evaluates;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productDetail")
     private List<CartDetail> cartDetails;
 }

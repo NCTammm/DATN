@@ -28,6 +28,7 @@ public class OrderDetail extends BaseEntity implements Serializable {
 
     @Column(name = "status")
     private Integer status;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "id")
