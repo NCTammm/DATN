@@ -5,6 +5,10 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
+import com.poly.datn.sd18.entity.Category;
+
+import java.util.List;
+
 public interface CategoryService {
     List<Category> getAll();
 
@@ -19,4 +23,5 @@ public interface CategoryService {
     Category update(Category category, int id);
 
     Category setStatus(int id);
+    List<Category> getAllCategories();
 }

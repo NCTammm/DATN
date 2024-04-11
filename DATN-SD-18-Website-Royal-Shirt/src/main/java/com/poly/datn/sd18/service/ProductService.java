@@ -7,6 +7,13 @@ import com.poly.datn.sd18.entity.Product;
 import java.util.List;
 import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.Product;
+import com.poly.datn.sd18.entity.Product;
+import com.poly.datn.sd18.model.response.ProductResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+
 public interface ProductService {
     List<ProductResponse> getAll();
 
@@ -26,4 +33,10 @@ public interface ProductService {
 
     List<Product> getListProduct();
 
+    List<Product> getAllProductDetails();
+    Product findProductById(Integer id);
+    Page<Product> pageProducts(Integer pageNo);
+    List<Product> searchProductName(String name);
+    Page<Product> searchProducts(String keyWord, Integer pageNo);
+    Page<ProductResponse> pageProductResponse(Pageable pageable);
 }

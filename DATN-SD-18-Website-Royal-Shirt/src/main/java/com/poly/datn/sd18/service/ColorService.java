@@ -18,4 +18,7 @@ public interface ColorService {
     Color update(Color color, int id);
 
     Color setStatus(int id);
+    List<Color> getAllColors();
+    Color findByIdColor(Integer id);
+    List<Color> getColorForProduct(Integer productId);
 }

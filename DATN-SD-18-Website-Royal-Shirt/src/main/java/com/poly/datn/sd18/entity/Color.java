@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +24,7 @@ public class Color extends BaseEntity implements Serializable {
 
     @Column(name = "status")
     private Integer status;
+
+    @OneToMany(mappedBy = "color")
+    private List<ProductDetail> productDetails;
 }

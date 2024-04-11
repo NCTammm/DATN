@@ -27,6 +27,9 @@ public class Customer extends BaseEntity implements Serializable {
     @Column(name = "avatar")
     private String avatar;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 

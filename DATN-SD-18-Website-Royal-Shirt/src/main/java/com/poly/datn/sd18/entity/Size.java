@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +31,6 @@ public class Size extends BaseEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+    @OneToMany(mappedBy = "size")
+    private List<ProductDetail> productDetails;
 }

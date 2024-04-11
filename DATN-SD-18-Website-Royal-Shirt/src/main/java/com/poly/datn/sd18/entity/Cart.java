@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,7 +22,10 @@ public class Cart extends BaseEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "cart")
+    private List<CartDetail> cartDetails;
 }

@@ -1,10 +1,11 @@
 package com.poly.datn.sd18.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Getter
 @Setter
@@ -29,6 +30,7 @@ public class Evaluate extends BaseEntity implements Serializable {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_detail_id", referencedColumnName = "id")
     private ProductDetail productDetail;

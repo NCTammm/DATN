@@ -7,6 +7,11 @@ import com.poly.datn.sd18.entity.ProductDetail;
 
 import java.util.List;
 
+import com.poly.datn.sd18.entity.CartDetail;
+import com.poly.datn.sd18.entity.ProductDetail;
+
+import java.util.List;
+
 public interface ProductDetailService {
     List<ProductDetail> getAll();
 
@@ -23,4 +28,12 @@ public interface ProductDetailService {
     ProductDetail setStatus(int id);
 
     List<ProductDetail> getListProduct();
+    List<ProductDetail> getAllProductDetail();
+    ProductDetail getProductDetailByProductId(Integer productId);
+    ProductDetail findByProductIdAndColorIdAndSizeId(Integer productId, Integer colorId, Integer sizeId);
+    ProductDetail findProductDetailById(Integer id);
+    List<ProductDetail> findProductDetailIdByCartDetailId(List<Integer> cartDetailId);
+
+    List<ProductDetail> getProductDetailsByIds(List<Integer> id);
+
 }

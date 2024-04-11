@@ -71,4 +71,43 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
 
     @Query("Select p From ProductDetail p")
     List<ProductDetail> getListProduct();
+    @Query("select c from ProductDetail c where c.product.id =:productId")
+    List<ProductDetail> getAllProductDetailByProductId(@Param("productId") Integer productId);
+
+    @Query(value = """
+            SELECT
+                pd.*
+            FROM
+                product_details pd
+                INNER JOIN
+                    products p ON pd.product_id = p.id
+                INNER JOIN
+                    colors c ON pd.color_id = c.id
+                INNER JOIN
+                    sizes s ON pd.size_id = s.id
+                LEFT JOIN (
+                    SELECT product_id, MIN(id) AS min_image_id
+                    FROM images
+                    GROUP BY product_id
+                ) AS min_images ON pd.product_id = min_images.product_id
+                LEFT JOIN
+                    images i ON min_images.min_image_id = i.id
+                WHERE
+                    p.id =:productId AND p.status = 0
+                    AND pd.size_id =:sizeId AND s.status = 0
+                    AND pd.color_id =:colorId AND c.status = 0;
+        """, nativeQuery = true)
+    ProductDetail findByProductIdAndColorIdAndSizeId(@Param("productId") Integer productId,
+                                                     @Param("sizeId") Integer sizeId,
+                                                     @Param("colorId") Integer colorId);
+    @Query("select pd from ProductDetail pd where pd.id = :productDetailId")
+    ProductDetail findByProductDetailId(@Param("productDetailId") Integer productDetailId);
+
+    @Query(value = """
+                SELECT pd.*
+                FROM cart_details cd
+                INNER JOIN product_details pd ON cd.product_detail_id = pd.id
+                WHERE cd.id IN :cartDetailId
+            """, nativeQuery = true)
+    List<ProductDetail> findProductDetailIdByCartDetailId(@Param("cartDetailId") List<Integer> cartDetailId);
 }

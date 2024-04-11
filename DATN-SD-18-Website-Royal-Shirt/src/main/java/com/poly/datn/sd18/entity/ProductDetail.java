@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,18 +27,18 @@ public class ProductDetail extends BaseEntity implements Serializable {
     private Integer quantity;
 
     @Column(name = "cost")
-    private Float cost; // giá nhập
+    private Float cost; // TODO giá nhập
 
     @Column(name = "price")
-    private Float price; // giá bán
+    private Float price; // TODO giá bán
 
     @Column(name = "weight")
-    private Float weight; // khối lượng của áo
+    private Float weight; // TODO khối lượng của áo
 
     @Column(name = "status")
     private Integer status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
@@ -48,4 +49,10 @@ public class ProductDetail extends BaseEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "color_id", referencedColumnName = "id")
     private Color color;
+
+    @OneToMany(mappedBy = "productDetail")
+    private List<Evaluate> evaluates;
+
+    @OneToMany(mappedBy = "productDetail")
+    private List<CartDetail> cartDetails;
 }

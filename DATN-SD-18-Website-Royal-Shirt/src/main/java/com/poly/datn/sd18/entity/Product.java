@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -48,10 +49,8 @@ public class Product extends BaseEntity implements Serializable {
     private Discount discount;
 
     @OneToMany(mappedBy = "product")
-    private List<Image> images;
+    private List<ProductDetail> productDetails;
 
-    @OneToOne
-    @JsonIgnore
-    @JoinColumn(name = "id", referencedColumnName = "id")
-    private ProductDetail productDetail;
+    @OneToMany(mappedBy = "product")
+    private List<Image> images;
 }
