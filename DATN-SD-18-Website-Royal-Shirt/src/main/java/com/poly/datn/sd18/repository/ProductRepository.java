@@ -2,6 +2,7 @@ package com.poly.datn.sd18.repository;
 
 import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
+import com.poly.datn.sd18.model.response.ProductResponseClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -60,7 +61,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = """
         SELECT
-            new com.poly.datn.sd18.model.response.ProductResponse(
+            new com.poly.datn.sd18.model.response.ProductResponseClient(
                 p.id,
                 p.name,
                 COALESCE((SELECT MAX(i.urlImage) FROM Image i WHERE i.product.id = p.id), ''),
@@ -82,7 +83,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         ORDER BY
             p.id
         """)
-    Page<ProductResponse> pageProductResponse(Pageable pageable);
+    Page<ProductResponseClient> pageProductResponse(Pageable pageable);
 
 
 }

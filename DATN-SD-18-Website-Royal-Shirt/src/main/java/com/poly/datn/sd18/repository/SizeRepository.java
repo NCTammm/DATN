@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface SizeRepository extends JpaRepository<Size, Integer> {
     @Query(value = """
-                SELECT DISTINCT s.id, s.name, s.status, s.created_date, s.updated_date
+                SELECT DISTINCT s.id, s.name, s.shirt_length, s.shirt_width, s.status, s.created_date, s.updated_date
                 FROM sizes s
                 INNER JOIN
                     product_details pd ON s.id = pd.size_id

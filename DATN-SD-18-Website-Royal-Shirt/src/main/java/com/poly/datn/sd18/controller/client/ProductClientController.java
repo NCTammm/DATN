@@ -1,7 +1,7 @@
 package com.poly.datn.sd18.controller.client;
 
 import com.poly.datn.sd18.entity.*;
-import com.poly.datn.sd18.dto.response.ProductResponse;
+import com.poly.datn.sd18.model.response.ProductResponseClient;
 import com.poly.datn.sd18.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public class ProductClientController {
         List<Brand> listBrands = brandService.getAllBrands();
         List<Category> listCategories = categoryService.getAllCategories();
         Pageable pageable = PageRequest.of(pageNo - 1, 9);
-        Page<ProductResponse> listsProductResponse = productService.pageProductResponse(pageable);
+        Page<ProductResponseClient> listsProductResponse = productService.pageProductResponse(pageable);
 
         model.addAttribute("listBrand", listBrands);
         model.addAttribute("listCategory", listCategories);

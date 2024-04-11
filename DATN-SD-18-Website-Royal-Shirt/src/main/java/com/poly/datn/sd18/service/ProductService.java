@@ -3,6 +3,7 @@ package com.poly.datn.sd18.service;
 import com.poly.datn.sd18.dto.request.ProductRequest;
 import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
+import com.poly.datn.sd18.model.response.ProductResponseClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,5 +33,5 @@ public interface ProductService {
     Page<Product> pageProducts(Integer pageNo);
     List<Product> searchProductName(String name);
     Page<Product> searchProducts(String keyWord, Integer pageNo);
-    Page<ProductResponse> pageProductResponse(Pageable pageable);
+    Page<ProductResponseClient> pageProductResponse(Pageable pageable);
 }

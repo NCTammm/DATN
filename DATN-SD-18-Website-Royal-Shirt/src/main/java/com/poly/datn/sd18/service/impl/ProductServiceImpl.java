@@ -2,6 +2,7 @@ package com.poly.datn.sd18.service.impl;
 
 import com.poly.datn.sd18.dto.request.ProductRequest;
 import com.poly.datn.sd18.dto.response.ProductResponse;
+import com.poly.datn.sd18.model.response.ProductResponseClient;
 import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.ProductService;
@@ -121,7 +122,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductResponse> pageProductResponse(Pageable pageable) {
+    public Page<ProductResponseClient> pageProductResponse(Pageable pageable) {
         return productRepository.pageProductResponse(pageable);
     }
 }
