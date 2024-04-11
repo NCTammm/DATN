@@ -178,7 +178,7 @@
                             <td th:text="${product.product.id}"></td>
                             <td th:text="${product.product.name}"></td>
                             <td th:text="${product.quantity}"></td>
-                            <td th:text="${product.product.status == 1 ? 'Hết hàng' : 'Còn hàng'}"></td>
+                            <td th:text="${product.quantity == 0 ? 'Hết hàng' : 'Còn hàng'}"></td>
                             <td th:text="${product.price}"></td>
                         </tr>
                         </tbody>

@@ -22,6 +22,7 @@ public class OrderDTO {
     private Float totalPrice;
     private String shopping;
     private Integer status;
+    private Boolean type;
     private Date conformDate;
 
     public Order map(Order order){
@@ -33,6 +34,7 @@ public class OrderDTO {
         order.setTotalPrice(this.totalPrice);
         order.setShopping(this.shopping);
         order.setStatus(this.status);
+        order.setType(true);
         order.setConfirmDate(new Date(System.currentTimeMillis()));
         return order;
     }
