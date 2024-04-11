@@ -1,19 +1,12 @@
 package com.poly.datn.sd18.repository;
 
 import com.poly.datn.sd18.dto.response.ProductResponse;
-import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.Product;
-
-import java.util.List;
-
-import com.poly.datn.sd18.model.response.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 

@@ -3,17 +3,10 @@ package com.poly.datn.sd18.service.impl;
 import com.poly.datn.sd18.dto.request.ProductRequest;
 import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
-import com.poly.datn.sd18.entity.Product;
-import com.poly.datn.sd18.model.response.ProductResponse;
 import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.ProductService;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -25,8 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public List<ProductResponse> getAll() {
@@ -95,7 +87,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getListProduct() {
         return productRepository.getListProduct();
     }
-    private final ProductRepository productRepository;
 
     @Override
     public List<Product> getAllProductDetails() {

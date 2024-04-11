@@ -15,8 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
-    @Autowired
-    CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public List<Customer> getAllActive() {
@@ -41,7 +40,6 @@ public class CustomerServiceImpl implements CustomerService {
     public int countCustomer() {
         return customerRepository.countCustomer();
     }
-    private final CustomerRepository customerRepository;
 
     @Override
     public Customer createCustomer(CustomerDTO customerDTO) {

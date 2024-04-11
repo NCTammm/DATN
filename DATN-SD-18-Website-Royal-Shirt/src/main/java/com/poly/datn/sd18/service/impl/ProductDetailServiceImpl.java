@@ -3,22 +3,13 @@ package com.poly.datn.sd18.service.impl;
 import com.poly.datn.sd18.dto.request.ProductDetailRequest;
 import com.poly.datn.sd18.dto.response.ProductDetailResponse;
 import com.poly.datn.sd18.dto.response.SizeResponse;
-import com.poly.datn.sd18.entity.ProductDetail;
 import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.entity.ProductDetail;
 import com.poly.datn.sd18.repository.ProductDetailRepository;
 import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.ProductDetailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import java.util.List;
 
@@ -61,8 +52,6 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<ProductDetail> getProductDetailsByIds(List<Integer> id) {
         return productDetailRepository.findAllById(id);
     }
-    @Autowired
-    ProductDetailRepository productDetailRepository;
 
     @Override
     public List<ProductDetail> getAll() {

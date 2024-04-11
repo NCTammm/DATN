@@ -3,15 +3,10 @@ package com.poly.datn.sd18.dto.request;
 import com.poly.datn.sd18.entity.Customer;
 import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.Staff;
-import com.poly.datn.sd18.repository.CustomerRepository;
-import com.poly.datn.sd18.service.CustomerService;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @Setter

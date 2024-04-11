@@ -1,7 +1,7 @@
 package com.poly.datn.sd18.controller.admin;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,18 +43,18 @@ public class RevenueController {
         m.addAttribute("countOrders", orderServiceImpl.countOrders());
 
         // tổng doanh thu theo tháng lấy từ orders
-        m.addAttribute("totalOrdersByMonth", orderServiceImpl.totalOrdersByMonth(new Date()));
+        m.addAttribute("totalOrdersByMonth", orderServiceImpl.totalOrdersByMonth(new java.sql.Date(System.currentTimeMillis())));
         // số hóa đơn theo tháng lấy từ orders
-        m.addAttribute("countOrdersByMonth", orderServiceImpl.countOrdersByMonth(new Date()));
+        m.addAttribute("countOrdersByMonth", orderServiceImpl.countOrdersByMonth(new java.sql.Date(System.currentTimeMillis())));
 
         // Tổng doanh thu theo ngày từ orders
-        m.addAttribute("totalOrdersByDate", orderServiceImpl.totalOrdersByDate(new Date()));
+        m.addAttribute("totalOrdersByDate", orderServiceImpl.totalOrdersByDate(new java.sql.Date(System.currentTimeMillis())));
         // Số hóa đơn theo ngày từ orders
-        m.addAttribute("countOrdersByDate", orderServiceImpl.countOrdersByDate(new Date()));
+        m.addAttribute("countOrdersByDate", orderServiceImpl.countOrdersByDate(new java.sql.Date(System.currentTimeMillis())));
         // Tổng doanh thu theo năm từ orders
-        m.addAttribute("totalOrdersByYear", orderServiceImpl.totalOrdersByYear(new Date()));
+        m.addAttribute("totalOrdersByYear", orderServiceImpl.totalOrdersByYear(new java.sql.Date(System.currentTimeMillis())));
         // Số hóa đơn theo năm từ orders
-        m.addAttribute("countOrdersByYear", orderServiceImpl.countOrdersByYear(new Date()));
+        m.addAttribute("countOrdersByYear", orderServiceImpl.countOrdersByYear(new Date(System.currentTimeMillis())));
 
         // Tổng số khách hàng từ customer
         m.addAttribute("countCustomer", customerServiceImpl.countCustomer());

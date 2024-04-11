@@ -1,12 +1,9 @@
 package com.poly.datn.sd18.service.impl;
 
 import com.poly.datn.sd18.entity.Brand;
-import com.poly.datn.sd18.entity.Brand;
-import com.poly.datn.sd18.entity.Brand;
 import com.poly.datn.sd18.repository.BrandRepository;
 import com.poly.datn.sd18.service.BrandService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +17,6 @@ public class BrandServiceImpl implements BrandService {
     public List<Brand> getAllBrands() {
         return brandRepository.findAll();
     }
-    @Autowired
-    BrandRepository brandRepository;
 
     @Override
     public List<Brand> getAll() {

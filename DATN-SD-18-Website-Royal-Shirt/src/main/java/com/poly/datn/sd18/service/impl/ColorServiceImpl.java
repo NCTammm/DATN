@@ -2,11 +2,8 @@ package com.poly.datn.sd18.service.impl;
 
 import com.poly.datn.sd18.entity.Color;
 import com.poly.datn.sd18.repository.ColorRepository;
-import com.poly.datn.sd18.entity.Color;
-import com.poly.datn.sd18.repository.ColorRepository;
 import com.poly.datn.sd18.service.ColorService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +27,6 @@ public class ColorServiceImpl implements ColorService {
     public List<Color> getColorForProduct(Integer productId) {
         return colorRepository.findDistinctByProductDetails_ProductId(productId);
     }
-    @Autowired
-    ColorRepository colorRepository;
 
     @Override
     public List<Color> getAll() {

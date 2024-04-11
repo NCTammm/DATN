@@ -1,22 +1,13 @@
 package com.poly.datn.sd18.service.impl;
 
 import com.poly.datn.sd18.entity.Order;
-import com.poly.datn.sd18.entity.Product;
-import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.OrderDetail;
 import com.poly.datn.sd18.model.dto.OrderDTO;
 import com.poly.datn.sd18.repository.OrderDetailRepository;
 import com.poly.datn.sd18.repository.OrderRepository;
-import com.poly.datn.sd18.repository.ProductRepository;
 import com.poly.datn.sd18.service.OrderService;
-
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,12 +3,6 @@ package com.poly.datn.sd18.service;
 import com.poly.datn.sd18.dto.request.ProductRequest;
 import com.poly.datn.sd18.dto.response.ProductResponse;
 import com.poly.datn.sd18.entity.Product;
-
-import java.util.List;
-import com.poly.datn.sd18.entity.Order;
-import com.poly.datn.sd18.entity.Product;
-import com.poly.datn.sd18.entity.Product;
-import com.poly.datn.sd18.model.response.ProductResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
