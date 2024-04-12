@@ -1,5 +1,6 @@
 package com.poly.datn.sd18.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +26,7 @@ public class Color extends BaseEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "color")
     private List<ProductDetail> productDetails;
 }

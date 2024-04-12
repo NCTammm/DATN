@@ -1,5 +1,6 @@
 package com.poly.datn.sd18.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Cart extends BaseEntity implements Serializable {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cart")
     private List<CartDetail> cartDetails;
 }
