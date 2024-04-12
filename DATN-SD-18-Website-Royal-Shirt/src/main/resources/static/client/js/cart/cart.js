@@ -122,3 +122,34 @@ async function incrementQuantity(productId) {
     }
 }
 
+// delete cartDetail by id
+function deleteCartDetailItem(button) {
+    var cartDetailId = button.getAttribute("data-id");
+    $.ajax({
+        type: "DELETE",
+        url: "/rest/cart-detail/" + cartDetailId,
+        contentType: "application/json",
+        success: function(response) {
+            console.log("Đã xóa CartDetail id = " + cartDetailId + " khỏi giỏ hàng !");
+            // Xóa sản phẩm khỏi giao diện người dùng
+            $('[data-id="' + cartDetailId + '"]').closest('tr').remove();
+            // Hiển thị thông báo thành công
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: 'Xóa sản phẩm khỏi giỏ hàng thành công!'
+            });
+        },
+        error: function(xhr, status, error) {
+            // Xử lý lỗi nếu có
+            console.error(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng.'
+            });
+        }
+    });
+}
+
+

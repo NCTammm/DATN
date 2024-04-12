@@ -80,6 +80,17 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Transactional
     @Override
+    public void deleteCartDetailByIdCartDetailAndIdCustomer(Integer cartDetailId, Integer customerId) {
+        cartDetailRepository.deleteCartDetailByIdCartDetailAndIdCustomer(cartDetailId, customerId);
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        return cartDetailRepository.existsById(id);
+    }
+
+    @Transactional
+    @Override
     public void updateByProductDetailIdAndCustomerId(Integer productDetailId, Integer customerId, Integer quantity) {
         Cart cart = cartRepository.findByCustomerId(customerId);
         ProductDetail productDetail = productDetailRepository.findByProductDetailId(productDetailId);
