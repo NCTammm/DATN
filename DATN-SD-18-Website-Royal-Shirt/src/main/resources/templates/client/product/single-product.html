@@ -373,7 +373,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Lỗi!',
-                    text: 'Số lượng vượt quá số lượng tồn kho.'
+                    text: 'Số lượng vượt quá số lượng tồn kho!'
                 });
                 return;
             }
@@ -391,18 +391,18 @@
                 url: '/add-to-cart/' + id,
                 contentType: 'application/json',
                 data: JSON.stringify(cartDetailDTO),
-                error: function (response) {
+                success: function (response) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Thành công!',
                         text: 'Sản phẩm đã được thêm vào giỏ hàng thành công!'
                     });
                 },
-                success: function (xhr, status, error) {
+                error: function (xhr, status, error) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Thất bại!',
-                        text: 'Không thể thêm sản phẩm vào giỏ hàng.'
+                        text: 'Không thể thêm sản phẩm vào giỏ hàng!'
                     });
                 }
             });
