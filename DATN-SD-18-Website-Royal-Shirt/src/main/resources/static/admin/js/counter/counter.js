@@ -713,7 +713,7 @@ function printBill(id) {
       // Update employee information
       $("#bill #employename").text(billData.order.staff?.name);
 //      $("#bill #orderstatus").html(getStatusBadge(billData.order.status)); // Assuming orderstatus is a property in your billData
-      $("#bill #ordertype").text("tại quầy");
+      $("#bill #ordertype").text("Tại quầy");
       // Assuming ordertype is a property in your billData
       // if (billData.loaiDon === 0) {
       //   $("#bill #ordertype").text("tại quầy");
