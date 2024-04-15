@@ -2,6 +2,7 @@ package com.poly.datn.sd18.service.impl;
 
 import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.OrderDetail;
+import com.poly.datn.sd18.entity.ProductDetail;
 import com.poly.datn.sd18.model.dto.OrderDetailDTO;
 import com.poly.datn.sd18.model.response.OrderDetailResponse;
 import com.poly.datn.sd18.repository.OrderDetailRepository;
@@ -76,6 +77,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         // Cập nhật các ngày tương ứng với các trạng thái khác nhau
         if (status == 2) {
             obj.setConfirmDate(new Date(System.currentTimeMillis()));
+            // trừ số lượng trong đơn hàng
+            for (int i = 0; i < obj.getOrderDetails().size(); i++) {
+                ProductDetail o = obj.getOrderDetails().get(i).getProductDetail();
+                o.setQuantity(o.getQuantity() - obj.getOrderDetails().get(i).getQuantity());
+                productDetailRepository.saveAndFlush(o);
+            }
         } else if (status == 3) {
             obj.setShipWaitDate(new Date(System.currentTimeMillis()));
         } else if (status == 4) {
@@ -88,6 +95,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         orderRepository.saveAndFlush(obj);
         return obj;
     }
+
 
     // Phương thức để thêm một chi tiết đơn hàng mới
     public OrderDetail add(OrderDetail orderDetail, int productId, int orderId) {

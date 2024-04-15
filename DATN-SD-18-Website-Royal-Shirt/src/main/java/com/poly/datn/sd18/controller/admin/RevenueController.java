@@ -61,10 +61,10 @@ public class RevenueController {
         // Tổng số sản phẩm từ Product
         m.addAttribute("countOrder", productServiceImpl.countOrder());
         // Tổng số sản phẩm sắp hết hàng
-        m.addAttribute("countProduct", productDetailServiceImpl.countProduct(5)); // -> Sửa số để so sánh xem hết hàng
+        m.addAttribute("countProduct", productDetailServiceImpl.countProduct(50)); // -> Sửa số để so sánh xem hết hàng
         // theo ý muốn
         // Danh sách các sản phẩm sắp hết hàng
-        m.addAttribute("listProduct", productDetailServiceImpl.listProduct(5));// -> có thể sửa số theo mong muốn
+        m.addAttribute("listProduct", productDetailServiceImpl.listProduct(50));// -> có thể sửa số theo mong muốn
         // Danh sách sản phẩm đang bán chạy
         m.addAttribute("hotSelling", productServiceImpl.listHotSelling(2)); // -> sửa số theo ý muốn
         // Danh sách số lượng đơn hàng đã bán của 12 tháng

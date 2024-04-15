@@ -1,6 +1,5 @@
 package com.poly.datn.sd18.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,14 +7,16 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
+@Builder
 @Table(name = "customers")
-public class Customer extends BaseEntity implements Serializable {
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,15 +31,24 @@ public class Customer extends BaseEntity implements Serializable {
     @Column(name = "avatar")
     private String avatar;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "password")
     private String password;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    private Date createDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_date")
+    private Date updateDate;
 
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "email")
+    private String email;
+
+    // Thêm quan hệ một-đến-nhiều với Address
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Address> listAddresses;
