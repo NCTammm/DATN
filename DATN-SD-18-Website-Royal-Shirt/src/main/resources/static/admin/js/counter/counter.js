@@ -286,6 +286,7 @@ function addToCart(button) {
         listProductCart.push(productCart);
     }
 
+    saveData(currentTab);
     getTotalPrice();
     console.log(listProductCart);
 }
@@ -390,6 +391,7 @@ function removeFromCart(button) {
         return product.id !== productDetailId;
     });
 
+    saveData(currentTab);
     getTotalPrice();
     console.log(listProductCart);
 }
