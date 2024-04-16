@@ -18,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class CartController {
     private final ProductService productService;
+    private final ProductDetailService productDetailService;
     private final CartDetailService cartDetailService;
     private final HttpSession session;
 
@@ -26,13 +27,19 @@ public class CartController {
         Customer customer = (Customer) session.getAttribute("customer");
         if (customer == null) {
             return "redirect:/loginPage";
-        }else {
+        } else {
             Float sumPrice = cartDetailService.getSumPriceByCustomerId(customer.getId());
             if (sumPrice == null) {
                 sumPrice = 0f;
             }
             model.addAttribute("sumPricePro", sumPrice.intValue());
             List<CartDetail> cartDetails = cartDetailService.findCartDetailByCustomer(customer.getId());
+            for (CartDetail cartDetail : cartDetails) {
+                Float priceAfterDiscount = productDetailService.getPriceByProductDetail(cartDetail.getProductDetail().getProduct().getId(),
+                        cartDetail.getProductDetail().getColor().getId(),
+                        cartDetail.getProductDetail().getSize().getId());
+                cartDetail.setPrice(priceAfterDiscount);
+            }
             model.addAttribute("cartDetails", cartDetails);
             return "client/cart/cart";
         }
