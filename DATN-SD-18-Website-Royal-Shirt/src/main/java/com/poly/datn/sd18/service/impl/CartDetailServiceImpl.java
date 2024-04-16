@@ -58,7 +58,7 @@ public class CartDetailServiceImpl implements CartDetailService {
                 cartDetail.setProductDetail(productDetail);
                 cartDetail.setCart(cart);
                 cartDetail.setQuantity(cartDetailDTO.getQuantity());
-                cartDetail.setPrice(productDetail.getPrice());
+                cartDetail.setPrice(null);
                 cartDetail.setStatus(0);
             } else {
                 //TODO Nếu đã có, cập nhật số lượng
