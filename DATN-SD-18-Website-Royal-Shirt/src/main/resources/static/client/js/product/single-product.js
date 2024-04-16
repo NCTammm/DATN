@@ -65,7 +65,6 @@ function showQuantityAndPrice() {
         success: function(response) {
             var formattedPrice = response.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
             $("#price").text(formattedPrice);
-            // $("#price").text(response);
         },
         error: function(xhr, status, error) {
             console.log(error);

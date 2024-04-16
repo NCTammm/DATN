@@ -134,8 +134,8 @@ async function renderListProductChoice() {
                 var productDetailId = response.productDetailId;
                 var productName = "" + response.productName + "<br>" + "[" + response.colorName + "-" + response.sizeName + "]";
                 var quantity = response.quantity;
-                var price = response.discount === 0 ? response.price : response.price / 100 * (100 - response.discount);
-
+                // var price = response.discount === 0 ? response.price : response.price / 100 * (100 - response.discount);
+                var price = response.price;
                 var priceFomat = formatPrice(price);
 
                 // Tạo HTML string chứa <tr> và các <td>
