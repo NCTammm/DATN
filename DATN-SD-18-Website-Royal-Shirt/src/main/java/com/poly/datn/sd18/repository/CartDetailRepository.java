@@ -71,7 +71,12 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
             "       dbo.colors.name AS colorName,\n" +
             "       dbo.sizes.name AS sizeName,\n" +
             "       dbo.cart_details.quantity AS quantity,\n" +
-            "       dbo.product_details.price AS price\n" +
+            "       dbo.product_details.price AS price,\n" +
+            "    CASE \n" +
+            "        WHEN dbo.discounts.status = 1 THEN 0\n" +
+            "        WHEN dbo.discounts.end_date < GETDATE() THEN 0" +
+            "        ELSE COALESCE(dbo.discounts.discount, 0)\n" +
+            "    END AS discount\n" +
             "FROM   dbo.cart_details\n" +
             "INNER JOIN\n" +
             "       dbo.product_details ON dbo.cart_details.product_detail_id = dbo.product_details.id\n" +
@@ -81,6 +86,8 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
             "       dbo.sizes ON dbo.product_details.size_id = dbo.sizes.id\n" +
             "INNER JOIN\n" +
             "       dbo.products ON dbo.product_details.product_id = dbo.products.id\n" +
+            "LEFT JOIN " +
+            "       dbo.discounts ON dbo.products.discount_id = dbo.discounts.id\n" +
             "WHERE dbo.cart_details.id = :cartDetailId",nativeQuery = true)
     CartDetailRestponse findCartDetaiToCheckoutlById(@Param("cartDetailId") Integer cartDetailId);
 

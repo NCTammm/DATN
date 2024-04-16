@@ -8,4 +8,5 @@ public interface CartDetailRestponse {
      String getSizeName();
      Integer getQuantity();
      Float getPrice();
+     Integer getDiscount();
 }
