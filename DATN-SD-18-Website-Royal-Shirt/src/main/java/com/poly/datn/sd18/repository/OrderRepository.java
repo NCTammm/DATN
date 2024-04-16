@@ -15,6 +15,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
                 FROM orders
                 WHERE
                     customer_id = :customerId
+                    and type = 1
                 ORDER BY id DESC;
             """, nativeQuery = true)
     List<Order> findOrderByCustomerId(@Param("customerId") Integer customerId);
