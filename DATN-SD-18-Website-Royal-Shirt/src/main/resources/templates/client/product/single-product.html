@@ -359,63 +359,6 @@
 <!-- footer section end -->
 
 <div th:replace="~{client/layout/script::script}"></div>
-<script th:inline="javascript">
-    $(document).ready(function () {
-        $('#addToCartBtn').click(function (event) {
-            event.preventDefault();
-
-            var id = [[${product.id}]]
-            var colorId = $('#colorSelect').val();
-            var sizeId = $('#sizeSelect').val();
-            var quantity = $('#quantity').val();
-            var maxQuantity = parseInt($('#quantity').attr('max'));
-
-            if (!colorId || !sizeId || !quantity) {
-                alert('Vui lòng chọn màu sắc, kích thước và nhập số lượng.');
-                return;
-            }
-
-            // Kiểm tra số lượng tồn kho
-            if (parseInt(quantity) > maxQuantity) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi!',
-                    text: 'Số lượng vượt quá số lượng tồn kho!'
-                });
-                return;
-            }
-
-            var cartDetailDTO = {
-                productDetail: {
-                    color: { id: colorId },
-                    size: { id: sizeId }
-                },
-                quantity: quantity
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/add-to-cart/' + id,
-                contentType: 'application/json',
-                data: JSON.stringify(cartDetailDTO),
-                success: function (response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Thành công!',
-                        text: 'Sản phẩm đã được thêm vào giỏ hàng thành công!'
-                    });
-                },
-                error: function (xhr, status, error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Thất bại!',
-                        text: 'Không thể thêm sản phẩm vào giỏ hàng!'
-                    });
-                }
-            });
-        });
-    });
-</script>
 <script th:src="@{/client/js/product/single-product.js}"></script>
 </body>
 

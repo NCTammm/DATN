@@ -15,7 +15,7 @@
 	<name>DATN-SD-18-Website-Royal-Shirt</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>19</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

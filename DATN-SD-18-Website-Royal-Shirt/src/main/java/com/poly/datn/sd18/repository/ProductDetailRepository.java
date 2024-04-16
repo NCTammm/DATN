@@ -126,7 +126,6 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
                     p.id = :productId
                     AND s.id = :sizeId
                     AND c.id = :colorId
-                
             """, nativeQuery = true)
     ProductDetail showQuantity(@Param("productId") Integer productId,
                                @Param("colorId") Integer colorId,
