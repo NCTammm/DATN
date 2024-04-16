@@ -112,7 +112,8 @@
                                         <h5>Color</h5>
                                         <div class="btn-group">
                                             <select class="form-select size-option" id="colorSelect"
-                                                    aria-label="Default select example">
+                                                    aria-label="Default select example"
+                                                    onchange="showQuantity()">
                                                 <option th:each="color : ${listColor}"
                                                         th:value="${color.id}"
                                                         th:text="${color.name}"></option>
@@ -126,7 +127,8 @@
                                         <div class="size-drop">
                                             <div class="btn-group">
                                                 <select class="form-select size-option" id="sizeSelect"
-                                                        aria-label="Default select example">
+                                                        aria-label="Default select example"
+                                                        onchange="showQuantity()">
                                                     <option th:each="size : ${listSize}"
                                                             th:value="${size.id}"
                                                             th:text="${size.name}"></option>
@@ -138,19 +140,24 @@
                             </div>
                             <div class="input-group">
                                 <p>QUANTITY</p>
-                                <div class="">
-                                    <input type="number" value="1" min="1" max="${product.productDetail.quantity}"
-                                           step="1" id="quantity" name="quantity" class="plus-minus-box">
+                                <div class="plus-minus">
+                                    <a class="dec qtybutton">-</a>
+                                    <input type="number" value="1" min="1" step="1" id="quantity"
+                                           max="${product.productDetail.quantity}"
+                                           name="qtybutton" class="plus-minus-box">
+                                    <a class="inc qtybutton">+</a>
+                                </div>
+                                <div class="showQuantity">
+                                    <p>Số lượng: <span id="showQuantity"></span></p>
                                 </div>
                             </div>
                         </div>
                         <div class="list-btn">
                             <button type="submit" id="addToCartBtn"
-                                    class="btn btn-outline-dark btn-sm">ADD TO CART</button>
-                            <p class="text-danger ms-3 mt-2" id="textKichCo" style="display: none">Bạn cần chọn kích
-                                cỡ</p>
-                            <p class="text-danger ms-3 mt-2" id="textMauSac" style="display: none">Bạn cần chọn màu
-                                sắc</p>
+                                    th:attr="data-id=${product.id}"
+                                    class="btn btn-outline-dark btn-sm"
+                                    onclick="addToCart(this)"
+                            >ADD TO CART</button>
                             <button type="submit" id="wishlist"
                                     class="btn btn-outline-dark btn-sm">WISHLIST</button>
                         </div>

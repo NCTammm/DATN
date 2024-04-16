@@ -88,9 +88,8 @@
                                 </div>
                             </td>
                             <td>
-                                <a th:href="@{/cart/{id}(id=${cartDetail.productDetail.id})}">
-                                    <i class="mdi mdi-close" title="Remove this product"></i>
-                                </a>
+                                <i class="mdi mdi-close" type="button" th:attr="data-id=${cartDetail.id}"
+                                   title="Remove this product" onclick="deleteCartDetailItem(this)"></i>
                             </td>
                         </tr>
                         </tbody>

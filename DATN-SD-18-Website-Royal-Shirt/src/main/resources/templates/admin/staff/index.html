@@ -4,6 +4,76 @@
 <head th:replace="~{admin/layout/head::head}"></head>
 
 <body onload="time()" class="app sidebar-mini rtl">
+<style>
+    .Choicefile {
+      display: block;
+      background: #14142B;
+      border: 1px solid #fff;
+      color: #fff;
+      width: 150px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      padding: 5px 0px;
+      border-radius: 5px;
+      font-weight: 500;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .Choicefile:hover {
+      text-decoration: none;
+      color: white;
+    }
+
+    #uploadfile,
+    .removeimg {
+      display: none;
+    }
+
+    #thumbbox {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .removeimg {
+      height: 25px;
+      position: absolute;
+      background-repeat: no-repeat;
+      top: 5px;
+      left: 5px;
+      background-size: 25px;
+      width: 25px;
+      /* border: 3px solid red; */
+      border-radius: 50%;
+
+    }
+
+    .removeimg::before {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      content: '';
+      border: 1px solid red;
+      background: red;
+      text-align: center;
+      display: block;
+      margin-top: 11px;
+      transform: rotate(45deg);
+    }
+
+    .removeimg::after {
+      /* color: #FFF; */
+      /* background-color: #DC403B; */
+      content: '';
+      background: red;
+      border: 1px solid red;
+      text-align: center;
+      display: block;
+      transform: rotate(-45deg);
+      margin-top: -2px;
+    }
+</style>
 <!-- Navbar-->
 <div th:replace="~{admin/layout/header::header}"></div>
 <!-- Sidebar menu-->
@@ -28,6 +98,10 @@
                                 <i class="fas fa-plus"></i>
                                 Tạo mới nhân viên
                             </a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-add btn-sm" id="showModalStaff" title="Thêm"><i class="fas fa-plus"></i>
+                                Tạo mới</a>
                         </div>
                         <div class="col-sm-2">
                             <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)">
@@ -73,7 +147,7 @@
                         <thead>
                             <tr>
                                 <th width="10"><input type="checkbox" id="all"></th>
-                                <th width="10">ID</th>
+                                <th width="10">STT</th>
                                 <th width="150">Họ và tên</th>
                                 <th width="100">Email</th>
                                 <th width="80">SĐT</th>
@@ -84,6 +158,11 @@
                                 <th width="100">Tính năng</th>
                             </tr>
                         </thead>
+                        <tbody th:if="${listStaff.empty}">
+                            <tr>
+                                <td colspan="4" class="text-center">Danh sách trống!</td>
+                            </tr>
+                        </tbody>
                         <tbody>
                         <tr th:each="staff, index : ${listStaff}">
                             <td width="10"><input type="checkbox" name="check1" value="1"></td>
@@ -92,7 +171,7 @@
                             <td th:text="${staff.email}">
                             <td th:text="${staff.phone}"></td>
                             <td>
-                                <img class="img-card-person" th:src="*{'data:image/jpeg;base64,' + {staff.avatar}}" alt="">
+                                <img class="img-card-person" th:src="${staff.avatar}" alt="">
                             </td>
                             <td th:text="${staff.address}"></td>
                             <td th:text="${staff.role.name}"></td>
@@ -107,7 +186,8 @@
                                 </button>
                                 <button th:attr="data-id=${staff.id}"
                                         class="btn btn-primary btn-sm edit" type="button"
-                                        title="Sửa" id="editStaff" data-toggle="modal" data-target="#showModalStaff">
+                                        onclick="updateStaff(this)"
+                                        title="Sửa">
                                     <i class="fas fa-edit"></i>
                                 </button>
                             </td>
@@ -120,79 +200,82 @@
     </div>
 </main>
 
-<!--&lt;!&ndash;-->
-<!--  MODAL-->
-<!--&ndash;&gt;-->
-<!--<div class="modal fade" id="showModalStaff" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"-->
-<!--     data-keyboard="false">-->
-<!--    <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--        <div class="modal-content">-->
+<!--
+  MODAL
+-->
+<div class="modal fade" id="modalStaff" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
+     data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
 
-<!--            <div class="modal-body">-->
-<!--                <div class="row">-->
-<!--                    <div class="form-group  col-md-12">-->
-<!--                        <span class="thong-tin-thanh-toan">-->
-<!--                            <h5>Chỉnh sửa thông tin nhân viên</h5>-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <form>-->
-<!--                    <div class="row">-->
-<!--                        <div class="form-group col-md-6">-->
-<!--                            <label class="control-label">Họ và tên</label>-->
-<!--                            <input class="form-control" type="text" required name="name" id="name">-->
-<!--                        </div>-->
-<!--                        <div class="form-group col-md-6">-->
-<!--                            <label class="control-label">Địa chỉ email</label>-->
-<!--                            <input class="form-control" type="text" required name="email" id="email">-->
-<!--                        </div>-->
-<!--                        <div class="form-group  col-md-6">-->
-<!--                            <label class="control-label">Số điện thoại</label>-->
-<!--                            <input class="form-control" type="text" required name="phone" id="phone">-->
-<!--                        </div>-->
-<!--                        <div class="form-group col-md-6">-->
-<!--                            <label class="control-label">Địa chỉ</label>-->
-<!--                            <input class="form-control" type="text" name="address" id="address">-->
-<!--                        </div>-->
-<!--                        <div class="form-group  col-md-6">-->
-<!--                            <label for="role" class="control-label">Chức vụ</label>-->
-<!--                            <select class="form-control" id="role" name="role">-->
-<!--                                <option th:value="null">&#45;&#45; Chức vụ &#45;&#45;</option>-->
-<!--                                <option th:each="role : ${listRole}"-->
-<!--                                        th:value="${role.id}"-->
-<!--                                        th:text="${role.name}"></option>-->
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                        <div class="form-group col-md-6">-->
-<!--                            <label class="control-label">Ảnh 3x4 nhân viên</label>-->
-<!--                            <div id="myfileupload">-->
-<!--                                <input type="file" id="uploadfile" name="imageStaff" onchange="readURL(this);"/>-->
-<!--                            </div>-->
-<!--                            <div id="thumbbox">-->
-<!--                                <img height="250" width="200" alt="Thumb image" id="thumbimage" style="display: none;"/>-->
-<!--                                <a class="removeimg" href="javascript:"></a>-->
-<!--                            </div>-->
-<!--                            <div id="boxchoice">-->
-<!--                                <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt">-->
-<!--                                </i> Chọn ảnh</a>-->
-<!--                                <p style="clear:both"></p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--                <BR>-->
-<!--                <button class="btn btn-save" type="button">Lưu lại</button>-->
-<!--                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>-->
-<!--                <BR>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--&lt;!&ndash;-->
-<!--MODAL-->
-<!--&ndash;&gt;-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group  col-md-12">
+                        <span class="thong-tin-thanh-toan">
+                            <h5 class="modal-title">Chỉnh sửa thông tin nhân viên</h5>
+                        </span>
+                    </div>
+                </div>
+                <form id="staffForm">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Họ và tên</label>
+                            <input class="form-control" type="text" required name="name" id="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Địa chỉ email</label>
+                            <input class="form-control" type="text" required name="email" id="email">
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label class="control-label">Số điện thoại</label>
+                            <input class="form-control" type="text" required name="phone" id="phone">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Địa chỉ</label>
+                            <input class="form-control" type="text" required name="address" id="address">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Mật khẩu</label>
+                            <input class="form-control" type="password" required name="password" id="password">
+                        </div>
+                        <div class="form-group  col-md-6">
+                            <label for="role" class="control-label">Chức vụ</label>
+                            <select class="form-control" id="role" name="role">
+                                <option th:each="role : ${listRole}"
+                                        th:value="${role.id}"
+                                        th:text="${role.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">Ảnh 3x4 nhân viên</label>
+                            <div id="myfileupload">
+                                <input type="file" id="uploadfile" name="imageStaff" onchange="readURL(this);"/>
+                            </div>
+                            <div id="thumbbox">
+                                <img height="150" width="100" alt="Thumb image" id="thumbimage" style="display: none;"/>
+                                <a class="removeimg" href="javascript:"></a>
+                            </div>
+                            <div id="boxchoice">
+                                <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt">
+                                </i> Chọn ảnh</a>
+                                <p style="clear:both"></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <BR>
+                <button class="btn btn-save" type="button" onclick="saveOrUpdateStaff()">Lưu lại</button>
+                <a class="btn btn-cancel" data-dismiss="modal" id="closeFormStaff" href="#">Hủy bỏ</a>
+                <BR>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+MODAL
+-->
 
 <!-- Essential javascripts for application to work-->
 <div th:replace="~{admin/layout/script::script}"></div>

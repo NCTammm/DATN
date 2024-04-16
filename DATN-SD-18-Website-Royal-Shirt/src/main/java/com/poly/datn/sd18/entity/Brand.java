@@ -1,9 +1,11 @@
 package com.poly.datn.sd18.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +25,8 @@ public class Brand extends BaseEntity implements Serializable {
 
     @Column(name = "status")
     private Integer status;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Product> products;
 }

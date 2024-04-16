@@ -36,4 +36,6 @@ public interface ProductDetailService {
 
     List<ProductDetail> getProductDetailsByIds(List<Integer> id);
 
+    ProductDetail showQuantity(Integer productId, Integer colorId, Integer sizeId);
+
 }

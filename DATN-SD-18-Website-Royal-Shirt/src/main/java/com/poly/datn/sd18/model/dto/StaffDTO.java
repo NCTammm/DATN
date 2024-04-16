@@ -21,5 +21,6 @@ public class StaffDTO {
 
     private String password;
 
-    private Role role;
+    private Integer roleId;
+
 }

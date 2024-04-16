@@ -27,6 +27,8 @@ public class StaffController {
     @GetMapping("")
     public String admin(Model model){
         List<Staff> list = staffService.getAllStaff();
+        List<Role> listRole = roleService.getAllRole();
+        model.addAttribute("listRole", listRole);
         model.addAttribute("listStaff", list);
         return "admin/staff/index";
     }
@@ -35,6 +37,8 @@ public class StaffController {
     public String getStaff(@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo,
                            Model model) {
         Page<Staff> listStaff = staffService.getAllStaffPages(pageNo);
+        List<Role> listRole = roleService.getAllRole();
+        model.addAttribute("listRole", listRole);
         model.addAttribute("listStaff", listStaff);
         model.addAttribute("totalPage",listStaff.getTotalPages());
         model.addAttribute("currentPage", pageNo);
@@ -58,34 +62,6 @@ public class StaffController {
         }else {
             Staff staff = staffService.createStaff(staffDTO, file);
             return "redirect:/admin/staffs";
-        }
-    }
-
-    @GetMapping("/findId/{id}")
-    @ResponseBody
-    public ResponseEntity<?> getStaffById(@PathVariable("id") Integer id) {
-        try {
-            Staff staff = staffService.findStaffById(id);
-            if (staff != null) {
-                return ResponseEntity.ok(staff);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @PostMapping("/update/{id}")
-    public ResponseEntity<?> updateStaff(@Valid @ModelAttribute StaffDTO staffDTO,
-                                         @RequestParam("imageStaff") MultipartFile file,
-                                         @PathVariable("id") Integer id,
-                                         BindingResult result) {
-        try {
-            Staff staff = staffService.updateStaff(staffDTO, id, file);
-            return ResponseEntity.ok(staff);
-        }catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

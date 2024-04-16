@@ -25,4 +25,5 @@ public interface StaffRepository extends JpaRepository<Staff, Integer> {
     List<Staff> getAllActive();
 
     Staff findStaffByEmail(String email);
+    List<Staff> existsByEmail(String email);
 }

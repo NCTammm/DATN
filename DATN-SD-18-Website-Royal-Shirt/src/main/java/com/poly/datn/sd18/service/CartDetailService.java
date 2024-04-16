@@ -14,6 +14,8 @@ public interface CartDetailService {
     List<CartDetail> findCartDetailByCustomer(Integer customerId);
     CartDetail addToCart(Integer productId, Customer customer, CartDetailDTO cartDetailDTO);
     void deleteIdProductDetailAndIdCustomer(Integer productDetailId, Integer customerId);
+    void deleteCartDetailByIdCartDetailAndIdCustomer(Integer cartDetailId, Integer customerId);
+    boolean existsById(Integer id);
     void updateByProductDetailIdAndCustomerId(Integer productDetailId, Integer customerId, Integer quantity);
     Float getSumPriceByCustomerId(Integer customerId);
     Float sumPrice(List<Integer> selectedId);
@@ -21,4 +23,5 @@ public interface CartDetailService {
     void incrementQuantity(Integer customerId, Integer productDetailId);
     void decrementQuantity(Integer customerId, Integer productDetailId);
     CartDetailRestponse findCartDetailById(Integer cartDetailId);
+    Integer quantityCartDetail(Integer customerId, Integer productDetailId);
 }

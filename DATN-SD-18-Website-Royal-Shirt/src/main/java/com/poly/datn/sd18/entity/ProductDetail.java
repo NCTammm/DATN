@@ -1,5 +1,6 @@
 package com.poly.datn.sd18.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

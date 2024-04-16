@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,6 +35,13 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
     @Query("delete from CartDetail cd where cd.productDetail.id = :productDetailId and cd.cart.customer.id = :customerId")
     void deleteIdProductDetailAndIdCustomer(@Param("productDetailId") Integer productDetailId,
                                             @Param("customerId") Integer customerId);
+
+    @Modifying
+    @Query("delete from CartDetail cd where cd.id = :cartDetailId and cd.cart.customer.id = :customerId")
+    void deleteCartDetailByIdCartDetailAndIdCustomer(@Param("cartDetailId") Integer cartDetailId,
+                                                     @Param("customerId") Integer customerId);
+
+    boolean existsById(@NonNull Integer id);
 
     @Query("SELECT SUM(cd.price) FROM CartDetail cd WHERE cd.id = :cartDetailId")
     Float getSumPriceByCartDetailId(@Param("cartDetailId") Integer cartDetailId);
@@ -78,4 +86,15 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
             "       dbo.discounts ON dbo.products.discount_id = dbo.discounts.id\n" +
             "WHERE dbo.cart_details.id = :cartDetailId",nativeQuery = true)
     CartDetailRestponse findCartDetaiToCheckoutlById(@Param("cartDetailId") Integer cartDetailId);
+
+    @Query(value = """
+                SELECT    dbo.cart_details.quantity
+                FROM         dbo.cart_details INNER JOIN
+                                      dbo.carts ON dbo.cart_details.cart_id = dbo.carts.id INNER JOIN
+                                      dbo.customers ON dbo.carts.customer_id = dbo.customers.id
+                				where customers.id = :customerId
+                				and cart_details.product_detail_id = :productDetailId
+            """, nativeQuery = true)
+    Integer quantityCartDetail(@Param("customerId") Integer customerId,
+                               @Param("productDetailId") Integer productDetailId);
 }

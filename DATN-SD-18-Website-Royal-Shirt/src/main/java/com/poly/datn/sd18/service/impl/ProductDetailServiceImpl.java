@@ -116,4 +116,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<ProductDetail> getListProduct() {
         return productDetailRepository.getListProduct();
     }
+
+    @Override
+    public ProductDetail showQuantity(Integer productId, Integer colorId, Integer sizeId) {
+        return productDetailRepository.showQuantity(productId, colorId, sizeId);
+    }
 }
