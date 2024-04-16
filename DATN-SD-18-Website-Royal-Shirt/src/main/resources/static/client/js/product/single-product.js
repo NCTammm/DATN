@@ -3,7 +3,7 @@ var quantityProductDetail;
 var productDetailId;
 
 $(document).ready(function () {
-    showQuantity();
+    showQuantityAndPrice();
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -36,13 +36,40 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-function showQuantity() {
+function showQuantityAndPrice() {
     getProductDetail()
     .then(function(productDetail) {
         $("#showQuantity").text(productDetail.quantity);
+        // var formattedPrice = productDetail.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+        // $("#price").text(formattedPrice);
     })
     .catch(function(error) {
         console.log(error);
+    });
+
+    var productId = $("#addToCartBtn").attr("data-id");
+    var colorId = $("#colorSelect").val();
+    var sizeId = $("#sizeSelect").val();
+
+    var sendData = {
+        productId: productId,
+        colorId: colorId,
+        sizeId: sizeId
+    };
+
+     $.ajax({
+        type: 'GET',
+        url: '/getPriceByProductId',
+        contentType: 'application/json',
+        data: sendData,
+        success: function(response) {
+            var formattedPrice = response.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            $("#price").text(formattedPrice);
+            // $("#price").text(response);
+        },
+        error: function(xhr, status, error) {
+            console.log(error);
+        }
     });
 }
 

@@ -100,9 +100,7 @@
                             <i class="mdi mdi-star-outline"></i>
                         </div>
                         <br>
-                        <h6 style="color:red">
-                            [[${#numbers.formatDecimal((product.productDetails[1].price), 0, 'POINT', 0, 'POINT')} + ' VNĐ']]
-                        </h6>
+                        <h6 style="color:red" id="price"></h6>
                         <span th:utext="${product.description}"></span>
                         <br>
                         <div class="all-choose">
@@ -113,7 +111,7 @@
                                         <div class="btn-group">
                                             <select class="form-select size-option" id="colorSelect"
                                                     aria-label="Default select example"
-                                                    onchange="showQuantity()">
+                                                    onchange="showQuantityAndPrice()">
                                                 <option th:each="color : ${listColor}"
                                                         th:value="${color.id}"
                                                         th:text="${color.name}"></option>
@@ -128,7 +126,7 @@
                                             <div class="btn-group">
                                                 <select class="form-select size-option" id="sizeSelect"
                                                         aria-label="Default select example"
-                                                        onchange="showQuantity()">
+                                                        onchange="showQuantityAndPrice()">
                                                     <option th:each="size : ${listSize}"
                                                             th:value="${size.id}"
                                                             th:text="${size.name}"></option>

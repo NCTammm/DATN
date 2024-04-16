@@ -130,4 +130,24 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
     ProductDetail showQuantity(@Param("productId") Integer productId,
                                @Param("colorId") Integer colorId,
                                @Param("sizeId") Integer sizeId);
+
+    @Query(value = "SELECT \n" +
+            "    ROUND(ROUND(dbo.product_details.price * (1 - \n" +
+            "    CASE \n" +
+            "        WHEN dbo.discounts.status = 1 THEN 0\n" +
+            "        WHEN dbo.discounts.end_date < GETDATE() THEN 0\n" +
+            "        ELSE COALESCE(dbo.discounts.discount, 0) / 100.0\n" +
+            "    END), -3), 0) AS discounted_price\n" +
+            "FROM \n" +
+            "    dbo.product_details \n" +
+            "INNER JOIN \n" +
+            "    dbo.products ON dbo.product_details.product_id = dbo.products.id\n" +
+            "LEFT JOIN \n" +
+            "    dbo.discounts ON dbo.discounts.id = dbo.products.discount_id\n" +
+            "WHERE product_id = :productId and \n" +
+            "\t  product_details.color_id = :colorId and \n" +
+            "\t  product_details.size_id = :sizeId",nativeQuery = true)
+    Float getPriceByProductDetail(@Param("productId") Integer productId,
+                                  @Param("colorId") Integer colorId,
+                                  @Param("sizeId") Integer sizeId);
 }

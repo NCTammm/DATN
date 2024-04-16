@@ -29,6 +29,14 @@ public class ProductDetailClientRestController {
         return ResponseEntity.ok(productDetail);
     }
 
+    @GetMapping("/getPriceByProductId")
+    public ResponseEntity<?> getPriceByProductId(@RequestParam("productId") Integer productId,
+                                          @RequestParam("colorId") Integer colorId,
+                                          @RequestParam("sizeId") Integer sizeId) {
+        Float price = productDetailService.getPriceByProductDetail(productId,colorId,sizeId);
+        return ResponseEntity.ok(price);
+    }
+
     @GetMapping("/quantityCartDetail")
     public ResponseEntity<?> quantityCartDetail(@RequestParam("productDetailId") Integer productDetailId) {
         Customer customer = (Customer) session.getAttribute("customer");

@@ -33,8 +33,8 @@ public class ProductDetailServiceImpl implements ProductDetailService {
 
     @Override
     public ProductDetail findByProductIdAndColorIdAndSizeId(Integer productId,
-                                                                    Integer colorId,
-                                                                    Integer sizeId) {
+                                                            Integer colorId,
+                                                            Integer sizeId) {
         return productDetailRepository.findByProductIdAndColorIdAndSizeId(productId, colorId, sizeId);
     }
 
@@ -120,5 +120,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public ProductDetail showQuantity(Integer productId, Integer colorId, Integer sizeId) {
         return productDetailRepository.showQuantity(productId, colorId, sizeId);
+    }
+
+    @Override
+    public Float getPriceByProductDetail(Integer productId, Integer colorId, Integer sizeId) {
+        return productDetailRepository.getPriceByProductDetail(productId, colorId, sizeId);
     }
 }

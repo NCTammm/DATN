@@ -38,4 +38,6 @@ public interface ProductDetailService {
 
     ProductDetail showQuantity(Integer productId, Integer colorId, Integer sizeId);
 
+    Float getPriceByProductDetail(Integer productId, Integer colorId, Integer sizeId);
+
 }
