@@ -16,6 +16,8 @@ function formatCurrency(amount) {
 // Hàm lấy ra list order-detail
 function getOrderDetails(button) {
     var orderId = button.getAttribute("data-id");
+    var totalAmount = 0;
+
     $.ajax({
         type: "GET",
         url: "/rest/my-order/order-detail/" + orderId,
@@ -35,30 +37,20 @@ function getOrderDetails(button) {
                         '<td></td>';
                 }
                 row += '<td>' + formatCurrency(od.price) + '</td>' +
+                    '<td>' + formatCurrency(od.discountPrice) + '</td>' +
                     '<td>' + od.quantity + '</td>' +
-                    '<td>' + formatCurrency(od.price * od.quantity) + '</td>' +
+                    '<td>' + formatCurrency(od.discountPrice * od.quantity) + '</td>' +
                     '</tr>';
                 $('#orderDetailBody').append(row);
+                totalAmount += od.discountPrice * od.quantity;
             });
 
+            // Hiển thị tổng tiền
+            $('#totalPrice').text(formatCurrency(totalAmount));
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("AJAX Error:", textStatus, errorThrown);
             alert('Có lỗi xảy ra khi lấy chi tiết đơn hàng.');
-        }
-    });
-
-    // Tính tổng tiền
-    $.ajax({
-        type: 'GET',
-        url: '/rest/my-order/totalPrice/' + orderId,
-        contentType: 'application/json',
-        success: function (response) {
-            var formattedTongTien = formatCurrency(response);
-            $('#totalPrice').text(formattedTongTien);
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
         }
     });
 

@@ -13,6 +13,7 @@ public class OrderDetailResponse {
     private Integer id;
     private Integer quantity;
     private Float price;
+    private Float discountPrice;
     private Integer status;
     private Integer orderId;
     private Integer productDetailId;
@@ -33,7 +34,8 @@ public class OrderDetailResponse {
                     .colorName(orderDetail.getProductDetail().getColor().getName())
                     .productName(orderDetail.getProductDetail().getProduct().getName())
                     .productImage(orderDetail.getProductDetail().getProduct().getImages().get(0).getUrlImage())
-                    .price(orderDetail.getPrice())
+                    .price(orderDetail.getProductDetail().getPrice())
+                    .discountPrice(orderDetail.getPrice())
                     .quantity(orderDetail.getQuantity())
                     .status(orderDetail.getStatus())
                     .build();
