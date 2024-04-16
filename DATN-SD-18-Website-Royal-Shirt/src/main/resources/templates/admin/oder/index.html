@@ -43,13 +43,16 @@
     </div>
     <b>Loại đơn hàng:</b> &nbsp;
     <label for="all">
-        <input style="cursor: pointer;" type="radio" id="all" name="type" value="all" ng-click="getType(0)" checked>Tất cả
+        <input style="cursor: pointer;" type="radio" id="all" name="type" value="all" ng-click="getType(0)"
+               checked>Tất cả
     </label>
     <label for="online">
-        <input style="cursor: pointer;" type="radio" id="online" name="type" ng-click="getType(1)" value="online">Online
+        <input style="cursor: pointer;" type="radio" id="online" name="type" ng-click="getType(1)"
+               value="online">Online
     </label>
     <label for="counter">
-        <input style="cursor: pointer;" type="radio" id="counter" name="type" ng-click="getType(2)" value="counter">Tại quầy
+        <input style="cursor: pointer;" type="radio" id="counter" name="type" ng-click="getType(2)"
+               value="counter">Tại quầy
     </label>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -152,7 +155,8 @@
                                     <td>{{order.customer.name}}</td>
                                     <td>{{ order.createdAt | date:'dd/MM/yyyy' }}</td>
                                     <td>{{order.customer.phone}}</td>
-                                    <td>{{order.totalPrice}}</td>
+                                    <td>{{order.totalPrice.toLocaleString('vi-VN')}} VNĐ</td>
+
                                     <td>
                                         <span ng-if="order.type" class="badge bg-success">Online</span>
                                         <span ng-if="!order.type" class="badge bg-info">Tại quầy</span>

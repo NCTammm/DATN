@@ -237,28 +237,28 @@
                                                 <h5>{{obj.product.name}}</h5>
                                                 <div
                                                         ng-show="obj.product.discount !== null && obj.product.discount.status==0">
-                                                    <p style="text-decoration: line-through;">Giá: {{obj.price}}
-                                                        đ
-                                                    </p>
+                                                    <p style="text-decoration: line-through;">Giá:
+                                                        {{obj.price.toLocaleString('vi-VN')}} VNĐ</p>
+
                                                     <p style="color: orange;">Giá bán:
-
                                                         <span
-                                                                ng-show="obj.product.discount !== null &&obj.product.discount.status==0">
-                                                                {{obj.price-(obj.price*
-                                                                obj.product.discount.discount/100)}} đ
+                                                                ng-show="obj.product.discount !== null && obj.product.discount.status == 0">
+                                                                {{(obj.price - (obj.price *
+                                                                obj.product.discount.discount /
+                                                                100)).toLocaleString('vi-VN')}} VNĐ
                                                             </span>
                                                         <span
-                                                                ng-show="obj.product.discount === null||obj.product.discount.status==1">
-                                                                {{obj.price}} đ
+                                                                ng-show="obj.product.discount === null || obj.product.discount.status == 1">
+                                                                {{obj.price.toLocaleString('vi-VN')}} VNĐ
                                                             </span>
-
                                                     </p>
+
                                                 </div>
                                                 <div
-                                                        ng-show="obj.product.discount === null||obj.product.discount.status==1">
-                                                    <p>Giá : {{obj.price}} đ
-                                                    </p>
+                                                        ng-show="obj.product.discount === null || obj.product.discount.status == 1">
+                                                    <p>Giá: {{obj.price.toLocaleString('vi-VN')}} VNĐ</p>
                                                 </div>
+
                                                 <p>Màu sắc: {{obj.color.name}}</p>
                                                 <p>Kích thước: {{obj.size.name}}</p>
                                             </div>
@@ -346,28 +346,29 @@
                     </td>
                     <!--                            <td>{{o.productDetail.price}}</td>-->
                     <td
-                            ng-show="o.productDetail.product.discount !== null && o.productDetail.product.discount.status==0">
-                        {{ o.productDetail.price - (o.productDetail.price *
-                        o.productDetail.product.discount.discount / 100) }}
+                            ng-show="o.productDetail.product.discount !== null && o.productDetail.product.discount.status == 0">
+                        {{ (o.productDetail.price - (o.productDetail.price *
+                        o.productDetail.product.discount.discount / 100)).toLocaleString('vi-VN') }} VNĐ
                     </td>
                     <td
-                            ng-show="o.productDetail.product.discount === null||o.productDetail.product.discount.status==1">
-                        {{ o.productDetail.price}}
+                            ng-show="o.productDetail.product.discount === null || o.productDetail.product.discount.status == 1">
+                        {{ o.productDetail.price.toLocaleString('vi-VN') }} VNĐ
                     </td>
+
                     <td>{{o.productDetail.size.name}}</td>
                     <td>{{o.productDetail.color.name}}</td>
                     <!--tong tien-->
                     <td
-                            ng-show="o.productDetail.product.discount !== null&&o.productDetail.product.discount.status==0">
-                        {{(o.productDetail.price -
-                        (o.productDetail.price*o.productDetail.product.discount.discount/100)) *
-                        o.quantity}}
+                            ng-show="o.productDetail.product.discount !== null && o.productDetail.product.discount.status == 0">
+                        {{ ((o.productDetail.price - (o.productDetail.price *
+                        o.productDetail.product.discount.discount / 100)) * o.quantity).toLocaleString('vi-VN')
+                        }} VNĐ
                     </td>
                     <td
-                            ng-show="o.productDetail.product.discount === null||o.productDetail.product.discount.status==1">
-                        {{o.productDetail.price *
-                        o.quantity}}
+                            ng-show="o.productDetail.product.discount === null || o.productDetail.product.discount.status == 1">
+                        {{ (o.productDetail.price * o.quantity).toLocaleString('vi-VN') }} VNĐ
                     </td>
+
                     <td ng-show="order.status==1">
                         <a ng-click="deleteOrderDetail(o.id)">
                             <button class="btn btn-warning"><span style="color: white;">Xóa</span></button>
@@ -382,9 +383,11 @@
             <div class="row p-2">
                 <!-- Thêm cột giá đơn hàng -->
                 <div class="col text-right">
-                    <div class="title">Giá đơn hàng:{{order.totalPrice}} đ</div>
-                    <div class="title">Phí ship: {{order.shipCost}} đ</div>
-                    <div class="title">Tổng cộng:<span style="color: red;">{{total}} đ</span></div>
+                    <div class="title">Giá đơn hàng: {{order.totalPrice.toLocaleString('vi-VN')}} VNĐ</div>
+                    <div class="title">Phí ship: {{order.shipCost.toLocaleString('vi-VN')}} VNĐ</div>
+                    <div class="title">Tổng cộng: <span style="color: red;">{{total.toLocaleString('vi-VN')}}
+                                VNĐ</span></div>
+
                 </div>
             </div>
         </div>
@@ -600,12 +603,21 @@
             }
             if (status == 2) {
                 for (var i = 0; i < $scope.order.orderDetails.length; i++) {
+                    if ($scope.order.orderDetails[i].productDetail.product.status === 1) {
+                        // Hiển thị cảnh báo nếu đơn hàng không ở trạng thái chờ xác nhận mà người dùng muốn hủy đơn hàng
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Lưu ý!',
+                            text: 'Sản phẩm ' + $scope.order.orderDetails[i].productDetail.product.name + ' trong đơn hàng đã ngưng kinh doanh!'
+                        });
+                        return;
+                    }
                     if ($scope.order.orderDetails[i].productDetail.quantity < $scope.order.orderDetails[i].quantity) {
                         // Hiển thị cảnh báo nếu đơn hàng không ở trạng thái chờ xác nhận mà người dùng muốn hủy đơn hàng
                         Swal.fire({
                             icon: 'warning',
                             title: 'Lưu ý!',
-                            text: 'Có sản phẩm trong đơn hàng không đủ số lượng!'
+                            text: 'Có sản phẩm ' + $scope.order.orderDetails[i].productDetail.product.name + ' trong đơn hàng không đủ số lượng!'
                         });
                         return;
                     }
