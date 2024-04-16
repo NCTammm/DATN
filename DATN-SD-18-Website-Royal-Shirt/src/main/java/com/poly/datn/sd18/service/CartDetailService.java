@@ -23,4 +23,5 @@ public interface CartDetailService {
     void incrementQuantity(Integer customerId, Integer productDetailId);
     void decrementQuantity(Integer customerId, Integer productDetailId);
     CartDetailRestponse findCartDetailById(Integer cartDetailId);
+    Integer quantityCartDetail(Integer customerId, Integer productDetailId);
 }

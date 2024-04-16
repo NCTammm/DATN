@@ -131,4 +131,9 @@ public class CartDetailServiceImpl implements CartDetailService {
     public CartDetailRestponse findCartDetailById(Integer cartDetailId) {
         return cartDetailRepository.findCartDetaiToCheckoutlById(cartDetailId);
     }
+
+    @Override
+    public Integer quantityCartDetail(Integer customerId, Integer productDetailId) {
+        return cartDetailRepository.quantityCartDetail(customerId, productDetailId);
+    }
 }

@@ -51,4 +51,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public List<ProductDetail> getProductDetailsByIds(List<Integer> id) {
         return productDetailRepository.findAllById(id);
     }
+
+    @Override
+    public ProductDetail showQuantity(Integer productId, Integer colorId, Integer sizeId) {
+        return productDetailRepository.showQuantity(productId, colorId, sizeId);
+    }
 }

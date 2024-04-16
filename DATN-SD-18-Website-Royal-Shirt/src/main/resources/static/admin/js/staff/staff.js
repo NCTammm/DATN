@@ -1,4 +1,4 @@
-
+var urlImage;
 //Show form
 $(document).ready(function () {
     $('#showModalStaff').click(function () {
@@ -16,6 +16,7 @@ function readURL(input, thumbimage) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $("#thumbimage").attr('src', e.target.result);
+            urlImage = e.target.result;
         }
         reader.readAsDataURL(input.files[0]);
     }
@@ -28,8 +29,36 @@ function readURL(input, thumbimage) {
     $('.Choicefile').css('cursor', 'default');
     $(".removeimg").show();
     $(".Choicefile").unbind('click');
-
 }
+
+function writeURL(url) {
+    // Lặp qua mảng listUrlImage và hiển thị từng ảnh
+        var imageContainer = $(
+            '<div class="image-product-container">' +
+            '   <img src="' + url + '" alt="Thumb image" class="thumbimage"/>' +
+            '   <a class="removeimg" href="javascript:" style="display: inline"></a>' +
+            '</div>'
+        );
+
+        // Thêm container vào thumbbox
+        $("#thumbbox").empty();
+        $("#thumbbox").append(imageContainer);
+
+        // Sự kiện click cho nút xóa
+        imageContainer.find(".removeimg").on("click", function () {
+            var removedImage = $(this).closest(".image-product-container").find("img").attr("src");
+            // Xóa ảnh khỏi biến listUrlImage
+            listUrlImage = listUrlImage.filter(function (img) {
+                return img !== removedImage;
+            });
+            $(this).closest(".image-product-container").remove();
+            console.log(listUrlImage);
+            $("#myfileupload").html('<input type="file" id="uploadfile" name="ImageUpload" multiple onchange="readURL(this)"/>');
+            $('.Choicefile').css('background', '#14142B');
+        });
+    console.log(url);
+}
+
 $(document).ready(function () {
     $(".Choicefile").bind('click', function () {
         $("#uploadfile").click();
@@ -95,7 +124,7 @@ function saveOrUpdateStaff() {
     var address = $("#address").val();
     var role = $("#role").val();
     var password =  $("#password").val();
-    var image = $("#uploadfile").prop('files')[0];
+//    var image = $("#uploadfile").prop('files')[0];
     var currentTime = moment().format('YYYY-MM-DD');
     var staffId = $("#staffForm").attr("staff-id-update");
 
@@ -106,11 +135,11 @@ function saveOrUpdateStaff() {
         address: address,
         password: password,
         roleId: role,
-        avatar: image
+        avatar: urlImage
     }
-    console.log(dataSend);
+    console.log(urlImage);
     // Check thông tin
-//    if (!validateInputStaff()) {
+//    if (!validateInputStaff(name, email, phone, address, password)) {
 //        return;
 //    }
 
@@ -163,15 +192,9 @@ function saveOrUpdateStaff() {
 }
 
 //validate input form staff
-function validateInputStaff() {
-    var name = $("#name").val().trim();
-    var email = $("#email").val().trim();
-    var phone = $("#phone").val().trim();
-    var address = $("#address").val().trim();
-    var password = $("#password").val().trim();
-
+function validateInputStaff(name, email, phone, address, password) {
     // Kiểm tra xem các trường có rỗng không
-    if (name === "" || email === "" || phone === "" || address === "") {
+    if (name === "" || email === "" || phone === "" || address === "" || password === "") {
         Swal.fire({
             icon: 'error',
             title: 'Lỗi!',
@@ -251,8 +274,10 @@ function updateStaff(element) {
             $('#email').val(staff.email);
             $('#phone').val(staff.phone);
             $('#address').val(staff.address);
+            $('#password').val(staff.password);
             $('#uploadfile').val(staff.avatar);
-            $('#role').val(staff.role);
+            $('#role').val(staff.role.id);
+            writeURL(staff.avatar);
 
             // Lắng nghe sự kiện đóng modal
             $('#modalStaff').on('hidden.bs.modal', function () {

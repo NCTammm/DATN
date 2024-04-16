@@ -49,4 +49,25 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
                 WHERE cd.id IN :cartDetailId
             """, nativeQuery = true)
     List<ProductDetail> findProductDetailIdByCartDetailId(@Param("cartDetailId") List<Integer> cartDetailId);
+
+    @Query(value = """
+                SELECT
+                    pd.*
+                FROM
+                    product_details pd
+                JOIN
+                    products p ON pd.product_id = p.id
+                JOIN
+                    sizes s ON pd.size_id = s.id
+                JOIN
+                    colors c ON pd.color_id = c.id
+                WHERE
+                    p.id = :productId
+                    AND s.id = :sizeId
+                    AND c.id = :colorId
+                
+            """, nativeQuery = true)
+    ProductDetail showQuantity(@Param("productId") Integer productId,
+                               @Param("colorId") Integer colorId,
+                               @Param("sizeId") Integer sizeId);
 }

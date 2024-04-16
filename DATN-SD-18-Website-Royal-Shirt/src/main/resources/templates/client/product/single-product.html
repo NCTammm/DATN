@@ -112,7 +112,8 @@
                                         <h5>Color</h5>
                                         <div class="btn-group">
                                             <select class="form-select size-option" id="colorSelect"
-                                                    aria-label="Default select example">
+                                                    aria-label="Default select example"
+                                                    onchange="showQuantity()">
                                                 <option th:each="color : ${listColor}"
                                                         th:value="${color.id}"
                                                         th:text="${color.name}"></option>
@@ -126,7 +127,8 @@
                                         <div class="size-drop">
                                             <div class="btn-group">
                                                 <select class="form-select size-option" id="sizeSelect"
-                                                        aria-label="Default select example">
+                                                        aria-label="Default select example"
+                                                        onchange="showQuantity()">
                                                     <option th:each="size : ${listSize}"
                                                             th:value="${size.id}"
                                                             th:text="${size.name}"></option>
@@ -144,6 +146,9 @@
                                            max="${product.productDetail.quantity}"
                                            name="qtybutton" class="plus-minus-box">
                                     <a class="inc qtybutton">+</a>
+                                </div>
+                                <div class="showQuantity">
+                                    <p>Số lượng: <span id="showQuantity"></span></p>
                                 </div>
                             </div>
                         </div>
