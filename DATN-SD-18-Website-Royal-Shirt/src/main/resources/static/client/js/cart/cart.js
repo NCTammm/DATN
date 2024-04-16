@@ -42,33 +42,34 @@ function saveListProductToCheckout() {
     }
 }
 
-$(document).ready(function () {
-    $('.cart-checkbox').change(function () {
-        calculateTotal();
-    });
-});
-
-
+// Hàm tính tổng tiền và định dạng thành tiền tệ VND
 function calculateTotal() {
-    var selectedIds = [];
-    $('.cart-checkbox:checked').each(function () {
-        selectedIds.push($(this).val());
-    });
+    var total = 0;
+    var checkboxes = document.getElementsByClassName('cart-checkbox');
+    var quantityInputs = document.getElementsByClassName('plus-minus-box');
+    var priceElements = document.getElementsByClassName('price');
 
-    $.ajax({
-        type: 'POST',
-        url: '/sumPrice',
-        contentType: 'application/json',
-        data: JSON.stringify(selectedIds),
-        success: function (response) {
-            var formattedTongTien = formatCurrency(response.totalPrice);
-            $('#sumPrice').text(formattedTongTien);
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            var quantity = parseInt(quantityInputs[i].value);
+            var priceText = priceElements[i].textContent;
+            // Thay thế tất cả các dấu chấm bằng chuỗi rỗng để giữ lại toàn bộ số tiền
+            var price = parseFloat(priceText.replace(/\./g, ''));
+            total += quantity * price;
         }
-    });
+    }
+
+    // Hiển thị tổng tiền trong thẻ có id là "sumPrice" với định dạng tiền tệ VND
+    document.getElementById('sumPrice').textContent = formatCurrency(total);
 }
+
+// Thêm sự kiện onchange cho mỗi checkbox để gọi hàm tính tổng
+document.addEventListener('DOMContentLoaded', function () {
+    var checkboxes = document.getElementsByClassName('cart-checkbox');
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener('change', calculateTotal);
+    }
+});
 
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
