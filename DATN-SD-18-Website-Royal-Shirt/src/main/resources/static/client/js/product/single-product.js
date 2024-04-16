@@ -1,4 +1,34 @@
 
+document.addEventListener("DOMContentLoaded", function() {
+    var quantityInput = document.getElementById('quantity');
+
+    // Bắt sự kiện khi giá trị của input thay đổi
+    quantityInput.addEventListener('change', function() {
+        var quantityValue = parseInt(quantityInput.value);
+
+        // Kiểm tra xem số lượng có lớn hơn 0 không
+        if (quantityValue < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Số lượng phải lớn hơn 1.'
+            });
+            this.value = 1;
+            return;
+        }
+        // Kiểm tra xem giá trị nhập vào có phải là số không
+        if (!(/^\d*$/.test(quantityValue))) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Vui lòng chỉ nhập các ký tự số.'
+            });
+            this.value = 1;
+            return;
+        }
+    });
+});
+
 // Hàm add to cart
 function addToCart(button) {
     var id = button.getAttribute("data-id");

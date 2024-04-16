@@ -1,9 +1,6 @@
 package com.poly.datn.sd18.model.dto;
 
-import com.poly.datn.sd18.entity.Role;
-import com.poly.datn.sd18.entity.Staff;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -23,5 +20,6 @@ public class StaffDTO {
 
     private String password;
 
-    private Role role;
+    private Integer roleId;
+
 }

@@ -44,7 +44,7 @@ public class CartRestController {
             }else {
                 Customer customer = (Customer) session.getAttribute("customer");
                 if (customer == null) {
-                    response.sendRedirect("/login");
+                    response.sendRedirect("/loginPage");
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
                 }
 
@@ -53,6 +53,25 @@ public class CartRestController {
             }
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/checkQuantityProductDetail/{id}")
+    public ResponseEntity<?> checkQuantityProductDetail(@PathVariable("id") Integer productId,
+                                                        BindingResult result) {
+        try {
+            if (result.hasErrors()) {
+                List<String> errorMessage = result.getFieldErrors()
+                        .stream()
+                        .map(FieldError::getDefaultMessage)
+                        .toList();
+                return ResponseEntity.badRequest().body(errorMessage);
+            }else {
+
+                return ResponseEntity.ok("");
+            }
+        }catch (Exception e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 

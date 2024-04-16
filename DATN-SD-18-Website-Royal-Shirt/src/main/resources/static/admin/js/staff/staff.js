@@ -1,3 +1,16 @@
+
+//Show form
+$(document).ready(function () {
+    $('#showModalStaff').click(function () {
+        $('.modal-title').text("Thêm Nhân Viên");
+        $('#modalStaff').modal('show');
+    });
+    $('#closeFormStaff').click(function () {
+        $('#modalStaff').modal('hide');
+    });
+});
+
+
 function readURL(input, thumbimage) {
     if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
         var reader = new FileReader();
@@ -34,7 +47,7 @@ $(document).ready(function () {
     });
 })
 
-
+// set status staff
 function setStatusStaff(button) {
     var staffId = button.getAttribute("data-id");
 
@@ -74,45 +87,194 @@ function setStatusStaff(button) {
     });
 }
 
-function updateStaff(staffId) {
-    // Lấy modal
-    var modal = document.getElementById('showModalStaff');
+// save or update staff
+function saveOrUpdateStaff() {
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var phone = $("#phone").val();
+    var address = $("#address").val();
+    var role = $("#role").val();
+    var password =  $("#password").val();
+    var image = $("#uploadfile").prop('files')[0];
+    var currentTime = moment().format('YYYY-MM-DD');
+    var staffId = $("#staffForm").attr("staff-id-update");
 
-    // Lấy thông tin của nhân viên từ server và điền vào modal
-    var apiUrl = '/admin/staffs/findId/' + staffId;
+    var dataSend = {
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        password: password,
+        roleId: role,
+        avatar: image
+    }
+    console.log(dataSend);
+    // Check thông tin
+//    if (!validateInputStaff()) {
+//        return;
+//    }
 
-    fetch(apiUrl)
-        .then(function(response) {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(function(data) {
-            // Điền thông tin của nhân viên vào modal
-            document.getElementById('name').value = data.name;
-            document.getElementById('email').value = data.email;
-            document.getElementById('phone').value = data.phone;
-            document.getElementById('address').value = data.address;
-            document.getElementById('role').value = data.roleId;
+    // Nếu  idStaff tồn tại -> update, ngược lại -> create
+    if (staffId) {
+        dataSend.id = staffId;
+        dataSend.updatedDate = currentTime;
+    } else {
+        // Kiểm tra trùng email
+//        if (!validateDuplicateEmail(email)) {
+//            Swal.fire({
+//                icon: 'error',
+//                title: 'Lỗi!',
+//                text: 'Email đã tồn tại trong hệ thống!'
+//            });
+//            return false;
+//        }
+        dataSend.createdDate = currentTime;
+    }
 
-            // Hiển thị ảnh của nhân viên nếu có
-            var avatarImg = document.getElementById('avatar');
-            if (data.avatar) {
-                avatarImg.src = 'data:image/jpeg;base64,' + data.avatar;
-                avatarImg.style.display = 'block';
-            } else {
-                avatarImg.style.display = 'none';
-            }
+    var url = staffId ? "/admin/rest/staffs/update/" + staffId : "/admin/rest/staffs/create";
+    var method = staffId ? "PUT" : "POST";
 
-            // Hiển thị modal sau khi điền thông tin
-            modal.style.display = 'block';
-        })
-        .catch(function(error) {
-            console.error('Error updating staff:', error);
-        });
+    // Gửi yêu cầu AJAX
+    $.ajax({
+        type: method,
+        url: url,
+        contentType: "application/json",
+        data: JSON.stringify(dataSend),
+        success: function (response) {
+            console.log("Lưu nhân viên thành công!");
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: 'Lưu nhân viên thành công!',
+                didClose: function () {
+                    location.reload();
+                }
+            });
+        },
+        error: function (error) {
+            console.error("Lỗi khi lưu nhân viên:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Có lỗi xảy ra khi lưu nhân viên!'
+            });
+        }
+    });
 }
 
+//validate input form staff
+function validateInputStaff() {
+    var name = $("#name").val().trim();
+    var email = $("#email").val().trim();
+    var phone = $("#phone").val().trim();
+    var address = $("#address").val().trim();
+    var password = $("#password").val().trim();
+
+    // Kiểm tra xem các trường có rỗng không
+    if (name === "" || email === "" || phone === "" || address === "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Vui lòng điền đầy đủ thông tin!'
+        });
+        return false;
+    }
+    //Check Tên thương hiệu
+    var nameRegex = /^[a-zA-ZÀ-ỹ\s]+$/;
+    if (!nameRegex.test(name)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Tên nhân viên không hợp lệ!'
+        });
+        return false;
+    }
+    // Kiểm tra định dạng email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Email không hợp lệ!'
+        });
+        return false;
+    }
+    // Kiểm tra định dạng số điện thoại
+    var phoneRegex = /^(0|\+84)\d{9,10}$/;
+    if (!phoneRegex.test(phone)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Số điện thoại không hợp lệ!'
+        });
+        return false;
+    }
+}
+
+// Check trùng email staff
+function validateDuplicateEmail(email) {
+    var existEmail;
+    // Gửi yêu cầu AJAX để kiểm tra trùng email
+    $.ajax({
+        type: "POST",
+        url: "/admin/rest/staffs/validateDuplicateEmail",
+        contentType: "application/json",
+        data: JSON.stringify({name: email}),
+        async: false,
+        success: function (response) {
+            existEmail = response.existEmail;
+        },
+        error: function (error) {
+            console.error("Lỗi khi kiểm tra trùng tên Email:", error);
+        }
+    });
+    return existEmail;
+}
+
+function updateStaff(element) {
+    //Chỉnh sửa tên modal
+    $('.modal-title').text("Chỉnh sửa nhân viên");
+
+    var staffId = element.getAttribute("data-id");
+
+    // Thêm thuộc tính để kiểm tra xem add hay update
+    $('#staffForm').attr('staff-id-update', staffId);
+    $.ajax({
+        type: 'GET',
+        url: '/admin/rest/staffs/formUpdate/' + staffId,
+        success: function (staff) {
+            // Hiển thị hộp thoại modal
+            $('#modalStaff').modal('show');
+
+            // Điền dữ liệu vào các trường biểu mẫu
+            $('#name').val(staff.name);
+            $('#email').val(staff.email);
+            $('#phone').val(staff.phone);
+            $('#address').val(staff.address);
+            $('#uploadfile').val(staff.avatar);
+            $('#role').val(staff.role);
+
+            // Lắng nghe sự kiện đóng modal
+            $('#modalStaff').on('hidden.bs.modal', function () {
+                // Xóa thuộc tính brand-id-update khi modal đóng
+                $('#staffForm').removeAttr('brand-id-update');
+
+                // Làm mới input
+                $('#name').val(null);
+                $('#email').val(null);
+                $('#phone').val(null);
+                $('#address').val(null);
+                $('#address').val(null);
+                $('#role').val(null);
+                $('#uploadfile').val(null);
+            });
+        },
+        error: function (error) {
+            console.log('Error fetching brand data:', error);
+            // Xử lý lỗi nếu cần
+        }
+    });
+}
 
 
 

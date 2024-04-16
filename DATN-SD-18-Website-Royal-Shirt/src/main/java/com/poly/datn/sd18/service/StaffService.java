@@ -17,4 +17,6 @@ public interface StaffService {
     Staff findStaffById(Integer id);
     Staff updateStaff(StaffDTO staffDTO, Integer id, MultipartFile file);
     Staff setStatusStaff(Integer id);
+    List<Staff> existsByEmail(String email);
+    Staff create(StaffDTO staffDTO);
 }

@@ -1,5 +1,6 @@
 package com.poly.datn.sd18.service.impl;
 
+import com.poly.datn.sd18.entity.Role;
 import com.poly.datn.sd18.entity.Staff;
 import com.poly.datn.sd18.model.dto.StaffDTO;
 import com.poly.datn.sd18.repository.StaffRepository;
@@ -52,7 +53,9 @@ public class StaffServiceImpl implements StaffService {
                     .phone(staffDTO.getPhone())
                     .address(staffDTO.getAddress())
                     .password(staffDTO.getPassword())
-                    .role(staffDTO.getRole())
+                    .role(Role.builder()
+                            .id(staffDTO.getRoleId())
+                            .build())
                     .status(0)
                     .build();
             if (file == null) {
@@ -120,5 +123,27 @@ public class StaffServiceImpl implements StaffService {
             return staffRepository.save(staff);
         }
         return null;
+    }
+
+    @Override
+    public List<Staff> existsByEmail(String email) {
+        return staffRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Staff create(StaffDTO staffDTO) {
+        Staff staff = Staff.builder()
+                .name(staffDTO.getName())
+                .email(staffDTO.getEmail())
+                .phone(staffDTO.getPhone())
+                .avatar(staffDTO.getAvatar())
+                .address(staffDTO.getAddress())
+                .password(staffDTO.getPassword())
+                .status(0)
+                .role(Role.builder()
+                        .id(staffDTO.getRoleId())
+                        .build())
+                .build();
+        return staffRepository.save(staff);
     }
 }
