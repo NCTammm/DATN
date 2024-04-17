@@ -87,7 +87,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<Staff> existsByEmail(String email) {
-        return staffRepository.existsByEmail(email);
+        return staffRepository.findByEmail(email);
     }
 
     @Override

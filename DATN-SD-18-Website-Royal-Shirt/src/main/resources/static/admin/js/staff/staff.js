@@ -155,14 +155,14 @@ function saveOrUpdateStaff() {
         dataSend.updatedDate = currentTime;
     } else {
         // Kiểm tra trùng email
-//        if (!validateDuplicateEmail(email)) {
-//            Swal.fire({
-//                icon: 'error',
-//                title: 'Lỗi!',
-//                text: 'Email đã tồn tại trong hệ thống!'
-//            });
-//            return false;
-//        }
+        if (!validateDuplicateEmail(email)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Email đã tồn tại!'
+            });
+            return false;
+        }
         dataSend.createdDate = currentTime;
     }
 
@@ -243,22 +243,22 @@ function validateInputStaff(name, email, phone, address, password) {
 
 // Check trùng email staff
 function validateDuplicateEmail(email) {
-    var existEmail;
+    var existsEmail;
     // Gửi yêu cầu AJAX để kiểm tra trùng email
     $.ajax({
         type: "POST",
         url: "/admin/rest/staffs/validateDuplicateEmail",
         contentType: "application/json",
-        data: JSON.stringify({name: email}),
+        data: JSON.stringify({email: email}),
         async: false,
         success: function (response) {
-            existEmail = response.existEmail;
+            existsEmail = response.existsEmail;
         },
         error: function (error) {
             console.error("Lỗi khi kiểm tra trùng tên Email:", error);
         }
     });
-    return existEmail;
+    return existsEmail;
 }
 
 function updateStaff(element) {

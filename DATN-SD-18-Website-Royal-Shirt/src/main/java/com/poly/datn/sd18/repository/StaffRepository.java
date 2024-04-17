@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StaffRepository extends JpaRepository<Staff, Integer> {
     Staff findStaffByEmail(String email);
-    List<Staff> existsByEmail(String email);
+    List<Staff> findByEmail(String email);
 }
