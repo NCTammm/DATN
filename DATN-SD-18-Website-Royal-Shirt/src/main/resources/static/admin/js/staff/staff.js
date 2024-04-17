@@ -1,4 +1,4 @@
-var urlImage;
+
 //Show form
 $(document).ready(function () {
     $('#showModalStaff').click(function () {
@@ -10,69 +10,77 @@ $(document).ready(function () {
     });
 });
 
+var urlImage;
 
-function readURL(input, thumbimage) {
-    if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+function readURL(input) {
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             $("#thumbimage").attr('src', e.target.result);
             urlImage = e.target.result;
+
+            // Tạo một container cho ảnh và nút xóa
+            var imageContainer = $(
+                '<div class="image-product-container">' +
+                '   <img src="' + e.target.result + '" alt="Thumb image" height="150" width="100" id="thumbimage"/>' +
+                '   <a class="removeimg" href="javascript:" style="display: inline"></a>' +
+                '</div>'
+            );
+
+            // Thêm container vào thumbbox
+            $("#thumbbox").empty();
+            $("#thumbbox").append(imageContainer);
+
+            // Sự kiện click cho nút xóa
+            imageContainer.find(".removeimg").on("click", function () {
+                // Xóa ảnh khỏi biến listUrlImage
+                $("#thumbimage").attr('src', '').hide();
+                urlImage = null;
+
+                $(this).closest(".image-product-container").remove();
+
+                 $("#myfileupload").html('<input type="file" id="uploadfile" name="ImageUpload" multiple onchange="readURL(this)"/>');
+                 $('.Choicefile').css({
+                    'background': '#14142B',
+                    'cursor': 'pointer'
+                 });
+            });
         }
         reader.readAsDataURL(input.files[0]);
     }
-    else { // Sử dụng cho IE
-        $("#thumbimage").attr('src', input.value);
-    }
-    $("#thumbimage").show();
-    $('.filename').text($("#uploadfile").val());
-    $('.Choicefile').css('background', '#14142B');
-    $('.Choicefile').css('cursor', 'default');
-    $(".removeimg").show();
-    $(".Choicefile").unbind('click');
 }
 
 function writeURL(url) {
-    // Lặp qua mảng listUrlImage và hiển thị từng ảnh
-        var imageContainer = $(
-            '<div class="image-product-container">' +
-            '   <img src="' + url + '" alt="Thumb image" class="thumbimage"/>' +
-            '   <a class="removeimg" href="javascript:" style="display: inline"></a>' +
-            '</div>'
-        );
+    // Tạo một container cho ảnh và nút xóa
+    var imageContainer = $(
+        '<div class="image-product-container">' +
+        '   <img src="' + url + '" alt="Thumb image" height="150" width="100" id="thumbimage"/>' +
+        '   <a class="removeimg" href="javascript:" style="display: inline"></a>' +
+        '</div>'
+    );
 
-        // Thêm container vào thumbbox
-        $("#thumbbox").empty();
-        $("#thumbbox").append(imageContainer);
+    // Thêm container vào thumbbox
+    $("#thumbbox").empty();
+    $("#thumbbox").append(imageContainer);
 
-        // Sự kiện click cho nút xóa
-        imageContainer.find(".removeimg").on("click", function () {
-            var removedImage = $(this).closest(".image-product-container").find("img").attr("src");
-            // Xóa ảnh khỏi biến listUrlImage
-            listUrlImage = listUrlImage.filter(function (img) {
-                return img !== removedImage;
-            });
-            $(this).closest(".image-product-container").remove();
-            console.log(listUrlImage);
-            $("#myfileupload").html('<input type="file" id="uploadfile" name="ImageUpload" multiple onchange="readURL(this)"/>');
-            $('.Choicefile').css('background', '#14142B');
+    // Sự kiện click cho nút xóa
+    imageContainer.find(".removeimg").on("click", function () {
+        // Xóa ảnh khỏi biến urlImage
+        urlImage = null;
+
+        $(this).closest(".image-product-container").remove();
+
+        $("#myfileupload").html('<input type="file" id="uploadfile" name="ImageUpload" multiple onchange="readURL(this);"/>');
+        $('.Choicefile').css({
+            'background': '#14142B',
+            'cursor': 'pointer'
         });
-    console.log(url);
+    });
 }
 
 $(document).ready(function () {
     $(".Choicefile").bind('click', function () {
         $("#uploadfile").click();
-    });
-    $(".removeimg").click(function () {
-        $("#thumbimage").attr('src', '').hide();
-        $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
-        $(".removeimg").hide();
-        $(".Choicefile").bind('click', function () {
-            $("#uploadfile").click();
-        });
-        $('.Choicefile').css('background', '#14142B');
-        $('.Choicefile').css('cursor', 'pointer');
-        $(".filename").text("");
     });
 })
 
@@ -118,13 +126,12 @@ function setStatusStaff(button) {
 
 // save or update staff
 function saveOrUpdateStaff() {
-    var name = $("#name").val();
-    var email = $("#email").val();
-    var phone = $("#phone").val();
-    var address = $("#address").val();
+    var name = $("#name").val().trim();
+    var email = $("#email").val().trim();
+    var phone = $("#phone").val().trim();
+    var address = $("#address").val().trim();
     var role = $("#role").val();
-    var password =  $("#password").val();
-//    var image = $("#uploadfile").prop('files')[0];
+    var password =  $("#password").val().trim();
     var currentTime = moment().format('YYYY-MM-DD');
     var staffId = $("#staffForm").attr("staff-id-update");
 
@@ -137,11 +144,10 @@ function saveOrUpdateStaff() {
         roleId: role,
         avatar: urlImage
     }
-    console.log(urlImage);
     // Check thông tin
-//    if (!validateInputStaff(name, email, phone, address, password)) {
-//        return;
-//    }
+    if (!validateInputStaff(name, email, phone, address, password)) {
+        return;
+    }
 
     // Nếu  idStaff tồn tại -> update, ngược lại -> create
     if (staffId) {
@@ -232,6 +238,7 @@ function validateInputStaff(name, email, phone, address, password) {
         });
         return false;
     }
+    return true;
 }
 
 // Check trùng email staff
@@ -256,7 +263,7 @@ function validateDuplicateEmail(email) {
 
 function updateStaff(element) {
     //Chỉnh sửa tên modal
-    $('.modal-title').text("Chỉnh sửa nhân viên");
+    $('.modal-title').text("Chỉnh sửa thông tin nhân viên");
 
     var staffId = element.getAttribute("data-id");
 
@@ -275,7 +282,6 @@ function updateStaff(element) {
             $('#phone').val(staff.phone);
             $('#address').val(staff.address);
             $('#password').val(staff.password);
-            $('#uploadfile').val(staff.avatar);
             $('#role').val(staff.role.id);
             writeURL(staff.avatar);
 
@@ -289,9 +295,8 @@ function updateStaff(element) {
                 $('#email').val(null);
                 $('#phone').val(null);
                 $('#address').val(null);
-                $('#address').val(null);
-                $('#role').val(null);
-                $('#uploadfile').val(null);
+                $('#password').val(null);
+                $("#thumbbox").empty();
             });
         },
         error: function (error) {

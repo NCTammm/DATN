@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -31,9 +30,21 @@ public class StaffRestController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody StaffDTO staffDTO) {
-        Staff staff = staffService.create(staffDTO);
-        return ResponseEntity.ok(staff);
+    public ResponseEntity<?> createStaff(@Valid @RequestBody StaffDTO staffDTO,
+                                    BindingResult result) {
+        try {
+            if (result.hasErrors()) {
+                List<String> errorMessage = result.getFieldErrors()
+                        .stream().map(FieldError::getDefaultMessage)
+                        .toList();
+                return ResponseEntity.badRequest().body(errorMessage);
+            }else {
+                Staff staff = staffService.createStaff(staffDTO);
+                return ResponseEntity.ok(staff);
+            }
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/setStatus/{id}")
@@ -55,7 +66,6 @@ public class StaffRestController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateStaff(@Valid @RequestBody StaffDTO staffDTO,
-                                         @RequestParam("imageStaff") MultipartFile file,
                                          @PathVariable("id") Integer id,
                                          BindingResult result) {
         try {
@@ -65,7 +75,7 @@ public class StaffRestController {
                         .toList();
                 return ResponseEntity.badRequest().body(errorMessage);
             }else {
-                Staff staff = staffService.updateStaff(staffDTO, id, file);
+                Staff staff = staffService.updateStaff(staffDTO, id);
                 return ResponseEntity.ok(staff);
             }
         }catch (Exception e) {
