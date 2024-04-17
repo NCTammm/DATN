@@ -84,10 +84,4 @@ public class StaffRestController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    @GetMapping("/searchPhone")
-    public ResponseEntity<?> searchPhone() {
-        return ResponseEntity.ok("");
-    }
-
 }
