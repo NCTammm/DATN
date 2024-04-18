@@ -24,7 +24,7 @@ public class OrderDTO {
     private String shopping;
     private Integer status;
     private Boolean type;
-    private Date conformDate;
+    private Date conformWaitDate;
 
     public Order map(Order order){
         order.setCustomer(Customer.builder().id(this.customerId).build());
@@ -37,7 +37,7 @@ public class OrderDTO {
         order.setShopping(this.shopping);
         order.setStatus(this.status);
         order.setType(true);
-        order.setConfirmDate(new Date(System.currentTimeMillis()));
+        order.setConfirmWaitDate(new Date(System.currentTimeMillis()));
         return order;
     }
 }
