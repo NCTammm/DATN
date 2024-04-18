@@ -1,6 +1,7 @@
 var listProductIdChoice = [];
 var listProduct = [];
 var totalPrice = 0;
+var shopId;
 
 // Địa chỉ
 $(document).ready(function () {
@@ -104,7 +105,139 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    // Gọi API để tạo cửa hàng mới
+    $.ajax({
+        url: 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shop/register',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Token': 'a76df0d2-77a1-11ee-b1d4-92b443b7a897'
+        },
+        data: JSON.stringify({
+            district_id: 1485,
+            ward_code: "1A0606",
+            name: "Royal-Shirt",
+            address: "Dương Quảng Hàm",
+            phone: "0387029362"
+        }),
+        success: function (data) {
+            if (data.code === 200) {
+                shopId = data.data.shop_id;
+                console.log("ID cửa hàng :", shopId);
+            } else {
+                console.error("Failed to create store:", data.message);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error creating store:", error);
+        }
+    });
+
+    // Tính phí vận chuyển
+    $('#wardSelect').change(function () {
+        const toWardCode = $(this).val();
+        const toDistrictId = parseInt($('#districtSelect').val());
+        const toProvince = $('#provinceSelect').val();
+
+        console.log("Id Shop : ", shopId);
+        console.log("Phường : ", toWardCode);
+        console.log("Quận : ", toDistrictId);
+        console.log("Thành phố : ", toProvince);
+
+        if (toProvince && toWardCode && toDistrictId) {
+
+            // Gọi API để tính thời gian giao hàng dự kiến
+            async function getDeliveryTime() {
+                try {
+                    const response = await fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/leadtime', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Token': 'a76df0d2-77a1-11ee-b1d4-92b443b7a897'
+                        },
+                        body: JSON.stringify({
+                            shop_id: shopId,
+                            from_district_id: 1485,
+                            from_ward_code: "1A0606",
+                            to_district_id: toDistrictId,
+                            to_ward_code: toWardCode,
+                            service_id: 53320
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.code === 200) {
+                        const deliveryTimestamp = data.data.leadtime;
+                        const deliveryDate = new Date(deliveryTimestamp * 1000);
+                        const day = deliveryDate.getDate();
+                        const month = deliveryDate.getMonth() + 1;
+                        const year = deliveryDate.getFullYear();
+                        const formattedDeliveryDate = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
+                        $('#deliveryTime').text(formattedDeliveryDate);
+                        console.log("Thời gian giao dự kiến cho địa chỉ đã chọn:", deliveryTime);
+                    } else {
+                        console.error("Failed to get shipping fee:", data.message);
+                    }
+                } catch (error) {
+                    console.error("Error getting shipping fee:", error);
+                }
+            }
+
+            getDeliveryTime();
+
+            // Gọi API để tính phí vận chuyển
+            $.ajax({
+                url: 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Token': 'a76df0d2-77a1-11ee-b1d4-92b443b7a897'
+                },
+                data: JSON.stringify({
+                    shop_id: shopId,
+                    service_id: 53320,
+                    from_district_id: 1485,
+                    to_district_id: toDistrictId,
+                    to_ward_code: toWardCode,
+                    height: 20,
+                    length: 30,
+                    width: 40,
+                    insurance_value: 0,
+                    coupon: null,
+                    weight: 3000,
+                    items: [
+                        {
+                            name: "TEST1",
+                            quantity: 1,
+                            height: 200,
+                            weight: 1000,
+                            width: 200,
+                            length: 200
+                        }
+                    ]
+                }),
+                success: function (data) {
+                    if (data.code === 200) {
+                        var shippingFee = data.data.total;
+                        var formattedShippingFee = formatPrice(shippingFee);
+                        $('#shippingFee').text(formattedShippingFee);
+                        console.log("Phí vận chuyển cho địa chỉ đã chọn:", shippingFee);
+                    } else {
+                        console.error("Failed to get shipping fee:", data.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error getting shipping fee:", error);
+                }
+            });
+
+        }
+    });
+
+
 });
+
 
 $(document).ready(function () {
     var listProduct = JSON.parse(localStorage.getItem("listProductIdChoice"));
