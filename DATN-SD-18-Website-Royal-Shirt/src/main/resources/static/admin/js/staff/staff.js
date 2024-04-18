@@ -283,7 +283,8 @@ function updateStaff(element) {
             $('#address').val(staff.address);
             $('#password').val(staff.password);
             $('#role').val(staff.role.id);
-            writeURL(staff.avatar);
+            urlImage = staff.avatar;
+            writeURL(urlImage);
 
             // Lắng nghe sự kiện đóng modal
             $('#modalStaff').on('hidden.bs.modal', function () {

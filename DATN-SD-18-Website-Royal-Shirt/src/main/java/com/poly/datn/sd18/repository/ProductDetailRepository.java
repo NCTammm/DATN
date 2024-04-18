@@ -135,7 +135,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
             "    ROUND(dbo.product_details.price * (1 - \n" +
             "    CASE \n" +
             "        WHEN dbo.discounts.status = 1 THEN 0\n" +
-            "        WHEN dbo.discounts.start_date > GETDATE() OR dbo.discounts.end_date < GETDATE() THEN 0\n" +
+            "        WHEN dbo.discounts.start_date > CAST(GETDATE() AS DATE) OR dbo.discounts.end_date < CAST(GETDATE() AS DATE) THEN 0\n" +
             "        ELSE COALESCE(dbo.discounts.discount, 0) / 100.0\n" +
             "    END), 0) AS discounted_price\n" +
             "FROM \n" +
