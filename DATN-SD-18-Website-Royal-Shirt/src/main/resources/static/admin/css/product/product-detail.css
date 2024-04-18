@@ -81,3 +81,18 @@
     content: attr(data-raw-value) " Cái";
     width: 100%; /* Đảm bảo nằm ở cuối cùng */
 }
+
+.product-detail-infor {
+    padding-top: 10px;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.modal-header {
+    border-radius: 0px;
+    border-bottom: 2px solid #FFD43B;
+}
+
+.modal-title {
+    font-size: 22px;
+}

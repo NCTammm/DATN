@@ -18,6 +18,7 @@ public class OrderCounterRequest {
     private String shopping;
     private Integer status;
     private Date successDate;
+    private Boolean type;
 
     public Order map(Order order){
         order.setPhone(Customer.builder().id(this.customerId).build().getPhone());
@@ -27,6 +28,7 @@ public class OrderCounterRequest {
         order.setShopping(this.shopping);
         order.setStatus(this.status);
         order.setSuccessDate(this.successDate);
+        order.setType(this.type);
         order.setStaff(Staff.builder().id(this.staffId).build());
         order.setCustomer(Customer.builder().id(this.customerId).build());
         return order;

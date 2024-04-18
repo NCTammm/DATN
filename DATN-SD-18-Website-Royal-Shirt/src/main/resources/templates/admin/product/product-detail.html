@@ -54,7 +54,8 @@
                             <!-- Số lượng thông qua màu -->
                             <div class="d-flex row-quantity">
                                 <div class="col-md-2 color-quantity">
-                                    <select class="form-control" id="select-color-quantity" onchange="getQuantityByColor(this)">
+                                    <select class="form-control" id="select-color-quantity"
+                                            onchange="getQuantityByColor(this)">
                                         <option value="" disabled selected hidden>Chọn màu</option>
                                         <option th:each="color : ${listColor}" th:value="${color.id}"
                                                 th:text="${color.name}"></option>
@@ -68,7 +69,8 @@
                             <!-- Số lượng thông qua kích thước -->
                             <div class="d-flex row-quantity">
                                 <div class="col-md-2 color-quantity">
-                                    <select class="form-control" id="select-size-quantity" onchange="getQuantityBySize(this)">
+                                    <select class="form-control" id="select-size-quantity"
+                                            onchange="getQuantityBySize(this)">
                                         <option value="" disabled selected hidden>Chọn kích thước</option>
                                         <option th:each="size : ${listSize}" th:value="${size.id}"
                                                 th:text="${size.name}"></option>
@@ -141,7 +143,7 @@
                                 </div>
                                 <div class="row modal-body ">
                                     <!--Màu Sắc - Kích Thước-->
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12 product-detail-infor">
                                         <label class="control-label" id="product-detail-color">Màu Sắc: </label>
                                         <br>
                                         <label class="control-label" id="product-detail-size">Kích Thước: </label>
@@ -149,7 +151,7 @@
 
                                     <!--Trọng Lượng-->
                                     <div class="form-group col-md-4">
-                                        <label class="control-label">Trọng Lượng</label>
+                                        <label class="control-label">Trọng Lượng (Gram)</label>
                                         <input class="form-control" type="number" id="product-detail-weight" min="0">
                                     </div>
 
@@ -161,7 +163,7 @@
 
                                     <!--Giá-->
                                     <div class="form-group col-md-4">
-                                        <label class="control-label">Giá</label>
+                                        <label class="control-label">Giá (VNĐ)</label>
                                         <input class="form-control" type="number" id="product-detail-price" min="0">
                                     </div>
 
@@ -270,9 +272,13 @@
                             <td class="stt" th:text="${index.index + 1}"></td>
                             <td class="mau_sac" th:text="${productDetail.colorName}"></td>
                             <td class="kich_thuoc" th:text="${productDetail.sizeName}"></td>
-                            <td class="trong_luong" id="trong_luong" th:text="${productDetail.weight}"></td>
+                            <td class="trong_luong" id="trong_luong"
+                                th:text="${#numbers.formatDecimal((productDetail.weight), 0, 'POINT', 0, 'POINT')}"
+                            ></td>
                             <td class="so_luong" th:text="${productDetail.quantity}"></td>
-                            <td class="gia_ban" id="gia_ban" th:text="${productDetail.price}"></td>
+                            <td class="gia_ban" id="gia_ban"
+                                th:text="${#numbers.formatDecimal((productDetail.price), 0, 'POINT', 0, 'POINT')}"
+                            ></td>
                             <td class="table-td-center tinh_nang">
                                 <button class="btn btn-primary btn-sm edit" type="button"
                                         th:attr="data-product-detail-id=${productDetail.id},

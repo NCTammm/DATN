@@ -74,7 +74,7 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
             "       dbo.product_details.price AS price,\n" +
             "    CASE \n" +
             "        WHEN dbo.discounts.status = 1 THEN 0\n" +
-            "        WHEN dbo.discounts.end_date < GETDATE() THEN 0" +
+            "        WHEN dbo.discounts.start_date > CAST(GETDATE() AS DATE) OR dbo.discounts.end_date < CAST(GETDATE() AS DATE) THEN 0" +
             "        ELSE COALESCE(dbo.discounts.discount, 0)\n" +
             "    END AS discount\n" +
             "FROM   dbo.cart_details\n" +

@@ -1896,8 +1896,8 @@ select:focus{outline:none!important;border-color:transparent;border:0;}
     text-align: left;
 }
 .order-complete table thead tr td ,.checkout table thead tr td {
-    padding-right: 30px;
-    text-align: right;
+    /*padding-right: 30px;*/
+    text-align: center;
 }
 .complete-title > p {
 	font-size: 16px;

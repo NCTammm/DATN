@@ -474,6 +474,7 @@ async function saveOrder() {
         shopping: shopping,
         status: status,
         successDate: successDate,
+        type: false
     }
 
     // Gửi yêu cầu AJAX

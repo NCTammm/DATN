@@ -72,12 +72,16 @@
                                     <td>Thao tác</td>
                                 </tr>
                             </thead>
+                            <tbody th:if="${listOrders.empty}">
+                            <tr>
+                                <td colspan="6">Danh sách trống!</td>
+                            </tr>
+                            </tbody>
                             <tbody>
-                                <tr th:each="o : ${listOrders}">
+                                <tr class="head" th:each="o : ${listOrders}">
                                     <td th:text="${o.id}"></td>
-                                    <td></td>
-<!--                                    <td th:text="${o.totalProduct}"></td>-->
-                                    <td th:text="${#numbers.formatDecimal((o.totalPrice), 0, 'POINT', 0, 'POINT')} + ' đ'"></td>
+                                    <td th:text="${o.orderDetails.size}"></td>
+                                    <td th:text="${#numbers.formatDecimal((o.totalPrice+o.shipCost), 0, 'POINT', 0, 'POINT')} + ' đ'"></td>
                                     <td th:text="${#dates.format(o.confirmDate, 'dd/MM/yyyy')}"></td>
                                     <td>
                                         <span th:switch="${o.status}">
@@ -149,7 +153,7 @@
                             <td>Màu sắc</td>
                             <td>Size</td>
                             <td>Giá sản phẩm</td>
-                            <td>Giá sản phẩm sau khi giảm</td>
+                            <td>Giá mua</td>
                             <td>Số lượng</td>
                             <td>Tổng tiền</td>
                         </tr>
