@@ -14,10 +14,9 @@ public interface StaffService {
     Page<Staff> getAllStaffPages(Integer pageNo);
     List<Staff> searchStaffByName(String name);
     List<Staff> searchStaffByStatus(Integer status);
-    Staff createStaff(StaffDTO staffDTO, MultipartFile multipartFile);
     Staff findStaffById(Integer id);
-    Staff updateStaff(StaffDTO staffDTO, Integer id, MultipartFile file);
+    Staff updateStaff(StaffDTO staffDTO, Integer id);
     Staff setStatusStaff(Integer id);
     List<Staff> existsByEmail(String email);
-    Staff create(StaffDTO staffDTO);
+    Staff createStaff(StaffDTO staffDTO);
 }

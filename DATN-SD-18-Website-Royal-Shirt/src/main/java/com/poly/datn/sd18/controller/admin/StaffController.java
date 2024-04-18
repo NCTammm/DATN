@@ -44,24 +44,4 @@ public class StaffController {
         model.addAttribute("currentPage", pageNo);
         return "admin/staff/index";
     }
-
-    @GetMapping("/formCreate")
-    public String formCreate(Model model) {
-        List<Role> listRole = roleService.getAllRole();
-        model.addAttribute("listRole", listRole);
-        model.addAttribute("staff", new Staff());
-        return "admin/staff/create";
-    }
-
-    @PostMapping("/create")
-    public String saveStaff(@Valid @ModelAttribute StaffDTO staffDTO,
-                            @RequestParam("imageStaff") MultipartFile file,
-                            BindingResult result) {
-        if (result.hasErrors()) {
-            return "admin/staff/create";
-        }else {
-            Staff staff = staffService.createStaff(staffDTO, file);
-            return "redirect:/admin/staffs";
-        }
-    }
 }

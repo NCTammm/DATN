@@ -39,6 +39,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                 WHERE
                     c.email =:email
                     and c.password =:password
+                    and c.status = 0
             """, nativeQuery = true)
     Customer loginCustomer(@Param("email") String email,
                            @Param("password") String password);

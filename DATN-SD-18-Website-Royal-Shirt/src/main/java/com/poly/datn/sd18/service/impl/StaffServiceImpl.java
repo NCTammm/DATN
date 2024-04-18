@@ -3,6 +3,7 @@ package com.poly.datn.sd18.service.impl;
 import com.poly.datn.sd18.entity.Role;
 import com.poly.datn.sd18.entity.Staff;
 import com.poly.datn.sd18.model.dto.StaffDTO;
+import com.poly.datn.sd18.repository.RoleRepository;
 import com.poly.datn.sd18.repository.StaffRepository;
 import com.poly.datn.sd18.service.StaffService;
 import com.poly.datn.sd18.util.ImageUpload;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StaffServiceImpl implements StaffService {
     private final StaffRepository staffRepository;
+    private final RoleRepository roleRepository;
     private final ImageUpload imageUpload;
 
     @Override
@@ -51,71 +53,29 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public Staff createStaff(StaffDTO staffDTO, MultipartFile file) {
-        try {
-            Staff existingEmail = staffRepository.findStaffByEmail(staffDTO.getEmail());
-            if (existingEmail != null) {
-                throw new RuntimeException("Email đã tồn tại");
-            }
-            Staff staff = Staff.builder()
-                    .name(staffDTO.getName())
-                    .email(staffDTO.getEmail())
-                    .phone(staffDTO.getPhone())
-                    .address(staffDTO.getAddress())
-                    .password(staffDTO.getPassword())
-                    .role(Role.builder()
-                            .id(staffDTO.getRoleId())
-                            .build())
-                    .status(0)
-                    .build();
-            if (file == null) {
-                staff.setAvatar(null);
-            }else {
-                imageUpload.uploadImage(file);
-                staff.setAvatar(Base64.getEncoder().encodeToString(file.getBytes()));
-            }
-            return staffRepository.save(staff);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
-    @Override
     public Staff findStaffById(Integer id) {
         return staffRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Staff updateStaff(StaffDTO staffDTO, Integer id, MultipartFile file) {
-        try{
-            Staff staff = findStaffById(id);
-            Staff existingEmail = staffRepository.findStaffByEmail(staffDTO.getEmail());
-            if (existingEmail != null) {
-                throw new RuntimeException("Email đã tồn tại");
-            }
-            if (staff != null) {
-                staff.setName(staffDTO.getName());
-                staff.setEmail(staffDTO.getEmail());
-                staff.setPhone(staffDTO.getPhone());
-                staff.setAddress(staffDTO.getAddress());
-                staff.setPassword(staffDTO.getPassword());
-                if (file == null) {
-                    staff.setAvatar(staffDTO.getAvatar());
-                }else {
-                    if (!imageUpload.checkExisted(file)) {
-                        imageUpload.uploadImage(file);
-                    }
-                    staff.setAvatar(Base64.getEncoder().encodeToString(file.getBytes()));
-                }
-                return staffRepository.save(staff);
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
+    public Staff updateStaff(StaffDTO staffDTO, Integer id) {
+        Staff staff = findStaffById(id);
+        if (staff != null) {
+            Role existingRole = roleRepository.findById(staffDTO.getRoleId()).orElse(null);
+
+            staff.setName(staffDTO.getName());
+            staff.setEmail(staffDTO.getEmail());
+            staff.setPhone(staffDTO.getPhone());
+            staff.setAvatar(staffDTO.getAvatar());
+            staff.setAddress(staffDTO.getAddress());
+            staff.setPassword(staffDTO.getPassword());
+            staff.setStatus(0);
+            staff.setRole(existingRole);
+            return staffRepository.save(staff);
         }
         return null;
     }
+
 
     @Override
     public Staff setStatusStaff(Integer id) {
@@ -137,11 +97,11 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<Staff> existsByEmail(String email) {
-        return staffRepository.existsByEmail(email);
+        return staffRepository.findByEmail(email);
     }
 
     @Override
-    public Staff create(StaffDTO staffDTO) {
+    public Staff createStaff(StaffDTO staffDTO) {
         Staff staff = Staff.builder()
                 .name(staffDTO.getName())
                 .email(staffDTO.getEmail())
