@@ -14,7 +14,7 @@
         margin-top: 10px;
     }
 
-    #totalPriceContainer {
+    .totalPriceContainer {
         text-align: right;
         margin-top: 10px;
     }
@@ -159,7 +159,11 @@
                     </tbody>
                 </table>
                 <BR>
-                <div id="totalPriceContainer">
+                <div class="totalPriceContainer">
+                    <span class="total-label">Tiền ship: </span>
+                    <span id="shipCost" class="total-amount"></span>
+                </div>
+                <div class="totalPriceContainer">
                     <span class="total-label">Tổng tiền: </span>
                     <span id="totalPrice" class="total-amount"></span>
                 </div>

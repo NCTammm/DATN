@@ -17,6 +17,7 @@ function formatCurrency(amount) {
 function getOrderDetails(button) {
     var orderId = button.getAttribute("data-id");
     var totalAmount = 0;
+    var totalShipCost = 0;
 
     $.ajax({
         type: "GET",
@@ -43,10 +44,15 @@ function getOrderDetails(button) {
                     '</tr>';
                 $('#orderDetailBody').append(row);
                 totalAmount += od.discountPrice * od.quantity;
+                totalShipCost = od.shipCost;
             });
 
+            // Tính tổng tiền bao gồm cả phí ship
+            var totalPriceIncludingShip = totalAmount + totalShipCost;
+            // Hiện phí ship
+            $('#shipCost').text(formatCurrency(totalShipCost));
             // Hiển thị tổng tiền
-            $('#totalPrice').text(formatCurrency(totalAmount));
+            $('#totalPrice').text(formatCurrency(totalPriceIncludingShip));
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("AJAX Error:", textStatus, errorThrown);
