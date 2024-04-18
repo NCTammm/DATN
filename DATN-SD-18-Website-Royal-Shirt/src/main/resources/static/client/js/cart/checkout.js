@@ -225,6 +225,7 @@ $(document).ready(function () {
                         var formattedShippingFee = formatPrice(shippingFee);
                         $('#shippingFee').text(formattedShippingFee);
                         console.log("Phí vận chuyển cho địa chỉ đã chọn:", shippingFee);
+                        getTotalPriceAndShip();
                     } else {
                         console.error("Failed to get shipping fee:", data.message);
                     }
@@ -311,8 +312,13 @@ function getTotalPrice() {
 
     // Hiển thị tổng giá trị đã được định dạng trên giao diện người dùng
     $("#totalPriceProducts").text(formattedPrice);
-    $("#totalPrice").text(formattedPrice);
     console.log(totalPrice);
+}
+
+function getTotalPriceAndShip(){
+    var totalPriceAndShip = totalPrice+shipCost;
+    var formattedPrice = formatPrice(totalPriceAndShip);
+    $("#totalPrice").text(formattedPrice);
 }
 
 function formatPrice(price) {
