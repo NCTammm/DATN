@@ -1,6 +1,7 @@
 var listProductIdChoice = [];
 var listProduct = [];
 var totalPrice = 0;
+var shipCost = 0;
 var shopId;
 
 // Địa chỉ
@@ -220,6 +221,7 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data.code === 200) {
                         var shippingFee = data.data.total;
+                        shipCost = shippingFee;
                         var formattedShippingFee = formatPrice(shippingFee);
                         $('#shippingFee').text(formattedShippingFee);
                         console.log("Phí vận chuyển cho địa chỉ đã chọn:", shippingFee);
@@ -344,6 +346,7 @@ async function saveOrder() {
         address: address,
         note: note,
         totalPrice: totalPrice,
+        shipCost: shipCost,
         shopping: shopping,
         status: status
     }

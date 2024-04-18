@@ -20,6 +20,7 @@ public class OrderDTO {
     private String address;
     private String note;
     private Float totalPrice;
+    private Float shipCost;
     private String shopping;
     private Integer status;
     private Boolean type;
@@ -32,6 +33,7 @@ public class OrderDTO {
         order.setAddress(this.address);
         order.setNote(this.note);
         order.setTotalPrice(this.totalPrice);
+        order.setShipCost(this.shipCost);
         order.setShopping(this.shopping);
         order.setStatus(this.status);
         order.setType(true);

@@ -40,7 +40,7 @@ public interface CounterRepository extends JpaRepository<ProductDetail, Integer>
             "    dbo.product_details.price AS price,\n" +
             "    CASE \n" +
             "        WHEN dbo.discounts.status = 1 THEN 0\n" +
-            "        WHEN dbo.discounts.end_date < GETDATE() THEN 0" +
+            "        WHEN dbo.discounts.start_date > GETDATE() OR dbo.discounts.end_date < GETDATE() THEN 0" +
             "        ELSE COALESCE(dbo.discounts.discount, 0)\n" +
             "    END AS discount\n" +
             "FROM   \n" +
@@ -63,7 +63,7 @@ public interface CounterRepository extends JpaRepository<ProductDetail, Integer>
             "    dbo.product_details.price,\n" +
             "    CASE \n" +
             "        WHEN dbo.discounts.status = 1 THEN 0\n" +
-            "        WHEN dbo.discounts.end_date < GETDATE() THEN 0" +
+            "        WHEN dbo.discounts.start_date > GETDATE() OR dbo.discounts.end_date < GETDATE() THEN 0" +
             "        ELSE COALESCE(dbo.discounts.discount, 0)\n" +
             "    END,\n" +
             "    SizesOrder.SizeOrder\n" +
