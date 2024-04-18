@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poly.datn.sd18.entity.Image;
 import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.OrderDetail;
 import com.poly.datn.sd18.entity.Product;
 import com.poly.datn.sd18.entity.ProductDetail;
+import com.poly.datn.sd18.service.ImageService;
 import com.poly.datn.sd18.service.OrderDetailService;
 import com.poly.datn.sd18.service.OrderService;
 import com.poly.datn.sd18.service.ProductDetailService;
@@ -35,11 +37,20 @@ public class AdminOrderDetailRestController {
     @Autowired
     private ProductDetailService productDetailService;
 
+    @Autowired
+    private ImageService imageService;
+
     // Lấy thông tin chi tiết đơn hàng bằng ID
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderDetail(@PathVariable int id) {
         Order obj = orderService.getById(id);
         return ResponseEntity.ok(obj);
+    }
+
+    @GetMapping("/image/{product_id}")
+    public ResponseEntity<List<Image>> getimageUrl(@PathVariable int product_id) {
+        List<Image> list = imageService.getALlByProductId(product_id);
+        return ResponseEntity.ok(list);
     }
 
     // Lấy danh sách sản phẩm trong đơn hàng
@@ -94,7 +105,7 @@ public class AdminOrderDetailRestController {
     // Thêm chi tiết đơn hàng
     @PostMapping("/add-order-detail/{productId}/{orderId}")
     public ResponseEntity<OrderDetail> AddOrderDetail(@RequestBody OrderDetail orderDetail, @PathVariable int productId,
-            @PathVariable int orderId) {
+                                                      @PathVariable int orderId) {
         return ResponseEntity.ok(orderDetailService.add(orderDetail, productId, orderId));
     }
 
