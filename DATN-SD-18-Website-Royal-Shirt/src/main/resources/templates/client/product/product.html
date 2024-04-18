@@ -127,8 +127,7 @@
                                                             class="mdi mdi-view-list"></i> </a></li>
                                             </ul>
                                         </li>
-                                        <li class="sort-by floatright">
-                                            Showing 1-9 of 89 Results
+<!--                                        <li class="sort-by floatright" th:text="'Tổng ' + ${#lists.size(listProducts)} + ' sản phẩm'">-->
                                         </li>
                                     </ul>
                                 </div>
@@ -144,7 +143,7 @@
                                                     <div class="single-product">
                                                         <div class="product-img">
                                                             <div class="pro-type">
-                                                                <span>-15</span>
+                                                                <span th:if="${product.discount != 0}" th:text="'-' + ${product.discount} + '%'"></span>
                                                             </div>
                                                             <a th:href="@{/single-product/{id}(id=${product.id})}">
                                                                 <img th:src="${product.image}" style="width:200px; height:200px;"
@@ -169,8 +168,14 @@
                                                                 <i class="mdi mdi-star-half"></i>
                                                                 <i class="mdi mdi-star-outline"></i>
                                                             </div>
-                                                            <span th:text="${#numbers.formatDecimal((product.minPrice), 0, 'POINT', 0, 'POINT')} +
-                                                             ' - ' + ${#numbers.formatDecimal((product.maxPrice), 0, 'POINT', 0, 'POINT')} + ' VNĐ'"></span>
+                                                            <span th:text="${#numbers.formatDecimal((
+                                                            product.discount == 0 ?
+                                                            product.minPrice :
+                                                            (product.minPrice/100*(100 - product.discount))), 0, 'POINT', 0, 'POINT')} +
+                                                             ' - ' +
+                                                             ${#numbers.formatDecimal((product.discount == 0 ?
+                                                             product.maxPrice :
+                                                             (product.maxPrice/100*(100 - product.discount))), 0, 'POINT', 0, 'POINT')} + ' VNĐ'"></span>
                                                         </div>
                                                     </div>
                                                 </form>

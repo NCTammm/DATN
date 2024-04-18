@@ -15,4 +15,5 @@ public class ProductResponseClient {
     private Float minPrice;
     private Float maxPrice;
     private Integer status;
+    private Integer discount;
 }

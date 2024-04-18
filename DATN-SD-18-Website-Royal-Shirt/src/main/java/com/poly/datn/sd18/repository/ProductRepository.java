@@ -68,7 +68,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 p.description,
                 MIN(pd.price) as minPrice,
                 MAX(pd.price) as maxPrice,
-                p.status
+                p.status,
+                CASE
+                    WHEN d.status = 1 THEN 0
+                    WHEN d.startDate > CAST(GETDATE() AS DATE) OR d.endDate < CAST(GETDATE() AS DATE) THEN 0
+                    ELSE COALESCE(d.discount, 0)
+                END AS discount
             )
         FROM
             Product p
@@ -76,10 +81,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             p.productDetails pd
         LEFT JOIN
             p.images i
+        LEFT JOIN\s
+            p.discount d
         WHERE
-            i.id = (SELECT MIN(id) FROM Image WHERE product.id = p.id)
+            i.id = (SELECT MIN(id) FROM Image WHERE product.id = p.id) AND 
+            p.status = 0
         GROUP BY
-            p.id, p.name, p.description, p.status
+            p.id, p.name, p.description, p.status, d.status, d.startDate, d.endDate, d.discount
         ORDER BY
             p.id
         """)
