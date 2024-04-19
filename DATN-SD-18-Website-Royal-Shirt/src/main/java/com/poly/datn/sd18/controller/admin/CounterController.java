@@ -8,6 +8,7 @@ import com.poly.datn.sd18.service.CounterService;
 import com.poly.datn.sd18.service.CustomerService;
 import com.poly.datn.sd18.service.ProductDetailService;
 import com.poly.datn.sd18.service.StaffService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,13 +29,18 @@ public class CounterController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    HttpSession session;
+
     @GetMapping()
     public String getAll(Model model){
         List<ProductDetailCounterResponse> listProductDetail = counterService.getListProductDetailCounter();
-        List<Staff> listStaff = staffService.getAllActive();
+//        List<Staff> listStaff = staffService.getAllActive();
+        Staff staff = (Staff) session.getAttribute("staff");
         List<Customer> listCustomer = customerService.getAllActive();
         model.addAttribute("listProductDetail",listProductDetail);
-        model.addAttribute("listStaff",listStaff);
+//        model.addAttribute("listStaff",listStaff);
+        model.addAttribute("staff",staff);
         model.addAttribute("listCustomer",listCustomer);
         return "/admin/counter/index";
     }
