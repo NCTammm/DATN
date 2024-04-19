@@ -18,7 +18,7 @@ public interface ProductService {
 
     Product add(ProductRequest productRequest);
 
-    Product update(Product product, int id);
+    Product update(ProductRequest productRequest, int id);
 
     Product setStatus(int id);
 

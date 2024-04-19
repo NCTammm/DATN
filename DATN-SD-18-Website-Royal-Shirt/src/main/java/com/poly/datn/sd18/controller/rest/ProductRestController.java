@@ -44,8 +44,8 @@ public class ProductRestController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@RequestBody Product product, @PathVariable("id") int id) {
-        return ResponseEntity.ok(productService.update(product, id));
+    public ResponseEntity<?> update(@RequestBody ProductRequest productRequest, @PathVariable("id") int id) {
+        return ResponseEntity.ok(productService.update(productRequest, id));
     }
 
     @PostMapping("/setStatus/{id}")

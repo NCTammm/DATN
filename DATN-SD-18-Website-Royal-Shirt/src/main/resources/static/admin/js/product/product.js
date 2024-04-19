@@ -202,6 +202,7 @@ function save() {
         materialId: productMaterial,
         status: productStatus
     }
+    console.log(dataToSend);
 
     // Gửi yêu cầu AJAX
     $.ajax({
@@ -272,7 +273,7 @@ function saveImage(productId) {
     });
 }
 
-function getListProductDetail() {
-    var productId = $('#ProductModal').attr("product-id-update");
+function getListProductDetail(button) {
+    var productId = button.getAttribute('data-product-id');
     window.location.href = "/admin/product-detail/" + productId;
 }

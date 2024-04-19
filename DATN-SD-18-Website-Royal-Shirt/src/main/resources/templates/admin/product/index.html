@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group modal-footer">
-                                    <button type="button" class="btn btn-primary" onclick="getListProductDetail()" >Danh sách biến thể</button>
+<!--                                    <button type="button" class="btn btn-primary" onclick="getListProductDetail()" >Danh sách biến thể</button>-->
                                     <button type="button" class="btn btn-success" onclick="save()">Lưu</button>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             id="closeFormProduct">Đóng
@@ -178,6 +178,11 @@
                                 </label>
                             </td>
                             <td class="table-td-center tinh_nang">
+                                <button class="btn btn-primary"
+                                        th:attr="data-product-id=${product.id}"
+                                        onclick="getListProductDetail(this)">
+                                    <i class="fa-solid fa-eye" style="color: #6626fd;"></i>
+                                </button>
                                 <button class="btn btn-primary btn-sm edit" type="button"
                                         th:attr="data-product-id=${product.id},id=#{${product.id}}"
                                         onclick="updateProductForm(this)"><i class="fas fa-edit"></i>

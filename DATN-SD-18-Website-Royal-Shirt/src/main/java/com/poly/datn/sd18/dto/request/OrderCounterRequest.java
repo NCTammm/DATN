@@ -14,6 +14,7 @@ public class OrderCounterRequest {
     private Integer staffId;
     private Integer customerId;
     private Float totalPrice;
+    private Float shipCost;
     private String note;
     private String shopping;
     private Integer status;
@@ -24,6 +25,7 @@ public class OrderCounterRequest {
         order.setPhone(Customer.builder().id(this.customerId).build().getPhone());
         order.setUsername(Customer.builder().id(this.customerId).build().getName());
         order.setTotalPrice(this.totalPrice);
+        order.setShipCost(this.shipCost);
         order.setNote(this.note);
         order.setShopping(this.shopping);
         order.setStatus(this.status);

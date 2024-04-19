@@ -295,6 +295,9 @@ function renderListProductCart(){
     $("#listCart").empty();
 
     for (var i = 0; i < listProductCart.length; i++) {
+        // Định dạng số và hiển thị dấu phân cách hàng nghìn
+        var priceFormat = listProductCart[i].price.toFixed(0).replace(/\d(?=(\d{3})+$)/g, "$&.");
+
         var newRow = "<tr data-product-detail-id='" + listProductCart[i].id + "'>" +
             "<td class='stt'>" + (i+1) + "</td>" +
             "<td class='ten_san_pham'>" + listProductCart[i].name + "</td>" +
@@ -302,7 +305,7 @@ function renderListProductCart(){
             "<td class='mau_sac'>" + listProductCart[i].color + "</td>" +
             "<td class='kich_thuoc'>" + listProductCart[i].size + "</td>" +
             "<td class='so_luong' data-quantity='" + listProductCart[i].quantity + "'><input class='input_so_luong' type='number' value='" + listProductCart[i].quantity + "' min='1' onchange='updateQuantityAddToCart(this," + listProductCart[i].productQuantity + ")' previous-quantity='" + listProductCart[i].quantity + "'></td>" +
-            "<td class='gia_ban' id='gia_ban'>" + listProductCart[i].price + "</td>" +
+            "<td class='gia_ban' id='gia_ban'>" + priceFormat + "</td>" +
             "<td class='tinh_nang'><button class='btn btn-danger remove-button' onclick='removeFromCart(this)'><i class='fa-solid fa-minus fa-2xl remove-icon'></i></button></td>" +
             "</tr>";
         $("#listCart").append(newRow);
@@ -470,6 +473,7 @@ async function saveOrder() {
         staffId: staffId,
         customerId: customerId,
         totalPrice: totalPrice,
+        shipCost: 0,
         note: note,
         shopping: shopping,
         status: status,
@@ -531,6 +535,7 @@ async function saveOrder() {
 
 
 }
+
 function checkInputSaveOrder(staffId, customerId, totalPrice, shopping) {
     if (staffId === "" || customerId === "" || totalPrice === "" || shopping === "") {
         Swal.fire({
