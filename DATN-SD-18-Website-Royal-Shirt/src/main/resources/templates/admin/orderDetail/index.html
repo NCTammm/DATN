@@ -310,7 +310,6 @@
             <table ng-hide="orders.length==0" class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th width="10"><input type="checkbox" id="all"></th>
                     <th>STT</th>
                     <th>Ảnh</th>
                     <th>Tên sản phẩm</th>
@@ -327,7 +326,6 @@
                 <!-- để lặp qua danh sách đơn hàng và hiển thị thông tin -->
                 <tbody>
                 <tr ng-repeat="o in order.orderDetails">
-                    <td><input type="checkbox"></td>
                     <td>{{$index + 1}}</td>
                     <td>
                         <img ng-src="{{o.productDetail.product.image[0].urlImage

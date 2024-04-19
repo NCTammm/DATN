@@ -146,11 +146,21 @@ public class CustomersController {
     public String removeCustomer(@PathVariable Integer id) {
         // Tìm khách hàng cần xóa trong repository
         Customer obj = customerRepository.findById(id).orElse(null);
-        // Nếu khách hàng tồn tại, xóa khách hàng và lưu thay đổi vào repository
+        // Nếu khách hàng tồn tại, đổi tt khách hàng và lưu thay đổi vào repository
+//        if (obj != null) {
+//            obj.setStatus(1);
+//            customerRepository.saveAndFlush(obj);
+//        }
         if (obj != null) {
-            obj.setStatus(1);
-            customerRepository.saveAndFlush(obj);
+            if (obj.getStatus() == 0) {
+                obj.setStatus(1);
+                customerRepository.saveAndFlush(obj);
+            }else {
+                obj.setStatus(0);
+                customerRepository.saveAndFlush(obj);
+            }
         }
+
 
         // Chuyển hướng về trang danh sách khách hàng hoặc trang chính
         return "redirect:/admin/customers";

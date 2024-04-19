@@ -19,22 +19,7 @@
 <head th:replace="admin/layout/head::head"></head>
 
 <body onload="time()" class="app sidebar-mini rtl">
-<!-- <script>
-var app = angular
-    .module("myApp", [])
-    .filter("currencyFormat", function () {
-        return function (number) {
-            return number.toLocaleString("vi-VN", {
-                style: "currency",
-                currency: "VND",
-            });
-        };
-    });
-app.controller('myCtrl', function ($scope, $http) {
-    alert("ok")
-});
 
-</script> -->
 <!-- Navbar-->
 <div th:replace="admin/layout/header::header"></div>
 <!-- Sidebar menu-->
@@ -213,16 +198,7 @@ app.controller('myCtrl', function ($scope, $http) {
                                                 }
                                             });
                                         </script>
-
-
-
                                     </div>
-                                    <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary">Save</button>
-                                </div> -->
                                 </div>
                             </div>
                         </div>
@@ -291,8 +267,6 @@ app.controller('myCtrl', function ($scope, $http) {
                                                 reader.readAsDataURL(input.files[0]);
                                             }
                                         </script>
-
-
                                         <input type="text" class="form-control-file" id="customerAvatar"
                                                hidden="true" name="avatar" accept="image/*">
                                         <div hidden class="form-group">
@@ -407,19 +381,16 @@ app.controller('myCtrl', function ($scope, $http) {
                                     <!-- Add other fields here -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="modal fade" id="customerModalAdrr" tabindex="-1" role="dialog"
                          aria-labelledby="customerModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="customerModalLabel">Customer Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -463,8 +434,6 @@ app.controller('myCtrl', function ($scope, $http) {
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -495,19 +464,14 @@ app.controller('myCtrl', function ($scope, $http) {
                             });
                         });
                     </script>
-
-
                     <table id="sampleTable">
                         <thead>
                         <tr>
-                            <!-- <th width="10"><input type="checkbox" id="all"></th> -->
                             <th>STT</th>
                             <th width="150">Ảnh đại diện</th>
                             <th>Họ tên</th>
                             <th>Số điện thoại</th>
                             <th>Email</th>
-                            <!-- <th>Ngày tạo</th>
-                    <th>Ngày cập nhật</th> -->
                             <th>Trạng thái</th>
                             <th>Tính năng</th>
                         </tr>
@@ -515,9 +479,6 @@ app.controller('myCtrl', function ($scope, $http) {
                         <tbody id="allCustomers">
                         <!-- Duyệt danh sách khách hàng và hiển thị từng dòng -->
                         <tr th:each="cus, stat : ${listCus}">
-                            <!-- <td width="10"><input type="checkbox" name="check1" th:value="${stat.index + 1}"
-                            th:id="'check' + ${stat.index + 1}"></td> -->
-
                             <th width="10" th:text="${stat.index + 1}"></th>
                             <td>
                                 <img style="object-fit: cover;" th:src="@{'/img/' + ${cus.avatar}}" alt="Avatar"
@@ -526,14 +487,15 @@ app.controller('myCtrl', function ($scope, $http) {
                             <td th:text="${cus.name}"></td>
                             <td th:text="${cus.phone}"></td>
                             <td th:text="${cus.email}"></td>
-                            <td th:text="${cus.status == 0 ? 'Kích hoạt' : 'Không kích hoạt'}"></td>
-                            <!-- <td th:text="${#dates.format(cus.createDate, 'dd-MM-yyyy')}"></td>
-                    <td th:text="${#dates.format(cus.updateDate, 'dd-MM-yyyy')}"></td> -->
-
+<!--                            <td th:text="${cus.status == 0 ? 'Kích hoạt' : 'Không kích hoạt'}"></td>-->
+                            <td>
+                                <span th:if="${cus.status == 0}" class="badge bg-success">Kích hoạt</span>
+                                <span th:if="${cus.status == 1}" class="badge bg-danger">Không kích hoạt</span>
+                            </td>
                             <td class="table-td-center">
                                 <button class="btn btn-primary btn-sm trash deleteCustomer"
                                         th:attr="data-id=${cus.id}" title=" Xóa">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-unlock"></i>
                                 </button>
                                 <a class="btn btn-primary btn-sm edit viewCustomerBtn" data-toggle="modal"
                                    data-target="#cus"
@@ -562,14 +524,15 @@ app.controller('myCtrl', function ($scope, $http) {
                             <td th:text="${cus.name}"></td>
                             <td th:text="${cus.phone}"></td>
                             <td th:text="${cus.email}"></td>
-                            <td th:text="${cus.status == 0 ? 'Kích hoạt' : 'Không kích hoạt'}"></td>
-                            <!-- <td th:text="${#dates.format(cus.createDate, 'dd-MM-yyyy')}"></td>
-                    <td th:text="${#dates.format(cus.updateDate, 'dd-MM-yyyy')}"></td> -->
-
+<!--                            <td th:text="${cus.status == 0 ? 'Kích hoạt' : 'Không kích hoạt'}"></td>-->
+                            <td>
+                                <span th:if="${cus.status == 0}" class="badge bg-success">Kích hoạt</span>
+                                <span th:if="${cus.status == 1}" class="badge bg-danger">Không kích hoạt</span>
+                            </td>
                             <td class="table-td-center">
                                 <button class="btn btn-primary btn-sm trash deleteCustomer"
                                         th:attr="data-id=${cus.id}" title=" Xóa">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-unlock"></i>
                                 </button>
                                 <a class="btn btn-primary btn-sm edit viewCustomerBtn" data-toggle="modal"
                                    data-target="#cus"
@@ -587,9 +550,6 @@ app.controller('myCtrl', function ($scope, $http) {
                         <tbody id="inactiveCustomers">
                         <!-- Duyệt danh sách khách hàng và hiển thị từng dòng -->
                         <tr th:each="cus, stat : ${listCusStatus2}" th:if="${cus.status == 1}">
-                            <!-- <td width="10"><input type="checkbox" name="check1" th:value="${stat.index + 1}"
-                            th:id="'check' + ${stat.index + 1}"></td> -->
-
                             <td width="10" th:text="${stat.index + 1}"></td>
                             <td>
                                 <img style="object-fit: cover;" th:src="@{'/img/' + ${cus.avatar}}" alt="Avatar"
@@ -598,13 +558,15 @@ app.controller('myCtrl', function ($scope, $http) {
                             <td th:text="${cus.name}"></td>
                             <td th:text="${cus.phone}"></td>
                             <td th:text="${cus.email}"></td>
-                            <td th:text="${cus.status == 0 ? 'Kích hoạt' : 'Không kích hoạt'}"></td>
-                            <!-- <td th:text="${#dates.format(cus.createDate, 'dd-MM-yyyy')}"></td>
-                    <td th:text="${#dates.format(cus.updateDate, 'dd-MM-yyyy')}"></td> -->
+<!--                            <td th:text="${cus.status == 0 ? 'Kích hoạt' : 'Không kích hoạt'}"></td>-->
+                            <td>
+                                <span th:if="${cus.status == 0}" class="badge bg-success">Kích hoạt</span>
+                                <span th:if="${cus.status == 1}" class="badge bg-danger">Không kích hoạt</span>
+                            </td>
                             <td class="table-td-center">
                                 <button class="btn btn-primary btn-sm trash deleteCustomer"
                                         th:attr="data-id=${cus.id}" title=" Xóa">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-unlock"></i>
                                 </button>
                                 <a class="btn btn-primary btn-sm edit viewCustomerBtn" data-toggle="modal"
                                    data-target="#cus"
@@ -620,8 +582,6 @@ app.controller('myCtrl', function ($scope, $http) {
                         </tr>
                         </tbody>
                     </table>
-
-
                     <script>
                         document.getElementById('allCustomers').style.display = '';
                         document.getElementById('activeCustomers').style.display = 'none';
@@ -664,7 +624,6 @@ app.controller('myCtrl', function ($scope, $http) {
                                 if (!customerUpdateDate || customerUpdateDate === 'undefined') {
                                     customerUpdateDate = new Date(); // Lấy ngày giờ hiện tại
                                 }
-
                                 // Get other customer details similarly
                                 $('#customerId').val(customerId);
                                 $('#customerName').val(customerName);
@@ -712,7 +671,7 @@ app.controller('myCtrl', function ($scope, $http) {
                                 var customerId = $(this).data('id');
                                 // Hiển thị hộp thoại xác nhận cập nhật
                                 Swal.fire({
-                                    title: 'Bạn có chắc chắn muốn xóa thông tin khách hàng này?',
+                                    title: 'Bạn có chắc chắn muốn đổi trạng thái khách hàng này?',
                                     icon: 'warning',
                                     showCancelButton: true,
                                     confirmButtonText: 'Yes',
@@ -723,7 +682,7 @@ app.controller('myCtrl', function ($scope, $http) {
                                         Swal.fire({
                                             icon: 'success',
                                             title: 'Thành công!',
-                                            text: 'Thông tin khách hàng đã được xóa thành công!'
+                                            text: 'Trạng thái khách hàng đã được đổi thành công!'
                                         }).then(() => {
                                             setTimeout(function () {
                                                 window.location.href = '/admin/customers/remove/' + customerId;

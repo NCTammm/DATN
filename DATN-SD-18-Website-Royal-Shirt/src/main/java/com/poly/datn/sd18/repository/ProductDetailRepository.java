@@ -66,7 +66,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
     @Query("Select Count(p.id) From ProductDetail p Where p.quantity < :number")
     int countProduct(int number);
 
-    @Query("Select p From ProductDetail p Where p.quantity < :number")
+    @Query("SELECT p FROM ProductDetail p WHERE p.quantity < :number ORDER BY p.quantity ASC")
     List<ProductDetail> listProduct(int number);
 
     @Query("Select p From ProductDetail p where p.product.status=0")

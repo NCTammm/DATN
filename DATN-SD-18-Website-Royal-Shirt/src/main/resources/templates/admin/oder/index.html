@@ -137,7 +137,6 @@
                                    class="table table-hover table-bordered">
                                 <thead>
                                 <tr>
-                                    <th width="10"><input type="checkbox" id="all"></th>
                                     <th>STT</th>
                                     <th>Tên khách hàng</th>
                                     <th>Ngày tạo</th>
@@ -150,12 +149,11 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="order in orders.slice(getStartIndex(), getEndIndex())">
-                                    <td><input type="checkbox"></td>
                                     <td>{{$index + 1}}</td>
                                     <td>{{order.customer.name}}</td>
                                     <td>{{ order.createdAt | date:'dd/MM/yyyy' }}</td>
                                     <td>{{order.customer.phone}}</td>
-                                    <td>{{order.totalPrice.toLocaleString('vi-VN')}} VNĐ</td>
+                                    <td>{{(order.totalPrice+order.shipCost).toLocaleString('vi-VN')}} VNĐ</td>
 
                                     <td>
                                         <span ng-if="order.type" class="badge bg-success">Online</span>

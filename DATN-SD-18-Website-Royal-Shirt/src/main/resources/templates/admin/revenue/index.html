@@ -27,7 +27,7 @@
                 <div class="info">
                     <h4>Tất cả doanh thu</h4>
                     <p><b><span th:text="${countOrders == null ? '0' : countOrders} + ' đơn hàng'"></span> / <span
-                            th:text="${totalOrders == null ? '0' : #numbers.formatDecimal(totalOrders, 0,0, 'POINT')} + ' VNĐ'"></span></b>
+                            th:text="${totalOrders == null ? '0' : #numbers.formatDecimal(totalOrders, 0,'POINT',0, 'POINT')} + ' VNĐ'"></span></b>
                     </p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <h4>Doanh số tháng này</h4>
                     <p><b><span th:text="${countOrdersByMonth == null ? '0' : countOrdersByMonth} + ' đơn hàng'"></span>
                         /
-                        <span th:text="${totalOrdersByMonth == null ? '0' : #numbers.formatDecimal(totalOrdersByMonth, 0,0, 'POINT')} + ' VNĐ'"></span></b>
+                        <span th:text="${totalOrdersByMonth == null ? '0' : #numbers.formatDecimal(totalOrdersByMonth, 0,'POINT',0, 'POINT')} + ' VNĐ'"></span></b>
                     </p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <div class="info">
                     <h4>Doanh số hôm nay</h4>
                     <p><b><span th:text="${countOrdersByDate == null ? '0' : countOrdersByDate} + ' đơn hàng'"></span> /
-                        <span th:text="${totalOrdersByDate == null ? '0' : #numbers.formatDecimal(totalOrdersByDate, 0,0, 'POINT')} + ' VNĐ'"></span>
+                        <span th:text="${totalOrdersByDate == null ? '0' : #numbers.formatDecimal(totalOrdersByDate, 0,'POINT',0, 'POINT')} + ' VNĐ'"></span>
                     </b></p>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                 <div class="info">
                     <h4>Doanh số năm nay</h4>
                     <p><b><span th:text="${countOrdersByYear == null ? '0' : countOrdersByYear} + ' đơn hàng'"></span> /
-                        <span th:text="${totalOrdersByYear == null ? '0' : #numbers.formatDecimal(totalOrdersByYear, 0,0, 'POINT')} + ' VNĐ'"></span></b>
+                        <span th:text="${totalOrdersByYear == null ? '0' : #numbers.formatDecimal(totalOrdersByYear, 0,'POINT',0, 'POINT')} + ' VNĐ'"></span></b>
                     </p>
                 </div>
             </div>
@@ -127,35 +127,35 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
-                <div>
-                    <h3 class="tile-title">SẢN PHẨM BÁN CHẠY</h3>
-                </div>
-                <div class="tile-body">
-                    <table class="table table-hover table-bordered" id="sampleTable">
-                        <thead>
-                        <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá tiền</th>
-                            <th>Danh mục</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="h : ${hotSelling}">
-                            <td th:text="${h[0]}"></td>
-                            <td th:text="${h[1]}"></td>
-                            <td th:text="${h[4]}"></td>
-                            <td th:text="${h[3]}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+<!--    <div class="row">-->
+<!--        <div class="col-md-12">-->
+<!--            <div class="tile">-->
+<!--                <div>-->
+<!--                    <h3 class="tile-title">SẢN PHẨM BÁN CHẠY</h3>-->
+<!--                </div>-->
+<!--                <div class="tile-body">-->
+<!--                    <table class="table table-hover table-bordered" id="sampleTable">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>Mã sản phẩm</th>-->
+<!--                            <th>Tên sản phẩm</th>-->
+<!--                            <th>Giá tiền</th>-->
+<!--                            <th>Loại</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr th:each="h : ${hotSelling}">-->
+<!--                            <td th:text="${h[0]}"></td>-->
+<!--                            <td th:text="${h[1]}"></td>-->
+<!--                            <td th:text="${#numbers.formatDecimal(h[4], 0, 'POINT', 0, 'POINT')} + ' VNĐ'"></td>-->
+<!--                            <td th:text="${h[3]}"></td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
@@ -166,8 +166,10 @@
                     <table class="table table-hover table-bordered" id="sampleTable2">
                         <thead>
                         <tr>
-                            <th>Mã sản phẩm</th>
+                            <th>Mã</th>
                             <th>Tên sản phẩm</th>
+                            <th>Màu sản phẩm</th>
+                            <th>Kích cỡ</th>
                             <th>Số lượng</th>
                             <th>Tình trạng</th>
                             <th>Giá tiền</th>
@@ -177,9 +179,14 @@
                         <tr th:each="product : ${listProduct}">
                             <td th:text="${product.product.id}"></td>
                             <td th:text="${product.product.name}"></td>
+                            <td th:text="${product.color.name}"></td>
+                            <td th:text="${product.size.name}"></td>
                             <td th:text="${product.quantity}"></td>
-                            <td th:text="${product.quantity == 0 ? 'Hết hàng' : 'Còn hàng'}"></td>
-                            <td th:text="${product.price}"></td>
+                            <td>
+                                <span th:if="${product.quantity != 0}" class="badge bg-success">Còn ít hàng</span>
+                                <span th:if="${product.quantity == 0}" class="badge bg-danger">Hết hàng</span>
+                            </td>
+                            <td th:text="${#numbers.formatDecimal(product.price, 0, 'POINT', 0, 'POINT')} + ' VNĐ'"></td>
                         </tr>
                         </tbody>
                     </table>
