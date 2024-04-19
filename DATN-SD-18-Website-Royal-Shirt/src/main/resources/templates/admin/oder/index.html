@@ -153,8 +153,7 @@
                                     <td>{{order.customer.name}}</td>
                                     <td>{{ order.createdAt | date:'dd/MM/yyyy' }}</td>
                                     <td>{{order.customer.phone}}</td>
-                                    <td>{{(order.totalPrice+order.shipCost).toLocaleString('vi-VN')}} VNĐ</td>
-
+                                    <td>{{(order.totalPrice+order.shipCost ).toLocaleString('vi-VN')}} VNĐ</td>
                                     <td>
                                         <span ng-if="order.type" class="badge bg-success">Online</span>
                                         <span ng-if="!order.type" class="badge bg-info">Tại quầy</span>
