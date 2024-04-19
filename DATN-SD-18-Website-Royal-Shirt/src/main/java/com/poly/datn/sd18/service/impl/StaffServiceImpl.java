@@ -3,6 +3,7 @@ package com.poly.datn.sd18.service.impl;
 import com.poly.datn.sd18.entity.Role;
 import com.poly.datn.sd18.entity.Staff;
 import com.poly.datn.sd18.model.dto.StaffDTO;
+import com.poly.datn.sd18.model.request.StaffLoginRequest;
 import com.poly.datn.sd18.repository.RoleRepository;
 import com.poly.datn.sd18.repository.StaffRepository;
 import com.poly.datn.sd18.service.StaffService;
@@ -115,5 +116,13 @@ public class StaffServiceImpl implements StaffService {
                         .build())
                 .build();
         return staffRepository.save(staff);
+    }
+
+    @Override
+    public Staff loginStaff(StaffLoginRequest staffLoginRequest) {
+        return staffRepository
+                .loginAdmin(
+                        staffLoginRequest.getEmail(),
+                        staffLoginRequest.getPassword());
     }
 }

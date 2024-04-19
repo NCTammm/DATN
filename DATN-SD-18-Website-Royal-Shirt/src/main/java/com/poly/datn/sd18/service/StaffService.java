@@ -2,6 +2,7 @@ package com.poly.datn.sd18.service;
 
 import com.poly.datn.sd18.entity.Staff;
 import com.poly.datn.sd18.model.dto.StaffDTO;
+import com.poly.datn.sd18.model.request.StaffLoginRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,4 +20,5 @@ public interface StaffService {
     Staff setStatusStaff(Integer id);
     List<Staff> existsByEmail(String email);
     Staff createStaff(StaffDTO staffDTO);
+    Staff loginStaff(StaffLoginRequest staffLoginRequest);
 }
