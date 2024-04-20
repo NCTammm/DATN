@@ -232,14 +232,17 @@
                                         </form>
                                         <br>
                                         <div class="product" ng-repeat="obj in listProduct">
-
-                                            <img src="{{obj.product.image[0].urlImage}}" alt="Product Image">
+                                            <td>
+                                                <img ng-src="{{obj.product.image[0].urlImage
+                                                    }}" width="80px" height="80px" alt="">
+                                            </td>
                                             <div class="details">
                                                 <h5>{{obj.product.name}}</h5>
                                                 <div
                                                         ng-show="obj.product.discount !== null && obj.product.discount.status==0">
                                                     <p style="text-decoration: line-through;">Giá:
                                                         {{obj.price.toLocaleString('vi-VN')}} VNĐ</p>
+
                                                     <p style="color: orange;">Giá bán:
                                                         <span
                                                                 ng-show="obj.product.discount !== null && obj.product.discount.status == 0">
@@ -295,8 +298,8 @@
                 <div class="col-4  mb-1 mt-1">Mã đơn hàng: {{order.id}}</div>
                 <div class="col-4  mb-1 mt-1">Số điện thoại: {{order.customer.phone}}</div>
                 <div class="col-4  mb-1 mt-1">Tên khách hàng: {{order.customer.name}}</div>
-                <div class="col-4  mb-1 mt-1">Loại đơn hàng: <span ng-if="order.type==true">Online</span><span
-                        ng-if="order.type==false">Tại quầy</span></div>
+                <div class="col-4  mb-1 mt-1">Loại đơn hàng: <span ng-if="order.type">Online</span><span
+                        ng-if="!order.type">Tại quầy</span></div>
                 <div class="col-4  mb-1 mt-1">Địa chỉ giao hàng: {{order.address}}</div>
                 <div class="col-4  mb-1 mt-1">Ghi chú: {{order.note}}</div>
                 <div class="col-4  mb-1 mt-1">Ngày tạo đơn: {{ order.createdAt | date:'dd/MM/yyyy' }}</div>
@@ -322,7 +325,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- để lặp qua danh sách đơn hàng và hiển thị thông tin -->
+                <!-- Sử dụng Thymeleaf để lặp qua danh sách đơn hàng và hiển thị thông tin -->
                 <tbody>
                 <tr ng-repeat="o in order.orderDetails">
                     <td>{{$index + 1}}</td>
@@ -330,7 +333,7 @@
                         <img ng-src="{{o.productDetail.product.image[0].urlImage
                                 }}" width="80px" height="80px" alt="">
                     </td>
-
+                    </td>
                     <td>{{o.productDetail.product.name}}</td>
                     <td>
                         <div class="quantity-controls">
@@ -343,18 +346,14 @@
                             </button>
                         </div>
                     </td>
-                    <!--                            <td>{{o.productDetail.price}}</td>-->
-                    <td>
-                        {{ o.price.toLocaleString('vi-VN') }} VNĐ
-                    </td>
-
+                    <td>{{ o.price.toLocaleString('vi-VN') }} VNĐ</td>
                     <td>{{o.productDetail.size.name}}</td>
                     <td>{{o.productDetail.color.name}}</td>
-                    <!--tong tien-->
+
                     <td>
-                        {{ (o.price* o.quantity).toLocaleString('vi-VN')
-                        }} VNĐ
+                        {{ (o.price * o.quantity).toLocaleString('vi-VN') }} VNĐ
                     </td>
+
                     <td ng-show="order.status==1">
                         <a ng-click="deleteOrderDetail(o.id)">
                             <button class="btn btn-warning"><span style="color: white;">Xóa</span></button>
@@ -416,6 +415,7 @@
             // Chuyển đổi phần chuỗi thành mảng các số (nếu có)
             let numbers = numbersString.split('/');
 
+            // Gửi yêu cầu GET đến máy chủ để lấy thông tin đơn hàng
             $http.get("http://localhost:8080/admin/rest/order-detail/" + numbers)
                 .then(function (response) {
                     // Dữ liệu trả về
@@ -432,19 +432,12 @@
                                 console.error('Error:', error);
                             });
                     });
-
+                    $scope.calculateTotal();
                     // Chờ cho tất cả các yêu cầu $http.get hoàn thành
                     return Promise.all(imageRequests);
-                })
-                .then(function () {
-                    // Tất cả các yêu cầu đã hoàn thành, tính tổng giá trị đơn hàng
-                    $scope.calculateTotal();
-                })
-                .catch(function (error) {
-                    console.error("Lỗi: " + error.data);
-                });
-
-
+                }).catch(function (error) {
+                console.error("Lỗi: " + error.data);
+            });
         }
 
         // Gọi hàm getOrder() khi trang được load
@@ -471,8 +464,6 @@
 
                     // Chờ cho tất cả các yêu cầu $http.get hoàn thành
                     return Promise.all(imageRequests);
-
-
                 }).catch(function (error) {
                 console.error("Lỗi: " + error.data);
             });
@@ -490,6 +481,7 @@
                     // Gửi yêu cầu POST để tăng số lượng chi tiết đơn hàng có id tương ứng
                     $http.post("http://localhost:8080/admin/rest/order-detail/plus-order-detail/" + id)
                         .then(function (response) {
+                            orderDetails[i] = response.data;
                             // Tính toán lại tổng giá trị đơn hàng sau khi tăng số lượng
                             $scope.calculateTotal();
                         }).catch(function (error) {
@@ -511,6 +503,7 @@
                         // Gửi yêu cầu POST để giảm số lượng chi tiết đơn hàng có id tương ứng
                         $http.post("http://localhost:8080/admin/rest/order-detail/minus-order-detail/" + id)
                             .then(function (response) {
+                                orderDetails[i] = response.data;
                                 // Tính toán lại tổng giá trị đơn hàng sau khi giảm số lượng
                                 $scope.calculateTotal();
                             }).catch(function (error) {
@@ -529,27 +522,18 @@
                 var price = orderDetail.price;
                 var quantity = orderDetail.quantity;
                 total += price * quantity;
-
             });
             $scope.total = total + $scope.order.shipCost;
-
             // Gọi hàm cập nhật đơn hàng sau khi tính toán tổng giá trị
             $scope.updateOrder();
         };
 
         // Hàm thêm chi tiết đơn hàng mới
         $scope.addOrderDetails = function (o) {
-            var price = 0;
-            if (o.product.discount !== null && o.product.discount.status === 0) {
-                var price = o.price - (o.price * o.product.discount.discount / 100);
-            } else {
-                var price = o.price;
-            }
             var obj = {
                 id: null,
                 quantity: 1,
-                price: price,
-                status: 0,
+                status: 1,
                 order: $scope.order,
                 productDetail: o
             };
@@ -589,8 +573,6 @@
                     console.error('Error:', error);
                 });
         };
-
-
 
         $scope.deleteOrderDetail = function (id) {
             if ($scope.order.orderDetails.length == 1) {
@@ -728,4 +710,5 @@
 
 </script>
 </body>
+
 </html>

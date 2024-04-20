@@ -52,7 +52,6 @@ public class AdminOrderDetailRestController {
         List<Image> list = imageService.getALlByProductId(product_id);
         return ResponseEntity.ok(list);
     }
-
     // Lấy danh sách sản phẩm trong đơn hàng
     @GetMapping("/get-products")
     public ResponseEntity<List<ProductDetail>> getOrderById() {
