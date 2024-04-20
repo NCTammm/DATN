@@ -166,7 +166,7 @@ function saveOrUpdateStaff() {
         dataSend.createdDate = currentTime;
     }
 
-    var url = staffId ? "/admin/rest/staffs/update/" + staffId : "/admin/rest/staffs/create";
+    var url = staffId ? "/admin/rest/staffs/update/" + staffId : "/admin/rest/staffs/store";
     var method = staffId ? "PUT" : "POST";
 
     // Gửi yêu cầu AJAX
@@ -182,7 +182,7 @@ function saveOrUpdateStaff() {
                 title: 'Thành công!',
                 text: 'Lưu nhân viên thành công!',
                 didClose: function () {
-                    location.reload();
+                    window.location.href = "/admin/staffs";
                 }
             });
         },

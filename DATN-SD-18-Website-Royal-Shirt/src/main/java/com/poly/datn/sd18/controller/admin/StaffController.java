@@ -44,4 +44,12 @@ public class StaffController {
         model.addAttribute("currentPage", pageNo);
         return "admin/staff/index";
     }
+
+    @GetMapping("/create")
+    public String formCreateStaff(Model model) {
+        List<Role> listRole = roleService.getAllRole();
+        model.addAttribute("listRole", listRole);
+        model.addAttribute("staff", new Staff());
+        return "admin/staff/create";
+    }
 }

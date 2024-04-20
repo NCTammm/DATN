@@ -10,4 +10,5 @@ public interface RoleService {
     Role createRole(RoleDTO roleDTO);
     Role updateRole(RoleDTO roleDTO, Integer id);
     Role findByIdRole(Integer id);
+    List<Role> existsByRoleName(String name);
 }

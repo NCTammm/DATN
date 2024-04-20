@@ -382,7 +382,7 @@ async function saveOrder() {
                 title: 'Thành công!',
                 text: 'Đặt hàng thành công!',
                 didClose: function () {
-
+                    window.location.href = "/myOrder";
                 }
             });
         },

@@ -31,7 +31,7 @@ public class StaffRestController {
         return ResponseEntity.ok(Map.of("existsEmail",existsEmail));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/store")
     public ResponseEntity<?> createStaff(@Valid @RequestBody StaffDTO staffDTO,
                                     BindingResult result) {
         try {

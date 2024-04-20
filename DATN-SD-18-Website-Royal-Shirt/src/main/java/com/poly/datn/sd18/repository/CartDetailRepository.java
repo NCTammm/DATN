@@ -26,8 +26,11 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
                     carts c ON cd.cart_id = c.id
                 INNER JOIN
                     customers cst ON c.customer_id = cst.id
+                INNER JOIN
+                    product_details pd ON cd.product_detail_id = pd.id
                 WHERE
-                    cst.id =:customerId
+                    cst.id = :customerId
+                    AND pd.quantity > 0
             """, nativeQuery = true)
     List<CartDetail> findCartDetailByCustomer(@Param("customerId") Integer customerId);
 
