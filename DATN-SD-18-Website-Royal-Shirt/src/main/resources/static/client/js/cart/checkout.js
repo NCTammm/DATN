@@ -336,6 +336,7 @@ async function saveOrder() {
     var address = addressDetail + ", " + ward + ", " + district + ", " + province;
     var note = $("#note").val();
     var shopping = $("input[name='paymentMethod']:checked").siblings("label").text();
+    var paymentMethod = $("input[name='paymentMethod']:checked").val();
     var status = 1;
 
     var provinceValue = $("#provinceSelect").val();
@@ -355,6 +356,21 @@ async function saveOrder() {
         shipCost: shipCost,
         shopping: shopping,
         status: status
+    }
+
+    var confirmOrder = await Swal.fire({
+        title: "Xác nhận",
+        text: "Bạn có chắc chắn muốn đặt hàng không?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Đồng ý",
+        cancelButtonText: "Hủy"
+    });
+
+    if (!confirmOrder.isConfirmed) {
+        return;
     }
 
     // Gửi yêu cầu AJAX
@@ -377,14 +393,18 @@ async function saveOrder() {
                 return;
             }
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Thành công!',
-                text: 'Đặt hàng thành công!',
-                didClose: function () {
-                    window.location.href = "/myOrder";
-                }
-            });
+            if (paymentMethod === "vnPay") {
+                window.location.href = "/payment/create-payment/" + orderId;
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: 'Đặt hàng thành công!',
+                    didClose: function () {
+                        window.location.href = "/myOrder";
+                    }
+                });
+            }
         },
         error: function (error) {
             console.error("Lỗi khi lưu hóa đơn:", error);

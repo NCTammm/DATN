@@ -31,5 +31,6 @@ public interface OrderService {
     Order setStatusOrderById(Integer orderId);
     Order findOrderById(Integer orderId);
     Float calculateTotalPriceByOrderId(Integer orderId);
+    Float totalPriceByIdOrder(Integer orderId);
     List<Order> getAllOrderByCustomerId(Integer customerId);
 }

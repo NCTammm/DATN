@@ -61,6 +61,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Float totalPriceByIdOrder(Integer orderId) {
+        Order order = orderRepository.findOrderById(orderId);
+        float totalPrice = 0.0f;
+        totalPrice = order.getShipCost() + order.getTotalPrice();
+        return totalPrice;
+    }
+
+    @Override
     public List<Order> getAllOrderByCustomerId(Integer customerId) {
         return orderRepository.getAllOrderByCustomerId(customerId);
     }
