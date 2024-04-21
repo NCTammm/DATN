@@ -3,13 +3,18 @@ package com.poly.datn.sd18.service.impl;
 import com.poly.datn.sd18.entity.Order;
 import com.poly.datn.sd18.entity.OrderDetail;
 import com.poly.datn.sd18.entity.ProductDetail;
+import com.poly.datn.sd18.entity.Staff;
 import com.poly.datn.sd18.model.dto.OrderDetailDTO;
 import com.poly.datn.sd18.model.response.OrderDetailResponse;
 import com.poly.datn.sd18.repository.OrderDetailRepository;
 import com.poly.datn.sd18.repository.OrderRepository;
 import com.poly.datn.sd18.repository.ProductDetailRepository;
 import com.poly.datn.sd18.service.OrderDetailService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -19,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderDetailServiceImpl implements OrderDetailService {
     private final OrderDetailRepository orderDetailRepository;
+    @Autowired
+    HttpSession session;
 
     @Override
     public OrderDetail addOrderDetail(OrderDetailDTO orderDetailDTO) {
@@ -103,6 +110,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
                 o.setQuantity(o.getQuantity() - obj.getOrderDetails().get(i).getQuantity());
                 productDetailRepository.saveAndFlush(o);
             }
+            Staff staff = (Staff) session.getAttribute("staff");
+            obj.setStaff(staff);
         } else if (status == 3) {
             obj.setShipWaitDate(new Date(System.currentTimeMillis()));
         } else if (status == 4) {

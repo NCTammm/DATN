@@ -261,9 +261,9 @@
                                                         ng-show="obj.product.discount === null || obj.product.discount.status == 1">
                                                     <p>Giá: {{obj.price.toLocaleString('vi-VN')}} VNĐ</p>
                                                 </div>
-
                                                 <p>Màu sắc: {{obj.color.name}}</p>
                                                 <p>Kích thước: {{obj.size.name}}</p>
+                                                <p>Số lượng: {{obj.quantity}}</p>
                                             </div>
                                             <button ng-click="addOrderDetails(obj)" class="btn btn-success"><i
                                                     class="fa-solid fa-cart-plus"></i></button>
@@ -271,10 +271,6 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                        Close
-                                    </button>
-                                    <button type="button" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +300,8 @@
                 <div class="col-4  mb-1 mt-1">Ghi chú: {{order.note}}</div>
                 <div class="col-4  mb-1 mt-1">Ngày tạo đơn: {{ order.createdAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col-4  mb-1 mt-1">Ngày cập nhật: {{ order.updatedAt | date:'dd/MM/yyyy' }}</div>
-                <div class="col-4  mb-1 mt-1">Nhân viên xác nhận đơn: </div>
+                <div class="col-4  mb-1 mt-1"><span ng-show="order.staff">Nhân viên xác nhận đơn:
+                            {{order.staff.name}}</span></div>
             </div>
         </div>
 
@@ -482,8 +479,8 @@
                     $http.post("http://localhost:8080/admin/rest/order-detail/plus-order-detail/" + id)
                         .then(function (response) {
                             orderDetails[i] = response.data;
-                            // Tính toán lại tổng giá trị đơn hàng sau khi tăng số lượng
-                            $scope.calculateTotal();
+
+                            $scope.getOrder();
                         }).catch(function (error) {
                         console.error("Lỗi: " + error.data);
                     });
@@ -505,7 +502,8 @@
                             .then(function (response) {
                                 orderDetails[i] = response.data;
                                 // Tính toán lại tổng giá trị đơn hàng sau khi giảm số lượng
-                                $scope.calculateTotal();
+
+                                $scope.getOrder();
                             }).catch(function (error) {
                             console.error("Lỗi: " + error.data);
                         });
@@ -566,7 +564,6 @@
 
             $http.get('/admin/rest/order-detail/image/' + id)
                 .then(function (response) {
-
                     return response.data;
                 })
                 .catch(function (error) {
@@ -634,14 +631,13 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Lưu ý!',
-                            text: 'Có sản phẩm ' + $scope.order.orderDetails[i].productDetail.product.name + ' trong đơn hàng không đủ số lượng!'
+                            text: 'Có sản phẩm ' + $scope.order.orderDetails[i].productDetail.product.name + ' Kích thước: ' + $scope.order.orderDetails[i].productDetail.size.name + ' Màu: ' + $scope.order.orderDetails[i].productDetail.color.name + ' không đủ số lượng!'
                         });
                         return;
                     }
                 }
 
             }
-
             // Kiểm tra các điều kiện khi thay đổi trạng thái
             if ($scope.order.status != 1 && status == 6) {
                 // Hiển thị cảnh báo nếu đơn hàng không ở trạng thái chờ xác nhận mà người dùng muốn hủy đơn hàng
