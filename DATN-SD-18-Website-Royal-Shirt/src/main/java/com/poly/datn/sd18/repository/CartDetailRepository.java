@@ -104,4 +104,10 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
             """, nativeQuery = true)
     Integer quantityCartDetail(@Param("customerId") Integer customerId,
                                @Param("productDetailId") Integer productDetailId);
+
+    @Modifying
+    @Query(value = "DELETE FROM [dbo].[cart_details]\n" +
+            "      WHERE [dbo].[cart_details].cart_id = :cartId AND " +
+            "            [dbo].[cart_details].product_detail_id = :productDetailId",nativeQuery = true)
+    void deleteAfterCheckout(@Param("cartId") Integer cartId,@Param("productDetailId") Integer productDetailId);
 }

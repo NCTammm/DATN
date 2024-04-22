@@ -48,6 +48,13 @@ public class CartDetailRestController {
                     .body("CartDetail with ID " + cartDetailId + " not found");
         }
         cartDetailService.deleteCartDetailByIdCartDetailAndIdCustomer(cartDetailId, customer.getId());
-        return ResponseEntity.ok("Delete CartDetail " + cartDetailId +" successfully");
+        return ResponseEntity.ok("Delete CartDetail " + cartDetailId +" successfully!");
+    }
+
+    @DeleteMapping("/rest/cart-detail/deleteAfterCheckout/{productDetailId}")
+    public ResponseEntity<?> deleteAfterCheckout(@PathVariable("productDetailId") Integer productDetailId){
+        Customer customer = (Customer) session.getAttribute("customer");
+        cartDetailService.deleteAfterCheckout(customer.getCart().getId(),productDetailId);
+        return ResponseEntity.ok("Delete ProductDetailId " + productDetailId +" from CartDetail successfully!");
     }
 }

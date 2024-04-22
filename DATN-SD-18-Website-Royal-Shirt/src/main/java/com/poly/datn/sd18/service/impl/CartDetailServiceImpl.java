@@ -136,4 +136,10 @@ public class CartDetailServiceImpl implements CartDetailService {
     public Integer quantityCartDetail(Integer customerId, Integer productDetailId) {
         return cartDetailRepository.quantityCartDetail(customerId, productDetailId);
     }
+
+    @Transactional
+    @Override
+    public void deleteAfterCheckout(Integer cartId, Integer productDetailId) {
+        cartDetailRepository.deleteAfterCheckout(cartId,productDetailId);
+    }
 }
