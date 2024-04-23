@@ -19,6 +19,7 @@ import java.util.Map;
 public class CartController {
     private final ProductService productService;
     private final ProductDetailService productDetailService;
+    private final CartService cartService;
     private final CartDetailService cartDetailService;
     private final HttpSession session;
 
@@ -28,8 +29,19 @@ public class CartController {
         if (customer == null) {
             return "redirect:/loginPage";
         } else {
-            //Check số lượng & trạng thái của sản phẩm chi tiết
-            cartDetailService.deleteCartDetailByQuantityAndStatusProduct(customer.getCart().getId());
+
+            //TODO Tìm giỏ hàng của khách hàng
+            Cart cart = cartService.findByCustomerId(customer.getId());
+            //TODO Nếu không tìm thấy giỏ hàng, tạo mới
+            if (cart == null) {
+                cart = new Cart();
+                cart.setCustomer(customer);
+                cart.setStatus(0);
+                cartService.saveCart(cart);
+            } else {
+                //Check số lượng & trạng thái của sản phẩm chi tiết
+                cartDetailService.deleteCartDetailByQuantityAndStatusProduct(cart.getId());
+            }
 
             Float sumPrice = cartDetailService.getSumPriceByCustomerId(customer.getId());
             if (sumPrice == null) {

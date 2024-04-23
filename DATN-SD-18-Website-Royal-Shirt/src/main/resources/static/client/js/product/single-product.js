@@ -117,7 +117,7 @@ async function checkAddToCart(quantity) {
         console.log("quantityCart = " + quantityCartDetail);
 
         if ((quantity + quantityCartDetail) > productDetail.quantity) {
-            throw "Số lượng vượt quá số lượng tối đa.";
+            throw "Số lượng vượt quá số lượng tối đa!";
         } else {
             return true;
         }

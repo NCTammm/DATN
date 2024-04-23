@@ -3,6 +3,8 @@
 
 <head th:replace="~{client/layout/head::head}"></head>
 
+<link rel="stylesheet" th:href="@{/client/css/cart/single-product.css}">
+
 <body>
 
 <!-- header section start -->
@@ -41,7 +43,7 @@
                                      th:classappend="${index.index == 0} ? 'active' : ''">
                                     <a class="simpleLens-image" th:data-lens-image="${image.urlImage}" href="#">
                                         <img th:src="${image.urlImage}" alt="" class="simpleLens-big-image"
-                                             style="width:400px; height:400px;">
+                                             style="width:300px; height:450px;">
                                     </a>
                                 </div>
                             </div>
@@ -100,8 +102,9 @@
                             <i class="mdi mdi-star-outline"></i>
                         </div>
                         <br>
-                        <h6 style="color:red" id="price"></h6>
-                        <span th:utext="${product.description}"></span>
+                        <h6 class="price" id="price"></h6>
+                        <span class="material" th:text="'Chất liệu: ' + ${product.material.name}"></span>
+                        <span class="description" th:utext="${product.description}"></span>
                         <br>
                         <div class="all-choose">
                             <div class="row">
@@ -136,28 +139,36 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="input-group">
-                                <p>QUANTITY</p>
-                                <div class="plus-minus">
-                                    <a class="dec qtybutton">-</a>
-                                    <input type="number" value="1" min="1" step="1" id="quantity"
-                                           max="${product.productDetail.quantity}"
-                                           name="qtybutton" class="plus-minus-box">
-                                    <a class="inc qtybutton">+</a>
-                                </div>
-                                <div class="showQuantity">
-                                    <p>Số lượng: <span id="showQuantity"></span></p>
-                                </div>
-                            </div>
+<!--                            <div class="input-group">-->
+<!--                                <p>QUANTITY</p>-->
+<!--                                <div class="plus-minus">-->
+<!--                                    <a class="dec qtybutton">-</a>-->
+<!--                                    <input type="number" value="1" min="1" step="1" id="quantity"-->
+<!--                                           max="${product.productDetail.quantity}"-->
+<!--                                           name="qtybutton" class="plus-minus-box">-->
+<!--                                    <a class="inc qtybutton">+</a>-->
+<!--                                </div>-->
+<!--                                <div class="showQuantity">-->
+<!--                                    <p>Số lượng: <span id="showQuantity"></span></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
-                        <div class="list-btn">
+                        <div class="list-btn d-flex quantity-addCart">
+                            <div class="plus-minus">
+                                <a class="dec qtybutton">-</a>
+                                <input type="number" value="1" min="1" step="1" id="quantity"
+                                       max="${product.productDetail.quantity}"
+                                       name="qtybutton" class="plus-minus-box">
+                                <a class="inc qtybutton">+</a>
+                            </div>
                             <button type="submit" id="addToCartBtn"
                                     th:attr="data-id=${product.id}"
-                                    class="btn btn-outline-dark btn-sm"
+                                    class="btn btn-dark btn-sm"
                                     onclick="addToCart(this)"
                             >ADD TO CART</button>
-                            <button type="submit" id="wishlist"
-                                    class="btn btn-outline-dark btn-sm">WISHLIST</button>
+                        </div>
+                        <div class="input-group">
+                            <p class="so-luong-ton">Còn lại: <span id="showQuantity"></span> sản phẩm</p>
                         </div>
                         <div class="share-tag clearfix">
                             <ul class="blog-share floatleft">

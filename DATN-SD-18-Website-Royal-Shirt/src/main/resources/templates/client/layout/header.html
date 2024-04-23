@@ -9,7 +9,7 @@
                         </div>
                         <div class="center floatleft">
                             <form>
-                                <input type="text" placeholder="Search..." name="keyword" th:value="${keyword}" />
+                                <input type="text" placeholder="Search..." name="keyword" th:value="${keyword}"/>
                                 <button type="submit"><i class="mdi mdi-magnify"></i></button>
                             </form>
                         </div>
@@ -17,7 +17,11 @@
                     <div class="middel-top clearfix">
                         <ul class="clearfix right floatright">
                             <li>
-                                <a href="#"><i class="mdi mdi-account"></i></a>
+                                <a href="#"><i class="mdi mdi-account"></i>
+                                    <th:block th:if="${session.customer != null}">
+                                        <span th:text="${session.customer.name}"></span>
+                                    </th:block>
+                                </a>
                                 <ul>
                                     <th:block th:if="${session.customer == null}">
                                         <li><a th:href="@{/loginPage}">Login</a></li>
@@ -37,7 +41,7 @@
                         <div class="right floatright">
                             <form action="javascript:void(0)">
                                 <button type="submit"><i class="mdi mdi-magnify"></i></button>
-                                <input type="text" placeholder="Search within these results..." />
+                                <input type="text" placeholder="Search within these results..."/>
                             </form>
                         </div>
                     </div>
@@ -49,7 +53,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="logo">
-                    <a th:href="@{/}"><img th:src="@{/client/img/logo2.webp}" alt="Sellshop" /></a>
+                    <a th:href="@{/}"><img th:src="@{/client/img/logo2.webp}" alt="Sellshop"/></a>
                 </div>
             </div>
             <div class="col-md-8">
@@ -60,7 +64,8 @@
                                 <li><a th:href="@{/}">Home</a></li>
                                 <li><a th:href="@{/products}">Shop</a>
                                     <ul class="magamenu">
-                                        <li class="banner"><a th:href="@{/products}"><img th:src="@{/client/img/maga1.webp}" alt="" /></a></li>
+                                        <li class="banner"><a th:href="@{/products}"><img
+                                                th:src="@{/client/img/maga1.webp}" alt=""/></a></li>
                                         <li><h5>men’s wear</h5>
                                             <ul>
                                                 <li><a href="#">Shirts & Top</a></li>
@@ -85,7 +90,8 @@
                                                 <li><a href="#">Women Watch</a></li>
                                             </ul>
                                         </li>
-                                        <li class="banner"><a th:href="@{/products}"><img th:src="@{/client/img/maga2.webp}" alt="" /></a></li>
+                                        <li class="banner"><a th:href="@{/products}"><img
+                                                th:src="@{/client/img/maga2.webp}" alt=""/></a></li>
                                     </ul>
                                 </li>
                                 <li><a th:href="@{/blog}">Blog</a></li>
@@ -141,7 +147,10 @@
                 <div class="cart-itmes">
                     <a class="cart-itme-a" th:href="@{/cart}">
                         <i class="mdi mdi-cart"></i>
-                        02
+                        0
+                        <!--                        <th:block th:if="${session.customer != null}">-->
+                        <!--                            <span th:text="${session.customer.cart.cartDetails.size}"></span>-->
+                        <!--                        </th:block>-->
                     </a>
                     <div class="cartdrop">
                         <th:block th:if="${session.customer != null}">
