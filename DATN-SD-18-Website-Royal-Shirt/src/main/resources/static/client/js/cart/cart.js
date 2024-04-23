@@ -1,19 +1,19 @@
 //Danh sách id cartDetail được chọn để checkout
 var listProductIdChoice = [];
 
-// delete cart-detail khi status product = 1 and quantity product_detail = 0 and status product_detail = 1
-$(document).ready(function() {
-    $.ajax({
-        type: "DELETE",
-        url: "/rest/cart-detail/deleteCartDetailByQuantityAndStatusProduct",
-        success: function(response) {
-            console.log(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error: " + error);
-        }
-    });
-});
+// // delete cart-detail khi status product = 1 and quantity product_detail = 0 and status product_detail = 1
+// $(document).ready(function() {
+//     $.ajax({
+//         type: "DELETE",
+//         url: "/rest/cart-detail/deleteCartDetailByQuantityAndStatusProduct",
+//         success: function(response) {
+//             console.log(response);
+//         },
+//         error: function(xhr, status, error) {
+//             console.error("Error: " + error);
+//         }
+//     });
+// });
 
 
 // Xử lý sự kiện khi checkbox thay đổi trạng thái

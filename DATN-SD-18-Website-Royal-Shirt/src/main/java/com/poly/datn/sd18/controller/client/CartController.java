@@ -28,6 +28,9 @@ public class CartController {
         if (customer == null) {
             return "redirect:/loginPage";
         } else {
+            //Check số lượng & trạng thái của sản phẩm chi tiết
+            cartDetailService.deleteCartDetailByQuantityAndStatusProduct(customer.getCart().getId());
+
             Float sumPrice = cartDetailService.getSumPriceByCustomerId(customer.getId());
             if (sumPrice == null) {
                 sumPrice = 0f;
