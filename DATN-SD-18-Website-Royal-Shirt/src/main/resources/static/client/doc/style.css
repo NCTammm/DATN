@@ -218,7 +218,7 @@ header .logo ,.cart-itmes{line-height: 150px;}
 .cart-itmes > a.cart-itme-a {
 	font-size: 16px;
 	text-transform: lowercase;
-	position: relative;
+	/*position: relative;*/
 	top: 10px;
 }
 .cart-itmes a.cart-itme-a i {
@@ -226,7 +226,7 @@ header .logo ,.cart-itmes{line-height: 150px;}
 	left: 50%;
 	margin-left: -13px;
 	margin-top: -35px;
-	position: absolute;
+	/*position: absolute;*/
 	top: 50%;
 }
 .cart-itmes > a.cart-itme-a strong ,.menu-cart-text > strong,.total strong,.mainmenu li:hover >a,.mainmenu li a.active,.header-one .right li:hover >a,.header-one .right li a.active,header .parent-active > a{
@@ -1096,7 +1096,7 @@ footer ,.latest-blog,.single-products,.service-text,.coming-product.coming-produ
 .header-top-two .middel-top .right li > a {line-height: 1;}
 .header-top-two .middel-top .left p {line-height: 50px;}
 .header-top-two .middel-top .right > li > a {
-	border-left: 1px solid #ccc;
+	/*border-left: 1px solid #ccc;*/
 	padding: 0px 25px;
 	width: auto;
 	margin: 3px 0;

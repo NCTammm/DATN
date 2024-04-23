@@ -38,12 +38,12 @@
                                 <a href="#"><i class="mdi mdi-settings"></i></a>
                             </li>
                         </ul>
-                        <div class="right floatright">
-                            <form action="javascript:void(0)">
-                                <button type="submit"><i class="mdi mdi-magnify"></i></button>
-                                <input type="text" placeholder="Search within these results..."/>
-                            </form>
-                        </div>
+<!--                        <div class="right floatright">-->
+<!--                            <form action="javascript:void(0)">-->
+<!--                                <button type="submit"><i class="mdi mdi-magnify"></i></button>-->
+<!--                                <input type="text" placeholder="Search within these results..."/>-->
+<!--                            </form>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -147,17 +147,13 @@
                 <div class="cart-itmes">
                     <a class="cart-itme-a" th:href="@{/cart}">
                         <i class="mdi mdi-cart"></i>
-                        0
-                        <!--                        <th:block th:if="${session.customer != null}">-->
-                        <!--                            <span th:text="${session.customer.cart.cartDetails.size}"></span>-->
-                        <!--                        </th:block>-->
                     </a>
-                    <div class="cartdrop">
-                        <th:block th:if="${session.customer != null}">
-                            <a class="goto" th:href="@{'/cart/' + ${session.customerId}}">go to cart</a>
-                        </th:block>
-                        <a class="out-menu" th:href="@{/checkout}">Check out</a>
-                    </div>
+<!--                    <div class="cartdrop">-->
+<!--                        <th:block th:if="${session.customer != null}">-->
+<!--                            <a class="goto" th:href="@{'/cart/' + ${session.customer.id}}">go to cart</a>-->
+<!--                        </th:block>-->
+<!--                        <a class="out-menu" th:href="@{/checkout}">Check out</a>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>

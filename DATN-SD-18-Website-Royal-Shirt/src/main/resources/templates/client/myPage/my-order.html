@@ -94,7 +94,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <button th:if="${o.status == 1}" class="btn btn-danger btn-sm edit" type="button"
+                                        <button th:if="${o.status == 1 && o.shopping != 'VN PAY'}" class="btn btn-danger btn-sm edit" type="button"
                                                 th:attr="data-id=${o.id}"
                                                 title="Hủy" onclick="setStatusOrder(this)">
                                             <i class="bi bi-x"></i>
@@ -118,11 +118,11 @@
                                 <a th:href="@{/products}" type="button">Tiếp tục mua hàng</a>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="submit-text coupon thanh-toan">
-                                <a onclick="" type="button" id="">Tra cứu đơn hàng</a>
-                            </div>
-                        </div>
+<!--                        <div class="col-md-6">-->
+<!--                            <div class="submit-text coupon thanh-toan">-->
+<!--                                <a onclick="" type="button" id="">Tra cứu đơn hàng</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>

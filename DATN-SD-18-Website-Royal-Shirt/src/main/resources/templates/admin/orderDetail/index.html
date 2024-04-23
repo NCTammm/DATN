@@ -24,7 +24,7 @@
 <!-- Bạn cần bao gồm JavaScript của SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<link rel="stylesheet" th:href="@{/admin/css/category/category.css}">
+<link rel="stylesheet" th:href="@{/admin/css/orderDetail/orderDetail.css}">
 
 <head th:replace="admin/layout/head::head"></head>
 
@@ -294,10 +294,13 @@
                 <div class="col-4  mb-1 mt-1">Mã đơn hàng: {{order.id}}</div>
                 <div class="col-4  mb-1 mt-1">Số điện thoại: {{order.customer.phone}}</div>
                 <div class="col-4  mb-1 mt-1">Tên khách hàng: {{order.customer.name}}</div>
-                <div class="col-4  mb-1 mt-1">Loại đơn hàng: <span ng-if="order.type">Online</span><span
-                        ng-if="!order.type">Tại quầy</span></div>
+                <div class="col-4  mb-1 mt-1">Loại đơn hàng:
+                    <span ng-if="order.type">Online</span>
+                    <span ng-if="!order.type">Tại quầy</span>
+                </div>
                 <div class="col-4  mb-1 mt-1">Địa chỉ giao hàng: {{order.address}}</div>
                 <div class="col-4  mb-1 mt-1">Ghi chú: {{order.note}}</div>
+                <div class="col-4  mb-1 mt-1">Phương thức thanh toán: {{order.shopping}}</div>
                 <div class="col-4  mb-1 mt-1">Ngày tạo đơn: {{ order.createdAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col-4  mb-1 mt-1">Ngày cập nhật: {{ order.updatedAt | date:'dd/MM/yyyy' }}</div>
                 <div class="col-4  mb-1 mt-1"><span ng-show="order.staff">Nhân viên xác nhận đơn:
@@ -309,30 +312,29 @@
             <table ng-hide="orders.length==0" class="table table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>STT</th>
-                    <th>Ảnh</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Số lượng</th>
-                    <!--                            <th>Giá gốc</th>-->
-                    <th>Giá bán</th>
-                    <th>Kích thước</th>
-                    <th>Màu sắc</th>
-                    <th>Tổng tiền</th>
-                    <th ng-if="order.status==1">Thao tác</th>
+                    <th class="stt">STT</th>
+                    <th class="anh">Ảnh</th>
+                    <th class="ten-san-pham">Tên sản phẩm</th>
+                    <th class="so-luong">Số lượng</th>
+                    <th class="gia-ban">Giá bán</th>
+                    <th class="kich_thuoc">Kích thước</th>
+                    <th class="mau-sac">Màu sắc</th>
+                    <th class="tong-tien">Tổng tiền</th>
+                    <th class="thao-tac" ng-if="order.status==1">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody>
                 <!-- Sử dụng Thymeleaf để lặp qua danh sách đơn hàng và hiển thị thông tin -->
                 <tbody>
                 <tr ng-repeat="o in order.orderDetails">
-                    <td>{{$index + 1}}</td>
-                    <td>
+                    <td class="stt">{{$index + 1}}</td>
+                    <td class="anh">
                         <img ng-src="{{o.productDetail.product.image[0].urlImage
-                                }}" width="80px" height="80px" alt="">
+                                }}" width="80px" height="120px" alt="">
                     </td>
                     </td>
-                    <td>{{o.productDetail.product.name}}</td>
-                    <td>
+                    <td class="ten-san-pham">{{o.productDetail.product.name}}</td>
+                    <td class="so-luong">
                         <div class="quantity-controls">
                             <button ng-if="order.status==1" class="btn btn-sm btn-primary"
                                     ng-click="decrementQuantity(o.id)">-
@@ -343,15 +345,15 @@
                             </button>
                         </div>
                     </td>
-                    <td>{{ o.price.toLocaleString('vi-VN') }} VNĐ</td>
-                    <td>{{o.productDetail.size.name}}</td>
-                    <td>{{o.productDetail.color.name}}</td>
+                    <td class="gia-ban">{{ o.price.toLocaleString('vi-VN') }} VNĐ</td>
+                    <td class="kich-thuoc">{{o.productDetail.size.name}}</td>
+                    <td class="mau-sac">{{o.productDetail.color.name}}</td>
 
-                    <td>
+                    <td class="tong-tien">
                         {{ (o.price * o.quantity).toLocaleString('vi-VN') }} VNĐ
                     </td>
 
-                    <td ng-show="order.status==1">
+                    <td class="thao-tac" ng-show="order.status==1">
                         <a ng-click="deleteOrderDetail(o.id)">
                             <button class="btn btn-warning"><span style="color: white;">Xóa</span></button>
                         </a>
