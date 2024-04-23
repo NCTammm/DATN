@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,11 +27,8 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
                     carts c ON cd.cart_id = c.id
                 INNER JOIN
                     customers cst ON c.customer_id = cst.id
-                INNER JOIN
-                    product_details pd ON cd.product_detail_id = pd.id
                 WHERE
                     cst.id = :customerId
-                    AND pd.quantity > 0
             """, nativeQuery = true)
     List<CartDetail> findCartDetailByCustomer(@Param("customerId") Integer customerId);
 
@@ -110,4 +108,37 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
             "      WHERE [dbo].[cart_details].cart_id = :cartId AND " +
             "            [dbo].[cart_details].product_detail_id = :productDetailId",nativeQuery = true)
     void deleteAfterCheckout(@Param("cartId") Integer cartId,@Param("productDetailId") Integer productDetailId);
+
+    @Modifying
+    @Transactional
+    @Query(value = """
+                DELETE FROM cart_details
+                WHERE
+                    cart_id = :cartId
+                    AND (
+                        EXISTS (
+                            SELECT 1
+                            FROM product_details pd
+                            INNER JOIN products p ON pd.product_id = p.id
+                            WHERE
+                                p.status = 1
+                                AND pd.id = cart_details.product_detail_id
+                        )
+                        OR EXISTS (
+                            SELECT 1
+                            FROM product_details pd
+                            WHERE
+                                pd.status = 1
+                                AND pd.id = cart_details.product_detail_id
+                        )
+                        OR EXISTS (
+                            SELECT 1
+                            FROM product_details pd
+                            WHERE
+                                pd.quantity = 0
+                                AND pd.id = cart_details.product_detail_id
+                        )
+                    )
+            """, nativeQuery = true)
+    void deleteCartDetailByQuantityAndStatusProduct(@Param("cartId") Integer cartId);
 }

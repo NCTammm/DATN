@@ -7,17 +7,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class CartDetailRestController {
-    @Autowired
-    CartDetailService cartDetailService;
-
-    @Autowired
-    HttpSession session;
+    private final CartDetailService cartDetailService;
+    private final HttpSession session;
 
     @Transactional
     @PostMapping("/cart-detail/increment/{idProductDetail}")
@@ -56,5 +54,12 @@ public class CartDetailRestController {
         Customer customer = (Customer) session.getAttribute("customer");
         cartDetailService.deleteAfterCheckout(customer.getCart().getId(),productDetailId);
         return ResponseEntity.ok("Delete ProductDetailId " + productDetailId +" from CartDetail successfully!");
+    }
+
+    @DeleteMapping("/rest/cart-detail/deleteCartDetailByQuantityAndStatusProduct")
+    public ResponseEntity<?> deleteCartDetailByQuantityAndStatusProduct() {
+        Customer customer = (Customer) session.getAttribute("customer");
+        cartDetailService.deleteCartDetailByQuantityAndStatusProduct(customer.getCart().getId());
+        return ResponseEntity.ok("Delete CartDetail By Status And Quantity Product = 0 successfully");
     }
 }

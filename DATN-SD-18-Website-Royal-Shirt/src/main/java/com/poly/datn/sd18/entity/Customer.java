@@ -48,10 +48,10 @@ public class Customer implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "customer")
     private Cart cart;
 
-    // Thêm quan hệ một-đến-nhiều với Address
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Address> listAddresses;

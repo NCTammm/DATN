@@ -26,4 +26,6 @@ public interface CartDetailService {
     Integer quantityCartDetail(Integer customerId, Integer productDetailId);
 
     void deleteAfterCheckout(Integer cartId, Integer productDetailId);
+
+    void deleteCartDetailByQuantityAndStatusProduct(Integer cartId);
 }

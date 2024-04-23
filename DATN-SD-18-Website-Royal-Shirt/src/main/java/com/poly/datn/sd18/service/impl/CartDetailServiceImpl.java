@@ -142,4 +142,9 @@ public class CartDetailServiceImpl implements CartDetailService {
     public void deleteAfterCheckout(Integer cartId, Integer productDetailId) {
         cartDetailRepository.deleteAfterCheckout(cartId,productDetailId);
     }
+
+    @Override
+    public void deleteCartDetailByQuantityAndStatusProduct(Integer cartId) {
+        cartDetailRepository.deleteCartDetailByQuantityAndStatusProduct(cartId);
+    }
 }
