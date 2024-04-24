@@ -1,6 +1,7 @@
 package com.poly.datn.sd18.repository;
 
 import com.poly.datn.sd18.entity.Customer;
+import com.poly.datn.sd18.entity.Staff;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -31,8 +32,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     boolean existsByPhone(String phone);
 
-    Customer findByEmail(String email);
-
     @Query(value = """
                 SELECT c.*
                 FROM customers c
@@ -43,4 +42,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             """, nativeQuery = true)
     Customer loginCustomer(@Param("email") String email,
                            @Param("password") String password);
+
+    List<Customer> findByEmail(String email);
 }

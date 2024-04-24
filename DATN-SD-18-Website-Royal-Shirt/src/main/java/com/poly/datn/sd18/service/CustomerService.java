@@ -18,4 +18,5 @@ public interface CustomerService {
     List<Customer> findByPhone(String phone);
 
     Customer findById(Integer id);
+    List<Customer> existsByEmail(String email);
 }

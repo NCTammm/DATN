@@ -36,13 +36,16 @@
                         <h3><strong>Register</strong></h3>
                     </div>
                     <div class="custom-input">
-                        <form th:action="@{/register}" method="post" th:object="${customer}">
-                            <input type="text" th:field="*{name}" name="" placeholder="Name here.." />
-                            <input type="text" th:field="*{email}" name="" placeholder="Email here.." />
-                            <input type="text" th:field="*{phone}" name="" placeholder="Phone Number.." />
-                            <input type="password" th:field="*{password}" name="" placeholder="Password" />
+                        <form id="registrationForm" onsubmit="registerCustomer(); return false;">
+                            <input type="text" name="name" id="name" placeholder="Name here.." />
+                            <input type="text" name="email" id="email" placeholder="Email here.." />
+                            <input type="text" name="phone" id="phone" placeholder="Phone Number.." />
+                            <input type="password" name="password" id="password" placeholder="Password" />
                             <div class="submit-text coupon">
-                                <button type="submit" style="display: block; margin: 0 auto;">REGISTER</button>
+                                <button type="submit"
+                                        style="display: block; margin: 0 auto;">
+                                    REGISTER
+                                </button>
                             </div>
                         </form>
                         <br>
@@ -69,6 +72,7 @@
 <!-- all js here -->
 <!-- jquery latest version -->
 <div th:replace="~{client/layout/script::script}"></div>
+<script th:src="@{/client/js/login/register.js}"></script>
 </body>
 
 </html>

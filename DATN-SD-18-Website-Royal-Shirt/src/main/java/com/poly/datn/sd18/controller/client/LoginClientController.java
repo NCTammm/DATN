@@ -1,7 +1,6 @@
 package com.poly.datn.sd18.controller.client;
 
 import com.poly.datn.sd18.entity.Customer;
-import com.poly.datn.sd18.model.dto.CustomerDTO;
 import com.poly.datn.sd18.model.request.CustomerRequest;
 import com.poly.datn.sd18.service.CustomerService;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class LoginClientController {
     private final CustomerService customerService;
-    private final CustomerRequest customerRequest;
     private final HttpSession session;
 
     @GetMapping("/loginPage")
@@ -28,21 +26,7 @@ public class LoginClientController {
 
     @GetMapping("/registerPage")
     public String registerPage(Model model) {
-        model.addAttribute("customer", new Customer());
         return "client/login/register";
-    }
-
-    @PostMapping("/register")
-    public String register(Model model,
-                           @Valid @ModelAttribute("customer") CustomerDTO customerDTO,
-                           BindingResult result) {
-        if (result.hasErrors()) {
-            model.addAttribute("customer", new Customer());
-            return "client/login/register";
-        }else {
-            Customer customer = customerService.createCustomer(customerDTO);
-            return "redirect:/loginPage";
-        }
     }
 
     @PostMapping("/login")

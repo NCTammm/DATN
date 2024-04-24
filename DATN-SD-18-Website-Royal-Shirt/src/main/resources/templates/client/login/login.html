@@ -38,8 +38,8 @@
                     <div class="login-text">
                         <div class="custom-input">
                             <form th:action="@{/login}" method="post">
-                                <input type="text" name="email" placeholder="Email" />
-                                <input type="password" name="password" placeholder="Password" />
+                                <input type="text" name="email" id="email" placeholder="Email" />
+                                <input type="password" name="password" id="password" placeholder="Password" />
                                 <div class="row justify-content-evenly">
                                     <div class="col-md-5">
                                         <a class="forget" href="#">Forget password?</a>
@@ -49,10 +49,13 @@
                                     </div>
                                 </div>
                                 <div class="submit-text">
-                                    <button type="submit" style="display: block; margin: 0 auto;">LOGIN</button>
+                                    <button type="submit"
+                                            style="display: block; margin: 0 auto;">
+                                        LOGIN
+                                    </button>
                                 </div>
                                 <br>
-                                <div th:if="${error}" class="error" style="text-align: center;">
+                                <div th:if="${error}" class="error text-danger" style="text-align: center;">
                                     <span th:text="${error}"></span>
                                 </div>
                             </form>
@@ -69,9 +72,9 @@
 <div th:replace="~{client/layout/footer::footer}"></div>
 <!-- footer section end -->
 
-<!-- all js here -->
 <!-- jquery latest version -->
 <div th:replace="~{client/layout/script::script}"></div>
+<script th:src="@{/client/js/login/login.js}"></script>
 </body>
 
 </html>
