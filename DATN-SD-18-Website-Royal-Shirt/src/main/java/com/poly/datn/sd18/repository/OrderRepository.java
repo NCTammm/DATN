@@ -143,7 +143,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.status = :status AND o.type = :type")
     List<Order> getByStatusAndType(int status, boolean type);
 
-    @Query("Select SUM(o.totalPrice) From Order o")
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.status IN (2, 3, 4, 5)")
     Float totalOrders();
 
     @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE MONTH(o.successDate) = MONTH(:month)")
