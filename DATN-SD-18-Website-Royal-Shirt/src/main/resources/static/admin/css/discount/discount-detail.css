@@ -55,7 +55,7 @@ input:checked + .slider:before {
 
 .anh_img img {
     width: 70px;
-    height: 75px;
+    height: 100px;
 }
 
 .modal-footer {

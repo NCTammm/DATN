@@ -39,8 +39,8 @@ public class AddProductRestController {
 
     @GetMapping()
     public ResponseEntity<?> getAll(){
-        List<Color> listColor = colorRepository.findAll();
-        List<Size> listSize = sizeRepository.findAll();
+        List<Color> listColor = colorRepository.getAllActive();
+        List<Size> listSize = sizeRepository.getAllActive();
 
         ProductRestRequest productRestRequest = new ProductRestRequest(listColor,listSize);
 

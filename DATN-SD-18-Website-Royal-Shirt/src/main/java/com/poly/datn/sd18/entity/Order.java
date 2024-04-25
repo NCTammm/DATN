@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -49,22 +50,22 @@ public class Order extends BaseEntity implements Serializable {
     private Integer status;
 
     @Column(name = "confirm_date")
-    private Date confirmDate;
+    private LocalDateTime confirmDate;
 
     @Column(name = "confirm_wait_date")
-    private Date confirmWaitDate;
+    private LocalDateTime confirmWaitDate;
 
     @Column(name = "ship_date")
-    private Date shipDate;
+    private LocalDateTime shipDate;
 
     @Column(name = "ship_wait_date")
-    private Date shipWaitDate;
+    private LocalDateTime shipWaitDate;
 
     @Column(name = "success_date")
-    private Date successDate;
+    private LocalDateTime successDate;
 
     @Column(name = "cancel_date")
-    private Date cancelDate;
+    private LocalDateTime cancelDate;
 
     @Column(name = "type")
     private Boolean type;

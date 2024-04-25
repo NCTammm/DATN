@@ -53,7 +53,7 @@ public interface DiscountRepository extends JpaRepository<Discount, Integer> {
             "\tdiscounts d ON p.discount_id = d.id\n" +
             "WHERE\n" +
             "    p.discount_id IS NULL \n" +
-            "\tOR GETDATE() NOT BETWEEN d.start_date AND d.end_date\n" +
+            "\tOR CAST(GETDATE() AS DATE) > d.end_date\n" +
             "GROUP BY\n" +
             "    p.id, p.name, p.description, p.status, i.url_image\n" +
             "ORDER BY\n" +

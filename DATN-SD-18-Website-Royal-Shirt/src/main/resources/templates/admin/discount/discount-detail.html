@@ -70,7 +70,7 @@
                                 <th class="stt" width="20">STT</th>
                                 <th class="ten_san_pham" width="250">Tên Sản Phẩm</th>
                                 <th class="anh">Ảnh</th>
-                                <th class="mo_ta" width="250">Mô Tả</th>
+                                <th class="so_luong_ton" width="100">Số lượng tồn</th>
                                 <th class="tinh_nang" width="90">Tính Năng</th>
                             </tr>
                             </thead>
@@ -89,7 +89,7 @@
                                 <td class="stt" th:text="${index.index + 1}"></td>
                                 <td class="ten_san_pham" th:text="${product.name}"></td>
                                 <td class="anh anh_img"><img th:src="${product.image}" alt="Hình ảnh sản phẩm"></td>
-                                <td class="mo_ta" th:utext="${product.description}"></td>
+                                <td class="so_luong_ton" th:utext="${product.quantity}"></td>
                                 <td class="table-td-center tinh_nang">
                                     <a class="btn btn-success btn-sm edit" type="button"
                                        th:attr="data-product-id=${product.id},id=#{${product.id}}"
@@ -122,7 +122,7 @@
                             <th class="stt" width="20">STT</th>
                             <th class="ten_san_pham" width="250">Tên Sản Phẩm</th>
                             <th class="anh">Ảnh</th>
-                            <th class="mo_ta" width="250">Mô Tả</th>
+<!--                            <th class="mo_ta" width="250">Mô Tả</th>-->
                             <th class="so_luong_ton" width="90">Số Lượng Tồn</th>
                             <th class="tinh_nang" width="90">Tính Năng</th>
                         </tr>
@@ -142,7 +142,7 @@
                             <td class="stt" th:text="${index.index + 1}"></td>
                             <td class="ten_san_pham" th:text="${product.name}"></td>
                             <td class="anh"><img th:src="${product.image}" alt="Hình ảnh sản phẩm"></td>
-                            <td class="mo_ta" th:utext="${product.description}"></td>
+<!--                            <td class="mo_ta" th:utext="${product.description}"></td>-->
                             <td class="so_luong_ton" th:text="${product.quantity}"></td>
                             <td class="table-td-center tinh_nang">
                                 <button class="btn btn-outline-danger btn-sm edit" type="button"

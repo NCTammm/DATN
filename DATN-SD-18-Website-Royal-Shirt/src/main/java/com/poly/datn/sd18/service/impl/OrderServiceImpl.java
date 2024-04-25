@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
         if (order != null) {
             if (order.getStatus() == 1) {
                 order.setStatus(6);
-                order.setCancelDate(new Date(System.currentTimeMillis()));
+                order.setCancelDate(LocalDateTime.now());
             }
             return orderRepository.save(order);
         }

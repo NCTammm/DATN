@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class OrderCounterRequest {
     private String note;
     private String shopping;
     private Integer status;
-    private Date successDate;
+    private LocalDateTime successDate;
     private Boolean type;
 
     public Order map(Order order){

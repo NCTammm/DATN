@@ -431,6 +431,7 @@ function tinhNo() {
         $("#khach-hang-con-thieu").text(0);
         $("#tra-lai-khach").text(tienNoFormat);
     }
+    saveData(currentTab);
 }
 
 async function saveOrder() {
@@ -442,17 +443,15 @@ async function saveOrder() {
         });
         return;
     }
-    checktienkhach = $("#khach-hang-dua-tien").val();
-    if ( checktienkhach < 0) {
+
+    if ($("#khach-hang-dua-tien").val() <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Lỗi!',
-                text: 'tiền khách đưa phải là dương!'
+                text: 'Tiền khách đưa không hợp lệ!'
             });
             return;
         }
-
-    console.log("Tien khach tra: " + $("#khach-hang-dua-tien").val());
 
     if (!await checkQuantitySaveOrderDetail()) {
         return;

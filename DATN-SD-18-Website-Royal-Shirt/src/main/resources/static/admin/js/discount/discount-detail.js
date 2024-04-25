@@ -4,20 +4,38 @@ $(document).ready(function () {
     $('#sampleTableNoneDiscount').dataTable();
 
     $('#showFormNoneDiscount').click(function () {
-        var discountStartDate = moment($("#discountStartDate").val(), 'YYYY-MM-DD');
-        var discountEndDate = moment($("#discountEndDate").val(), 'YYYY-MM-DD');
-        var currentDate = moment();
+        var discountId = $("#discountForm").attr("discount-id");
+        $.ajax({
+            type: "GET",
+            url: "/admin/rest/discount/" + discountId,
+            contentType: "application/json",
+            success: function (response) {
+                var discountEndDate = moment(response.endDate, 'YYYY-MM-DD');
+                var currentDate = moment();
 
-        if (currentDate.isBetween(discountStartDate, discountEndDate, null, '[]')) {
-            $('#NoneDiscountModal').modal('show');
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Lỗi!',
-                text: 'Giảm giá đã hết hạn sử dụng!'
-            });
-        }
+                if (currentDate.isSame(discountEndDate, 'day') || currentDate.isBefore(discountEndDate, 'day')) {
+                    $('#NoneDiscountModal').modal('show');
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: 'Giảm giá đã hết hạn sử dụng!'
+                    });
+                }
+            },
+            error: function (error) {
+                console.error("Lỗi khi áp dụng giảm giá:", error);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Có lỗi xảy ra khi áp dụng giảm giá!'
+                });
+                return;
+            }
+        });
     });
+
     $('#closeFormNoneDiscount').click(function () {
         $('#NoneDiscountModal').modal('hide');
     });

@@ -17,6 +17,16 @@ public class DiscountRestController {
     @Autowired
     DiscountService discountService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable("id") int id) {
+        Discount discount = discountService.findById(id);
+        if (discount != null) {
+            return ResponseEntity.ok(discount);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/checkDuplicateName")
     public ResponseEntity<?> checkDuplicateName(@RequestBody DiscountRequest discountRequest){
         List<Discount> lists = discountService.findByName(discountRequest.getName());

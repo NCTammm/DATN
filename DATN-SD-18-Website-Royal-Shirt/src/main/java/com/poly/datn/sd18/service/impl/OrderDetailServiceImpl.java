@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -103,7 +104,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         obj.setStatus(status);
         // Cập nhật các ngày tương ứng với các trạng thái khác nhau
         if (status == 2) {
-            obj.setConfirmDate(new Date(System.currentTimeMillis()));
+            obj.setConfirmDate(LocalDateTime.now());
             // trừ số lượng trong đơn hàng
             for (int i = 0; i < obj.getOrderDetails().size(); i++) {
                 ProductDetail o = obj.getOrderDetails().get(i).getProductDetail();
@@ -113,13 +114,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
             Staff staff = (Staff) session.getAttribute("staff");
             obj.setStaff(staff);
         } else if (status == 3) {
-            obj.setShipWaitDate(new Date(System.currentTimeMillis()));
+            obj.setShipWaitDate(LocalDateTime.now());
         } else if (status == 4) {
-            obj.setShipDate(new Date(System.currentTimeMillis()));
+            obj.setShipDate(LocalDateTime.now());
         } else if (status == 5) {
-            obj.setSuccessDate(new Date(System.currentTimeMillis()));
+            obj.setSuccessDate(LocalDateTime.now());
         } else if (status == 6) {
-            obj.setCancelDate(new Date(System.currentTimeMillis()));
+            obj.setCancelDate(LocalDateTime.now());
         }
         orderRepository.saveAndFlush(obj);
         return obj;

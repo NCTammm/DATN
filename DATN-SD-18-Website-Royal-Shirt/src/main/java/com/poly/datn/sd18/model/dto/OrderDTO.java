@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -24,7 +25,7 @@ public class OrderDTO {
     private String shopping;
     private Integer status;
     private Boolean type;
-    private Date conformWaitDate;
+    private LocalDateTime conformWaitDate;
 
     public Order map(Order order){
         order.setCustomer(Customer.builder().id(this.customerId).build());
@@ -37,7 +38,7 @@ public class OrderDTO {
         order.setShopping(this.shopping);
         order.setStatus(this.status);
         order.setType(true);
-        order.setConfirmWaitDate(new Date(System.currentTimeMillis()));
+        order.setConfirmWaitDate(LocalDateTime.now());
         return order;
     }
 }
