@@ -104,32 +104,32 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.totalOrders();
     }
 
-    public Float totalOrdersByMonth(Date date) {
-        return orderRepository.totalOrdersByMonth(date);
+    public Float totalOrdersByMonth(LocalDateTime localDateTime) {
+        return orderRepository.totalOrdersByMonth(localDateTime);
     }
 
-    public Float totalOrdersByDate(Date date) {
-        return orderRepository.totalOrdersByDate(date);
+    public Float totalOrdersByDate(LocalDateTime localDateTime) {
+        return orderRepository.totalOrdersByDate(localDateTime);
     }
 
-    public Float totalOrdersByYear(Date date) {
-        return orderRepository.totalOrdersByYear(date);
+    public Float totalOrdersByYear(LocalDateTime localDateTime) {
+        return orderRepository.totalOrdersByYear(localDateTime);
     }
 
     public int countOrders() {
         return orderRepository.countOrders();
     }
 
-    public int countOrdersByMonth(Date date) {
-        return orderRepository.countOrdersByMonth(date);
+    public int countOrdersByMonth(LocalDateTime localDateTime) {
+        return orderRepository.countOrdersByMonth(localDateTime);
     }
 
-    public int countOrdersByDate(Date date) {
-        return orderRepository.countOrdersByDate(date);
+    public int countOrdersByDate(LocalDateTime localDateTime) {
+        return orderRepository.countOrdersByDate(localDateTime);
     }
 
-    public int countOrdersByYear(Date date) {
-        return orderRepository.countOrdersByYear(date);
+    public int countOrdersByYear(LocalDateTime localDateTime) {
+        return orderRepository.countOrdersByYear(localDateTime);
     }
 
     @Transactional

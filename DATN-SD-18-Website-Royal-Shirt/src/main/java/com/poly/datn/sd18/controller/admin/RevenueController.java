@@ -2,6 +2,7 @@ package com.poly.datn.sd18.controller.admin;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,18 +44,18 @@ public class RevenueController {
         m.addAttribute("countOrders", orderServiceImpl.countOrders());
 
         // tổng doanh thu theo tháng lấy từ orders
-        m.addAttribute("totalOrdersByMonth", orderServiceImpl.totalOrdersByMonth(new java.sql.Date(System.currentTimeMillis())));
+        m.addAttribute("totalOrdersByMonth", orderServiceImpl.totalOrdersByMonth(LocalDateTime.now()));
         // số hóa đơn theo tháng lấy từ orders
-        m.addAttribute("countOrdersByMonth", orderServiceImpl.countOrdersByMonth(new java.sql.Date(System.currentTimeMillis())));
+        m.addAttribute("countOrdersByMonth", orderServiceImpl.countOrdersByMonth(LocalDateTime.now()));
 
         // Tổng doanh thu theo ngày từ orders
-        m.addAttribute("totalOrdersByDate", orderServiceImpl.totalOrdersByDate(new java.sql.Date(System.currentTimeMillis())));
+        m.addAttribute("totalOrdersByDate", orderServiceImpl.totalOrdersByDate(LocalDateTime.now()));
         // Số hóa đơn theo ngày từ orders
-        m.addAttribute("countOrdersByDate", orderServiceImpl.countOrdersByDate(new java.sql.Date(System.currentTimeMillis())));
+        m.addAttribute("countOrdersByDate", orderServiceImpl.countOrdersByDate(LocalDateTime.now()));
         // Tổng doanh thu theo năm từ orders
-        m.addAttribute("totalOrdersByYear", orderServiceImpl.totalOrdersByYear(new java.sql.Date(System.currentTimeMillis())));
+        m.addAttribute("totalOrdersByYear", orderServiceImpl.totalOrdersByYear(LocalDateTime.now()));
         // Số hóa đơn theo năm từ orders
-        m.addAttribute("countOrdersByYear", orderServiceImpl.countOrdersByYear(new Date(System.currentTimeMillis())));
+        m.addAttribute("countOrdersByYear", orderServiceImpl.countOrdersByYear(LocalDateTime.now()));
 
         // Tổng số khách hàng từ customer
         m.addAttribute("countCustomer", customerServiceImpl.countCustomer());

@@ -24,14 +24,7 @@ $(document).ready(function () {
                 }
             },
             error: function (error) {
-                console.error("Lỗi khi áp dụng giảm giá:", error);
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi!',
-                    text: 'Có lỗi xảy ra khi áp dụng giảm giá!'
-                });
-                return;
+                console.error("Lỗi khi lấy thông tin giảm giá:", error);
             }
         });
     });

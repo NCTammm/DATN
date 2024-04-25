@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -147,25 +148,25 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     Float totalOrders();
 
     @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE MONTH(o.successDate) = MONTH(:month)")
-    Float totalOrdersByMonth(@Param("month") Date month);
+    Float totalOrdersByMonth(@Param("month") LocalDateTime month);
 
     @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE Year(o.successDate) = Year(:year)")
-    Float totalOrdersByYear(@Param("year") Date year);
+    Float totalOrdersByYear(@Param("year") LocalDateTime year);
 
     @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.successDate =:date")
-    Float totalOrdersByDate(@Param("date") Date date);
+    Float totalOrdersByDate(@Param("date") LocalDateTime date);
 
     @Query("Select COUNT(o.id) From Order o")
     int countOrders();
 
     @Query("Select COUNT(o.id) From Order o WHERE MONTH(o.successDate) = MONTH(:month)")
-    int countOrdersByMonth(@Param("month") Date month);
+    int countOrdersByMonth(@Param("month") LocalDateTime month);
 
     @Query("Select COUNT(o.id) From Order o WHERE Year(o.successDate) = Year(:year)")
-    int countOrdersByYear(@Param("year") Date year);
+    int countOrdersByYear(@Param("year") LocalDateTime year);
 
     @Query("Select COUNT(o.id) From Order o WHERE o.successDate =:date")
-    int countOrdersByDate(@Param("date") Date date);
+    int countOrdersByDate(@Param("date") LocalDateTime date);
 
     @Procedure(name = "thongkedonhang")
     List<Object> thongkedonhang(@Param("Nam") int Nam);
