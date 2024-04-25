@@ -144,28 +144,28 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.status = :status AND o.type = :type")
     List<Order> getByStatusAndType(int status, boolean type);
 
-    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.status IN (2, 3, 4, 5)")
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.status IN (5)")
     Float totalOrders();
 
-    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE MONTH(o.successDate) = MONTH(:month)")
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE MONTH(o.successDate) = MONTH(:month) AND o.status IN (5)")
     Float totalOrdersByMonth(@Param("month") LocalDateTime month);
 
-    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE Year(o.successDate) = Year(:year)")
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE Year(o.successDate) = Year(:year) AND o.status IN (5)")
     Float totalOrdersByYear(@Param("year") LocalDateTime year);
 
-    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.successDate =:date")
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.successDate = :date AND o.status IN (5)")
     Float totalOrdersByDate(@Param("date") LocalDateTime date);
 
-    @Query("Select COUNT(o.id) From Order o")
+    @Query("Select COUNT(o.id) From Order o WHERE o.status IN (5)")
     int countOrders();
 
-    @Query("Select COUNT(o.id) From Order o WHERE MONTH(o.successDate) = MONTH(:month)")
+    @Query("Select COUNT(o.id) From Order o WHERE MONTH(o.successDate) = MONTH(:month) AND o.status IN (5)")
     int countOrdersByMonth(@Param("month") LocalDateTime month);
 
-    @Query("Select COUNT(o.id) From Order o WHERE Year(o.successDate) = Year(:year)")
+    @Query("Select COUNT(o.id) From Order o WHERE Year(o.successDate) = Year(:year) AND o.status IN (5)")
     int countOrdersByYear(@Param("year") LocalDateTime year);
 
-    @Query("Select COUNT(o.id) From Order o WHERE o.successDate =:date")
+    @Query("Select COUNT(o.id) From Order o WHERE o.successDate =:date AND o.status IN (5)")
     int countOrdersByDate(@Param("date") LocalDateTime date);
 
     @Procedure(name = "thongkedonhang")
