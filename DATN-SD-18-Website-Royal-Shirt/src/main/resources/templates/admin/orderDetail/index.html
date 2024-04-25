@@ -76,7 +76,7 @@
                     <div class="step" th:classappend="${order.status == 1} ? 'showw' : 'hide'">
                         <div class="title">Chờ xác nhận</div>
                         <div class="timestamp" th:if="${order.confirmWaitDate} != null"
-                             th:text="${#dates.format(order.confirmWaitDate, 'dd-MM-yyyy')}"></div>
+                             th:text="${#temporals.format(order.confirmWaitDate, 'dd/MM/yyyy HH:mm:ss')}"></div>
                         <div class="timestamp" th:if="${order.confirmWaitDate} == null">Processing</div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                          th:classappend="${order.status == 2} ? 'showw' : 'hide'">
                         <div class="title">Xác nhận</div>
                         <div class="timestamp" th:if="${order.confirmDate} != null"
-                             th:text="${#dates.format(order.confirmDate, 'dd-MM-yyyy')}">
+                             th:text="${#temporals.format(order.confirmDate, 'dd/MM/yyyy HH:mm:ss')}">
                         </div>
                         <div class="timestamp" th:if="${order.confirmDate} == null">Processing
                         </div>
@@ -98,7 +98,7 @@
                          th:classappend="${order.status == 3} ? 'showw' : 'hide'">
                         <div class="title">Chờ giao hàng</div>
                         <div class="timestamp" th:if="${order.shipWaitDate} != null"
-                             th:text="${#dates.format(order.shipWaitDate, 'dd-MM-yyyy')}">
+                             th:text="${#temporals.format(order.shipWaitDate, 'dd/MM/yyyy HH:mm:ss')}">
                         </div>
                         <div class="timestamp" th:if="${order.shipWaitDate} == null">Processing
                         </div>
@@ -110,7 +110,7 @@
                          th:classappend="${order.status == 4} ? 'showw' : 'hide'">
                         <div class="title">Giao hàng</div>
                         <div class="timestamp" th:if="${order.shipDate} != null"
-                             th:text="${#dates.format(order.shipDate, 'dd-MM-yyyy')}">
+                             th:text="${#temporals.format(order.shipDate, 'dd/MM/yyyy HH:mm:ss')}">
                         </div>
                         <div class="timestamp" th:if="${order.shipDate} == null">Processing
                         </div>
@@ -122,7 +122,7 @@
                          th:classappend="${order.status == 5} ? 'showw' : 'hide'">
                         <div class="title">Hoàn thành</div>
                         <div class="timestamp" th:if="${order.successDate} != null"
-                             th:text="${#dates.format(order.successDate, 'dd-MM-yyyy')}">
+                             th:text="${#temporals.format(order.successDate, 'dd/MM/yyyy HH:mm:ss')}">
                         </div>
                         <div class="timestamp" th:if="${order.successDate} == null">Processing
                         </div>

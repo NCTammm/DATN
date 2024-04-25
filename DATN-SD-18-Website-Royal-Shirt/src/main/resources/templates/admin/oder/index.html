@@ -151,7 +151,7 @@
                                 <tr ng-repeat="order in orders.slice(getStartIndex(), getEndIndex())">
                                     <td>{{$index + 1}}</td>
                                     <td>{{order.customer.name}}</td>
-                                    <td>{{ order.createdAt | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{ order.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
                                     <td>{{order.customer.phone}}</td>
                                     <td>{{(order.totalPrice+order.shipCost ).toLocaleString('vi-VN')}} VNĐ</td>
                                     <td>
