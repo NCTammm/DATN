@@ -65,15 +65,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetail PlusAmountOrderDetail(int id, int amount) {
         OrderDetail obj = orderDetailRepository.findById(id).orElse(null);
         obj.setQuantity(obj.getQuantity() + amount);
-
-        if (obj.getProductDetail().getProduct().getDiscount().getStatus() == 0) {
-
-            obj.setPrice(obj.getProductDetail().getPrice()
-                    - (obj.getProductDetail().getPrice()
-                    * obj.getProductDetail().getProduct().getDiscount().getDiscount() / 100));
-            System.out.println("alo1:" + obj.getPrice());
-        } else {
+        if (obj.getProductDetail().getProduct().getDiscount() == null) {
             obj.setPrice(obj.getProductDetail().getPrice());
+        } else {
+            if (obj.getProductDetail().getProduct().getDiscount().getStatus() == 0) {
+                obj.setPrice(obj.getProductDetail().getPrice()
+                        - (obj.getProductDetail().getPrice()
+                        * obj.getProductDetail().getProduct().getDiscount().getDiscount() / 100));
+                System.out.println("alo1:" + obj.getPrice());
+            } else {
+                obj.setPrice(obj.getProductDetail().getPrice());
+            }
         }
         orderDetailRepository.saveAndFlush(obj);
         return obj;
@@ -84,14 +86,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetail MinusAmountOrderDetail(int id, int amount) {
         OrderDetail obj = orderDetailRepository.findById(id).orElse(null);
         obj.setQuantity(obj.getQuantity() - amount);
-        if (obj.getProductDetail().getProduct().getDiscount().getStatus() == 0) {
-
-            obj.setPrice(obj.getProductDetail().getPrice()
-                    - (obj.getProductDetail().getPrice()
-                    * obj.getProductDetail().getProduct().getDiscount().getDiscount() / 100));
-            System.out.println("alo1:" + obj.getPrice());
-        } else {
+        if (obj.getProductDetail().getProduct().getDiscount() == null) {
             obj.setPrice(obj.getProductDetail().getPrice());
+        } else {
+            if (obj.getProductDetail().getProduct().getDiscount().getStatus() == 0) {
+                obj.setPrice(obj.getProductDetail().getPrice()
+                        - (obj.getProductDetail().getPrice()
+                        * obj.getProductDetail().getProduct().getDiscount().getDiscount() / 100));
+                System.out.println("alo1:" + obj.getPrice());
+            } else {
+                obj.setPrice(obj.getProductDetail().getPrice());
+            }
         }
         orderDetailRepository.saveAndFlush(obj);
         return obj;
