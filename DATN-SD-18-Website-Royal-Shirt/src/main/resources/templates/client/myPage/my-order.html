@@ -82,7 +82,8 @@
                                     <td th:text="${o.id}"></td>
                                     <td th:text="${o.orderDetails.size}"></td>
                                     <td th:text="${#numbers.formatDecimal((o.totalPrice+o.shipCost), 0, 'POINT', 0, 'POINT')} + ' đ'"></td>
-                                    <td th:text="${#dates.format(o.confirmWaitDate, 'dd/MM/yyyy')}"></td>
+<!--                                    <td th:text="${#dates.format(o.confirmWaitDate, 'dd/MM/yyyy HH:mm:ss')}"></td>-->
+                                    <td th:text="${#temporals.format(o.confirmWaitDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                     <td>
                                         <span th:switch="${o.status}">
                                             <span th:case="1" class="badge bg-warning">Chờ xác nhận</span>
