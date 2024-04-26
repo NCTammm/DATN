@@ -153,7 +153,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE Year(o.successDate) = Year(:year) AND o.status IN (5)")
     Float totalOrdersByYear(@Param("year") LocalDateTime year);
 
-    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE o.successDate = :date AND o.status IN (5)")
+    @Query("SELECT SUM(o.totalPrice) FROM Order o WHERE Day(o.successDate) = Day(:date) AND o.status IN (5)")
     Float totalOrdersByDate(@Param("date") LocalDateTime date);
 
     @Query("Select COUNT(o.id) From Order o WHERE o.status IN (5)")
@@ -165,7 +165,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("Select COUNT(o.id) From Order o WHERE Year(o.successDate) = Year(:year) AND o.status IN (5)")
     int countOrdersByYear(@Param("year") LocalDateTime year);
 
-    @Query("Select COUNT(o.id) From Order o WHERE o.successDate =:date AND o.status IN (5)")
+    @Query("Select COUNT(o.id) From Order o WHERE Day(o.successDate) = Day(:date) AND o.status IN (5)")
     int countOrdersByDate(@Param("date") LocalDateTime date);
 
     @Procedure(name = "thongkedonhang")
