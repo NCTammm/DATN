@@ -152,7 +152,10 @@
                                     <td>{{$index + 1}}</td>
                                     <td>{{order.customer.name}}</td>
                                     <td>{{ order.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-                                    <td>{{order.customer.phone}}</td>
+                                    <td>
+                                        <span ng-if="order.type" >{{order.phone}}</span>
+                                        <span ng-if="!order.type">{{order.customer.phone}}</span>
+                                    </td>
                                     <td>{{(order.totalPrice+order.shipCost ).toLocaleString('vi-VN')}} VNĐ</td>
                                     <td>
                                         <span ng-if="order.type" class="badge bg-success">Online</span>
