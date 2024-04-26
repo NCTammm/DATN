@@ -138,13 +138,17 @@ public class OrderDetailServiceImpl implements OrderDetailService {
             // Nếu chưa tồn tại, thêm chi tiết đơn hàng mới vào cơ sở dữ liệu
             Order order = orderRepository.findById(orderId).orElse(null);
             orderDetail.setOrder(order);
-            if (orderDetail.getProductDetail().getProduct().getDiscount().getStatus() == 0) {
-
-                orderDetail.setPrice(orderDetail.getProductDetail().getPrice()
-                        - (orderDetail.getProductDetail().getPrice()
-                        * orderDetail.getProductDetail().getProduct().getDiscount().getDiscount() / 100));
-            } else {
+            //Check discount có tồn tại hay không
+            if (orderDetail.getProductDetail().getProduct().getDiscount() == null) {
                 orderDetail.setPrice(orderDetail.getProductDetail().getPrice());
+            } else {
+                if (orderDetail.getProductDetail().getProduct().getDiscount().getStatus() == 0) {
+                    orderDetail.setPrice(orderDetail.getProductDetail().getPrice()
+                            - (orderDetail.getProductDetail().getPrice()
+                            * orderDetail.getProductDetail().getProduct().getDiscount().getDiscount() / 100));
+                } else {
+                    orderDetail.setPrice(orderDetail.getProductDetail().getPrice());
+                }
             }
             return orderDetailRepository.save(orderDetail);
         }
