@@ -148,7 +148,7 @@
                     <div class="title mt-2">Thông tin đơn hàng</div>
                 </div>
                 <div class="col-auto mt-1">
-                    <button ng-if="order.status==1" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button ng-if="order.status==1 && order.shopping != 'VN PAY'" type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#modalId">Thêm
                         sản phẩm
                     </button>
@@ -323,7 +323,7 @@
                     <th class="kich_thuoc">Kích thước</th>
                     <th class="mau-sac">Màu sắc</th>
                     <th class="tong-tien">Tổng tiền</th>
-                    <th class="thao-tac" ng-if="order.status==1">Thao tác</th>
+                    <th class="thao-tac" ng-if="order.status==1 && order.shopping != 'VN PAY'">Thao tác</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -339,11 +339,11 @@
                     <td class="ten-san-pham">{{o.productDetail.product.name}}</td>
                     <td class="so-luong">
                         <div class="quantity-controls">
-                            <button ng-if="order.status==1" class="btn btn-sm btn-primary"
+                            <button ng-if="order.status==1 && order.shopping != 'VN PAY'" class="btn btn-sm btn-primary"
                                     ng-click="decrementQuantity(o.id)">-
                             </button>
                             <span>{{o.quantity}}</span>
-                            <button ng-if="order.status==1" class="btn btn-sm btn-primary"
+                            <button ng-if="order.status==1 && order.shopping != 'VN PAY'" class="btn btn-sm btn-primary"
                                     ng-click="incrementQuantity(o.id)">+
                             </button>
                         </div>
@@ -356,7 +356,7 @@
                         {{ (o.price * o.quantity).toLocaleString('vi-VN') }} VNĐ
                     </td>
 
-                    <td class="thao-tac" ng-show="order.status==1">
+                    <td class="thao-tac" ng-show="order.status==1 && order.shopping != 'VN PAY'">
                         <a ng-click="deleteOrderDetail(o.id)">
                             <button class="btn btn-warning"><span style="color: white;">Xóa</span></button>
                         </a>

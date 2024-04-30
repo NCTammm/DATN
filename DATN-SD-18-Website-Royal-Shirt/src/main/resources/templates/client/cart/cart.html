@@ -76,11 +76,16 @@
                                             th:onclick="'decrementQuantity(' + ${cartDetail.productDetail.id} + ')'"
                                             style="height: 34px;">-
                                     </button>
-                                    <input type="number" th:value="${cartDetail.quantity}"
+                                    <input type="" th:value="${cartDetail.quantity}"
                                            th:attr="id='quantity_' + ${cartDetail.productDetail.id},
                                                     max=${cartDetail.productDetail.quantity},
                                                     min=1"
-                                           class="plus-minus-box">
+                                           class="plus-minus-box" disabled>
+<!--                                    <input type="" th:value="${cartDetail.quantity}"-->
+<!--                                           th:attr="id='quantity_' + ${cartDetail.productDetail.id},-->
+<!--                                                    max=10,-->
+<!--                                                    min=1"-->
+<!--                                           class="plus-minus-box" disabled>-->
                                     <button class="btn btn-outline-secondary"
                                             th:onclick="'incrementQuantity(' + ${cartDetail.productDetail.id} + ')'"
                                             style="height: 34px;">+

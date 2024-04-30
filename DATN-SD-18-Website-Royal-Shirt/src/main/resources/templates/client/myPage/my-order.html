@@ -3,32 +3,6 @@
 
 <head th:replace="~{client/layout/head::head}"></head>
 <link rel="stylesheet" th:href="@{/client/css/myPages/my-order.css}">
-<style>
-    .modal-lg {
-        max-width: 60%;
-        max-height: 60%;
-    }
-
-    #closeModal {
-        float: right;
-        margin-top: 10px;
-    }
-
-    .totalPriceContainer {
-        text-align: right;
-        margin-top: 10px;
-    }
-
-    .total-label {
-        color: red;
-        font-weight: bold;
-        margin-right: 10px;
-    }
-
-    .total-amount {
-        margin-left: 10px;
-    }
-</style>
 <body>
 
 <!-- header section start -->
@@ -163,7 +137,18 @@
                         <!-- Dữ liệu chi tiết đơn hàng sẽ được thêm vào đây -->
                     </tbody>
                 </table>
-                <BR>
+                <div class="">
+                    <span class="address">Tên người nhận: </span>
+                    <span id="username" class="total-amount"></span>
+                </div>
+                <div class="">
+                    <span class="address">Số điện thoại: </span>
+                    <span id="phone" class="total-amount"></span>
+                </div>
+                <div class="">
+                    <span class="address">Địa chỉ giao hàng: </span>
+                    <span id="address" class="total-amount"></span>
+                </div>
                 <div class="totalPriceContainer">
                     <span class="total-label">Tiền ship: </span>
                     <span id="shipCost" class="total-amount"></span>

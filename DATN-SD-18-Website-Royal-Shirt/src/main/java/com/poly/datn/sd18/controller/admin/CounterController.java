@@ -35,11 +35,9 @@ public class CounterController {
     @GetMapping()
     public String getAll(Model model){
         List<ProductDetailCounterResponse> listProductDetail = counterService.getListProductDetailCounter();
-//        List<Staff> listStaff = staffService.getAllActive();
         Staff staff = (Staff) session.getAttribute("staff");
         List<Customer> listCustomer = customerService.getAllActive();
         model.addAttribute("listProductDetail",listProductDetail);
-//        model.addAttribute("listStaff",listStaff);
         model.addAttribute("staff",staff);
         model.addAttribute("listCustomer",listCustomer);
         return "/admin/counter/index";

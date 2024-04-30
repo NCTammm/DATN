@@ -23,6 +23,9 @@ public class OrderDetailResponse {
     private String sizeName;
     private String productName;
     private String productImage;
+    private String username;
+    private String phone;
+    private String address;
 
     public static OrderDetailResponse formOrderDetail(OrderDetail orderDetail) {
         if (orderDetail != null && orderDetail.getProductDetail() != null) {
@@ -40,6 +43,9 @@ public class OrderDetailResponse {
                     .shipCost(orderDetail.getOrder().getShipCost())
                     .quantity(orderDetail.getQuantity())
                     .status(orderDetail.getStatus())
+                    .username(orderDetail.getOrder().getUsername())
+                    .phone(orderDetail.getOrder().getPhone())
+                    .address(orderDetail.getOrder().getAddress())
                     .build();
         } else {
             return null;

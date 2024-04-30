@@ -54,3 +54,34 @@ table td {
 table th {
   background-color: #f2f2f2;
 }
+
+.modal-lg {
+  max-width: 60%;
+  max-height: 60%;
+}
+
+#closeModal {
+  float: right;
+  margin-top: 10px;
+}
+
+.totalPriceContainer {
+  text-align: right;
+  /*margin-top: 10px;*/
+}
+
+.total-label {
+  color: red;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.address, .username, .phone {
+  font-weight: bold;
+  margin-left: 5px;
+  color: black;
+}
+
+.table {
+  margin-bottom: 10px;
+}

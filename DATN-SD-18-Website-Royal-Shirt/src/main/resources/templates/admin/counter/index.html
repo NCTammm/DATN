@@ -188,7 +188,7 @@
                                 hàng
                             </button>
                             <button class="btn btn-primary luu-va-in" type="button" onclick="saveOrder(); $('#bill').printThis();">Lưu và in hóa đơn</button>
-                            <a class="btn btn-secondary luu-va-in" href="/admin/revenue">Quay về</a>
+                            <a class="btn btn-secondary luu-va-in" th:href="@{/admin/revenue}">Quay về</a>
                         </div>
                     </div>
                 </div>
@@ -295,8 +295,8 @@
                         <button class="btn btn-success" onclick="$('#bill').printThis();">Print</button>
                     </a>
 
-                    <a href="/admin/counter" >
-                        <button class="btn btn-success" >OK</button>
+                    <a th:href="@{/admin/counter}" >
+                        <button class="btn btn-success">OK</button>
                     </a>
 
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>

@@ -18,6 +18,9 @@ function getOrderDetails(button) {
     var orderId = button.getAttribute("data-id");
     var totalAmount = 0;
     var totalShipCost = 0;
+    var username;
+    var phone;
+    var address;
 
     $.ajax({
         type: "GET",
@@ -45,7 +48,14 @@ function getOrderDetails(button) {
                 $('#orderDetailBody').append(row);
                 totalAmount += od.discountPrice * od.quantity;
                 totalShipCost = od.shipCost;
+                username = od.username;
+                phone = od.phone;
+                address = od.address;
             });
+
+            $("#username").text(username);
+            $("#phone").text(phone);
+            $("#address").text(address);
 
             // Tính tổng tiền bao gồm cả phí ship
             var totalPriceIncludingShip = totalAmount + totalShipCost;

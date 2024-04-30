@@ -490,7 +490,7 @@ async function saveOrder() {
             console.log("Lưu Hóa đơn thành công!");
 
             var orderId = response.id;
-//            printBill(orderId)
+
             if (!saveOrderDetail(orderId)) {
                 Swal.fire({
                     icon: 'error',
@@ -693,7 +693,6 @@ function clearOrder(){
     listProductCart = [];
     renderListProductCart();
     $("#select-customer")[0].selectize.setValue(null);
-    $("#select-staff").val(null);
     $("#khach-hang-dua-tien").val(0);
     getTotalPrice();
 }
