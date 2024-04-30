@@ -3,6 +3,25 @@ var listUrlImage = [];
 var listProductDetail = [];
 
 $(document).ready(function () {
+    //Mở form add
+    $('#quick_edit').click(function () {
+        if (listProductDetail.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi!',
+                text: 'Danh sách biến thể trống!'
+            });
+        } else {
+            $('.modal-title').text("Chỉnh Sửa Nhanh");
+            $('#QuickEditModal').modal('show');
+        }
+    });
+
+    //Đóng form add
+    $('#saveQuickEditModal').click(function () {
+        $('#QuickEditModal').modal('hide');
+    });
+
     // Khởi tạo Select màu sắc và kích thước
     selectColor = $('#select-colors').selectize({
         maxItems: null,
@@ -51,6 +70,44 @@ $(document).ready(function () {
     });
 
 });
+
+function quickEdit() {
+    var quantity = $("#quick-edit-quantity").val();
+    var price = $("#quick-edit-price").val();
+
+    if (quantity == 0 || price == 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi!',
+            text: 'Vui lòng nhập đầy đủ thông tin!!'
+        });
+        return;
+    }
+
+    // Đặt giá mới cho tất cả các ô input có class "gia_ban"
+    $(".gia_ban").each(function(){
+        $(this).val(price);
+    });
+
+    // Đặt số lượng mới cho tất cả các ô input có class "so_luong"
+    $(".so_luong").each(function(){
+        $(this).val(quantity);
+    });
+
+    for (var i = 0; i < listProductDetail.length; i++) {
+        // Lấy giá trị mới từ input tương ứng và cập nhật vào productDetail
+        listProductDetail[i].quantity = quantity;
+        listProductDetail[i].price = price;
+    }
+
+    console.log(listProductDetail);
+
+    //Đóng form add
+    $('#closeQuickEditModal').click(function () {
+        $('#QuickEditModal').modal('hide');
+    });
+
+}
 
 function readURL(input) {
     if (input.files && input.files.length > 0) {
@@ -118,7 +175,7 @@ function checkInputShowList(productName, productCategory, productBrand, productM
         });
         return false;
     }
-    if(!checkDuplicateProduct(productName)){
+    if (!checkDuplicateProduct(productName)) {
         Swal.fire({
             icon: 'error',
             title: 'Lỗi!',
@@ -218,11 +275,11 @@ function showListProductDetail() {
     if (!checkInputShowList(productName, productCategory, productBrand, productMaterial, selectedColorItems, selectedSizeItems, productDescription)) {
         return;
     } else {
-        renderListProductDetail(selectedColorItems, selectedSizeItems);
+        renderListProductDetail(selectedColorItems, selectedSizeItems, 10, 1000000);
     }
 }
 
-function renderListProductDetail(selectedColorItems, selectedSizeItems) {
+function renderListProductDetail(selectedColorItems, selectedSizeItems, quantity, price) {
     // Biến đếm STT
     var sttCounter = 1;
 
@@ -238,16 +295,11 @@ function renderListProductDetail(selectedColorItems, selectedSizeItems) {
     for (var i = 0; i < selectedColorItems.length; i++) {
         for (var j = 0; j < selectedSizeItems.length; j++) {
 
-            var productDetailName = productName + ' [' +
-                '<strong>' + selectedColorItems[i].name + '</strong>' + ' - ' +
-                '<strong>' + selectedSizeItems[j].name + '</strong>' + ']';
-
             // Tạo một biến productDetail để giữ các thuộc tính
             var productDetail = {
                 productId: null,
-                quantity: 10,  // Giá trị mặc định
-                price: 1000000,  // Giá trị mặc định
-                weight: 100,  // Giá trị mặc định
+                quantity: quantity,
+                price: price,
                 colorId: selectedColorItems[i].id, // Giá color id hiện tại
                 sizeId: selectedSizeItems[j].id // Giá size id hiện tại
             };
@@ -258,8 +310,10 @@ function renderListProductDetail(selectedColorItems, selectedSizeItems) {
             var productDetailRow = $(
                 '<tr>\n' +
                 '    <td class="stt">' + sttCounter + '</td>\n' +
-                '    <td class="ten_danh_muc">' + productDetailName + '</td>\n' +
-                '    <td class="trong_luong" id="trong_luong"><input class="product-detail-input trong_luong" type="number" value="' + productDetail.weight + '" min="0"></td>\n' +
+                '    <td class="ten_danh_muc">' + productName + '</td>\n' +
+                '    <td class="mau_sac">' + selectedColorItems[i].name + '</td>\n' +
+                '    <td class="kich_thuoc">' + selectedSizeItems[j].name + '</td>\n' +
+                // '    <td class="trong_luong" id="trong_luong"><input class="product-detail-input trong_luong" type="number" value="' + productDetail.weight + '" min="0"></td>\n' +
                 '    <td class="so_luong"><input class="product-detail-input so_luong" type="number" value="' + productDetail.quantity + '" min="0"></td>\n' +
                 '    <td class="gia_ban" id="gia_ban"><input class="product-detail-input gia_ban" type="number" value="' + productDetail.price + '" min="0"></td>\n' +
                 '    <td class="table-td-center tinh_nang">\n' +
@@ -286,9 +340,10 @@ function renderListProductDetail(selectedColorItems, selectedSizeItems) {
                 var productDetail = row.data('productDetail');
 
                 // Cập nhật thuộc tính tương ứng của productDetail
-                if ($(this).hasClass('trong_luong')) {
-                    productDetail.weight = $(this).val();
-                } else if ($(this).hasClass('so_luong')) {
+                // if ($(this).hasClass('trong_luong')) {
+                //     productDetail.weight = $(this).val();
+                // } else
+                if ($(this).hasClass('so_luong')) {
                     productDetail.quantity = $(this).val();
                 } else if ($(this).hasClass('gia_ban')) {
                     productDetail.price = $(this).val();
@@ -327,7 +382,7 @@ function updateSTT() {
 }
 
 function save() {
-    if(listProductDetail.length === 0){
+    if (listProductDetail.length === 0) {
         Swal.fire({
             icon: 'error',
             title: 'Lỗi!',
@@ -366,7 +421,7 @@ function save() {
         success: function (response) {
             console.log("Lưu Sản phẩm thành công!");
             var productId = response.id;
-            if(!saveImage(productId)){
+            if (!saveImage(productId)) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Lỗi!',
@@ -374,7 +429,7 @@ function save() {
                 });
                 return;
             }
-            if(!saveProductDetail(productId)){
+            if (!saveProductDetail(productId)) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Lỗi!',
@@ -457,7 +512,7 @@ function saveProductDetail(productId) {
             productId: productId,
             quantity: listProductDetail[i].quantity,
             price: listProductDetail[i].price,
-            weight: listProductDetail[i].weight,
+            // weight: listProductDetail[i].weight,
             colorId: listProductDetail[i].colorId,
             sizeId: listProductDetail[i].sizeId,
             status: 0

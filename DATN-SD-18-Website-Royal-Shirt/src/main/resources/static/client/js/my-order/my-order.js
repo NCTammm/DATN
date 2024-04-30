@@ -98,14 +98,25 @@ function setStatusOrder(button) {
                 type: "POST",
                 url: "/rest/my-order/setStatus/" + orderId,
                 success: function (response) {
-                    Swal.fire({
-                        title: "Thành công!",
-                        text: "Hủy đơn hàng thành công!",
-                        icon: "success",
-                    }).then(() => {
-                        // Reload trang sau khi thành công
-                        location.reload();
-                    });
+                    if(response === "") {
+                        Swal.fire({
+                            title: "Lỗi!",
+                            text: "Đã xảy ra lỗi khi hủy đơn hàng!",
+                            icon: "error",
+                        }).then(() => {
+                            // Reload trang
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Thành công!",
+                            text: "Hủy đơn hàng thành công!",
+                            icon: "success",
+                        }).then(() => {
+                            // Reload trang sau khi thành công
+                            location.reload();
+                        });
+                    }
                 },
                 error: function () {
                     Swal.fire({

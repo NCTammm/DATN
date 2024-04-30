@@ -200,7 +200,7 @@ function updateProductDetailForm(element) {
             // Điền dữ liệu vào các trường biểu mẫu
             $('#product-detail-color').text("Màu sắc: " + productDetailColor);
             $('#product-detail-size').text("Kích thước: " + productDetailSize);
-            $('#product-detail-weight').val(productDetail.weight);
+            // $('#product-detail-weight').val(productDetail.weight);
             $('#product-detail-quantity').val(productDetail.quantity);
             $('#product-detail-price').val(productDetail.price);
         },
@@ -213,12 +213,12 @@ function updateProductDetailForm(element) {
 
 function saveUpdate() {
     var productDetailId = $('#UpdateProductDetailModal').attr("product-detail-id-update");
-    var productDetailWeight = $('#product-detail-weight').val();
+    // var productDetailWeight = $('#product-detail-weight').val();
     var productDetailQuantity = $("#product-detail-quantity").val();
     var productDetailPrice = $("#product-detail-price").val();
     var productDetailStatus = 0;
 
-    if (productDetailWeight <= 0 || productDetailQuantity < 0 || productDetailPrice <= 0) {
+    if (productDetailQuantity < 0 || productDetailPrice <= 0) {
         Swal.fire({
             icon: 'error',
             title: 'Lỗi!',
@@ -229,7 +229,7 @@ function saveUpdate() {
 
     var dataToSend = {
         id: productDetailId,
-        weight: productDetailWeight,
+        // weight: productDetailWeight,
         quantity: productDetailQuantity,
         price: productDetailPrice,
         status: productDetailStatus
@@ -268,12 +268,12 @@ function saveUpdate() {
 function saveAdd() {
     var productDetailColor = $('#select-color').val();
     var productDetailSize = $('#select-size').val();
-    var productDetailWeight = $('#add-product-detail-weight').val();
+    // var productDetailWeight = $('#add-product-detail-weight').val();
     var productDetailQuantity = $("#add-product-detail-quantity").val();
     var productDetailPrice = $("#add-product-detail-price").val();
     var productDetailStatus = 0;
 
-    if (productDetailColor == null || productDetailSize == null || productDetailWeight == 0 || productDetailQuantity == 0 || productDetailPrice == 0) {
+    if (productDetailColor == null || productDetailSize == null || productDetailQuantity == 0 || productDetailPrice == 0) {
         Swal.fire({
             icon: 'error',
             title: 'Lỗi!',
@@ -286,7 +286,7 @@ function saveAdd() {
         productId: productId,
         colorId: productDetailColor,
         sizeId: productDetailSize,
-        weight: productDetailWeight,
+        // weight: productDetailWeight,
         quantity: productDetailQuantity,
         price: productDetailPrice,
         status: productDetailStatus

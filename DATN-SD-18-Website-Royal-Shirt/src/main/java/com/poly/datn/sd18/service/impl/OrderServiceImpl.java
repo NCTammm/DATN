@@ -40,8 +40,8 @@ public class OrderServiceImpl implements OrderService {
             if (order.getStatus() == 1) {
                 order.setStatus(6);
                 order.setCancelDate(LocalDateTime.now());
+                return orderRepository.save(order);
             }
-            return orderRepository.save(order);
         }
         return null;
     }

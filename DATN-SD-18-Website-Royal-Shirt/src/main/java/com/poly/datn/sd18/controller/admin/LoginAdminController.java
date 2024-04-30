@@ -34,7 +34,7 @@ public class LoginAdminController {
                              @Valid @ModelAttribute("staff") StaffLoginRequest staffLoginRequest,
                              BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin!");
             return "admin/login/index";
         }
 
@@ -44,18 +44,18 @@ public class LoginAdminController {
         String password = staffLoginRequest.getPassword();
 
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
-            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin!");
             return "admin/login/index";
         }
         if (staff != null) {
             if (staff.getStatus() == 1) {
-                model.addAttribute("error", "Tài khoản của bạn chưa được kích hoạt");
+                model.addAttribute("error", "Tài khoản của bạn chưa được kích hoạt!");
                 return "admin/login/index";
             }
             session.setAttribute("staff", staff);
             return "redirect:/admin/counter";
         } else {
-            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu");
+            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
             return "admin/login/index";
         }
     }

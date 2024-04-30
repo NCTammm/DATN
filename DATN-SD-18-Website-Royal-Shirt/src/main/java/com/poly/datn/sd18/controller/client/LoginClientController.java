@@ -34,25 +34,25 @@ public class LoginClientController {
                         @Valid @ModelAttribute CustomerRequest customerRequest,
                         BindingResult result) {
         if (result.hasErrors()) {
-            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin!");
             return "client/login/login";
         }
         Customer customer = customerService.loginCustomer(customerRequest);
         String email = customerRequest.getEmail();
         String password = customerRequest.getPassword();
         if (email.trim().isEmpty() || password.trim().isEmpty()) {
-            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin!");
             return "client/login/login";
         }
         if (customer != null) {
             if (customer.getStatus() == 1) {
-                model.addAttribute("error", "Tài khoản của bạn chưa được kích hoạt");
+                model.addAttribute("error", "Tài khoản của bạn chưa được kích hoạt!");
                 return "client/login/login";
             }
             session.setAttribute("customer", customer);
             return "redirect:/";
         } else {
-            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu");
+            model.addAttribute("error", "Sai tài khoản hoặc mật khẩu!");
             return "client/login/login";
         }
     }

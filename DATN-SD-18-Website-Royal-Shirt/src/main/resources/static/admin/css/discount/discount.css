@@ -84,3 +84,16 @@ input:checked + .slider:before {
     content: attr(data-raw-value) "%";
     width: 100%; /* Đảm bảo nằm ở cuối cùng */
 }
+
+.modal-header {
+    border-radius: 0px;
+    border-bottom: 2px solid #FFD43B;
+    margin-bottom: 10px;
+    margin-right: 15px;
+    margin-left: 15px;
+    padding-left: 0px;
+}
+
+.modal-title {
+    font-size: 22px;
+}

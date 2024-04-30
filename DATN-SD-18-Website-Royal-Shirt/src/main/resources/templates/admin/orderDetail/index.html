@@ -304,8 +304,8 @@
                 <div class="col-4  mb-1 mt-1">Địa chỉ giao hàng: {{order.address}}</div>
                 <div class="col-4  mb-1 mt-1">Ghi chú: {{order.note}}</div>
                 <div class="col-4  mb-1 mt-1">Phương thức thanh toán: {{order.shopping}}</div>
-                <div class="col-4  mb-1 mt-1">Ngày tạo đơn: {{ order.createdAt | date:'dd/MM/yyyy' }}</div>
-                <div class="col-4  mb-1 mt-1">Ngày cập nhật: {{ order.updatedAt | date:'dd/MM/yyyy' }}</div>
+                <div class="col-4  mb-1 mt-1">Ngày tạo đơn: {{ order.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</div>
+                <div class="col-4  mb-1 mt-1">Ngày cập nhật: {{ order.updatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</div>
                 <div class="col-4  mb-1 mt-1"><span ng-show="order.staff">Nhân viên xác nhận đơn:
                             {{order.staff.name}}</span></div>
             </div>

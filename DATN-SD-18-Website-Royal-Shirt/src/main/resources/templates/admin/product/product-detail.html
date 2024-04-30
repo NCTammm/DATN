@@ -96,40 +96,9 @@
 
                     <div class="row element-button">
                         <div class="col-sm-2">
-
                             <a class="btn btn-add btn-sm" id="showFormProductDetailAdd" title="Thêm"><i
                                     class="fas fa-plus"></i>
                                 Tạo mới</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập"
-                               onclick="myFunction(this)"><i
-                                    class="fas fa-file-upload"></i> Tải từ file</a>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm print-file" type="button" title="In"
-                               onclick="myApp.printTable()"><i
-                                    class="fas fa-print"></i> In dữ liệu</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button"
-                               title="Sao chép"><i
-                                    class="fas fa-copy"></i> Sao chép</a>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất
-                                Excel</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm pdf-file" type="button" title="In"
-                               onclick="myFunction(this)"><i
-                                    class="fas fa-file-pdf"></i> Xuất PDF</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
                         </div>
                     </div>
 
@@ -149,20 +118,20 @@
                                         <label class="control-label" id="product-detail-size">Kích Thước: </label>
                                     </div>
 
-                                    <!--Trọng Lượng-->
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Trọng Lượng (Gram)</label>
-                                        <input class="form-control" type="number" id="product-detail-weight" min="0">
-                                    </div>
+<!--                                    &lt;!&ndash;Trọng Lượng&ndash;&gt;-->
+<!--                                    <div class="form-group col-md-4">-->
+<!--                                        <label class="control-label">Trọng Lượng (Gram)</label>-->
+<!--                                        <input class="form-control" type="number" id="product-detail-weight" min="0">-->
+<!--                                    </div>-->
 
                                     <!--Số Lượng-->
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label class="control-label">Số Lượng</label>
                                         <input class="form-control" type="number" id="product-detail-quantity" min="0">
                                     </div>
 
                                     <!--Giá-->
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label class="control-label">Giá (VNĐ)</label>
                                         <input class="form-control" type="number" id="product-detail-price" min="0">
                                     </div>
@@ -215,20 +184,20 @@
                                         </div>
                                     </div>
 
-                                    <!--Trọng Lượng-->
-                                    <div class="form-group col-md-4">
-                                        <label class="control-label">Trọng Lượng (Gram)</label>
-                                        <input class="form-control" type="number" id="add-product-detail-weight">
-                                    </div>
+<!--                                    &lt;!&ndash;Trọng Lượng&ndash;&gt;-->
+<!--                                    <div class="form-group col-md-4">-->
+<!--                                        <label class="control-label">Trọng Lượng (Gram)</label>-->
+<!--                                        <input class="form-control" type="number" id="add-product-detail-weight">-->
+<!--                                    </div>-->
 
                                     <!--Số Lượng-->
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label class="control-label">Số Lượng</label>
                                         <input class="form-control" type="number" id="add-product-detail-quantity">
                                     </div>
 
                                     <!--Giá-->
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label class="control-label">Giá (VNĐ)</label>
                                         <input class="form-control" type="number" id="add-product-detail-price">
                                     </div>
@@ -251,12 +220,12 @@
                            id="sampleTable">
                         <thead>
                         <tr>0
-                            <th class="stt" width="20">STT</th>
+                            <th class="stt" width="30">STT</th>
                             <th class="mau_sac">Màu Sắc</th>
                             <th class="kich_thuoc">Kích Thước</th>
-                            <th class="trong_luong" width="150">Trọng Lượng</th>
-                            <th class="so_luong" width="90">Số Lượng</th>
-                            <th class="gia_ban" width="180">Giá Bán</th>
+<!--                            <th class="trong_luong" width="150">Trọng Lượng</th>-->
+                            <th class="so_luong" width="130">Số Lượng</th>
+                            <th class="gia_ban" width="220">Giá Bán</th>
                             <th class="tinh_nang" width="110">Tính Năng</th>
                         </tr>
                         </thead>
@@ -272,9 +241,9 @@
                             <td class="stt" th:text="${index.index + 1}"></td>
                             <td class="mau_sac" th:text="${productDetail.colorName}"></td>
                             <td class="kich_thuoc" th:text="${productDetail.sizeName}"></td>
-                            <td class="trong_luong" id="trong_luong"
-                                th:text="${#numbers.formatDecimal((productDetail.weight), 0, 'POINT', 0, 'POINT')}"
-                            ></td>
+<!--                            <td class="trong_luong" id="trong_luong"-->
+<!--                                th:text="${#numbers.formatDecimal((productDetail.weight), 0, 'POINT', 0, 'POINT')}"-->
+<!--                            ></td>-->
                             <td class="so_luong" th:text="${productDetail.quantity}"></td>
                             <td class="gia_ban" id="gia_ban"
                                 th:text="${#numbers.formatDecimal((productDetail.price), 0, 'POINT', 0, 'POINT')}"
