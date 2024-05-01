@@ -64,7 +64,8 @@
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
-            <li class="breadcrumb-item active"><a th:href="@{/admin/oder}"><b>Danh sách đơn hàng / Chi tiết đơn hàng</b></a></li>
+            <li class="breadcrumb-item active"><a th:href="@{/admin/oder}"><b>Danh sách đơn hàng / Chi tiết đơn hàng</b></a>
+            </li>
         </ul>
         <div id="clock"></div>
     </div>
@@ -133,7 +134,8 @@
                     <div class="step" ng-click="changeStatus(6)"
                          th:classappend="${order.status == 6} ? 'showw' : 'hide'">
                         <div class="title">Hủy hàng</div>
-                        <div class="timestamp" th:if="${order.cancelDate} != null" th:text="${order.cancelDate}">
+                        <div class="timestamp" th:if="${order.cancelDate} != null"
+                             th:text="${#temporals.format(order.cancelDate, 'dd/MM/yyyy HH:mm:ss')}">
                         </div>
                         <div class="timestamp" th:if="${order.cancelDate} == null">Processing</div>
 
@@ -148,10 +150,15 @@
                     <div class="title mt-2">Thông tin đơn hàng</div>
                 </div>
                 <div class="col-auto mt-1">
-                    <button ng-if="order.status==1 && order.shopping != 'VN PAY'" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#modalId">Thêm
-                        sản phẩm
+                    <button ng-if="order.status==1 && order.shopping != 'VN PAY'" type="button" class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalId">Thêm sản phẩm
                     </button>
+                    <a ng-href="/admin/oder/order-detail/{{order.id}}">
+                        <button ng-if="order.status==1 && order.shopping != 'VN PAY'"
+                                class="btn btn-primary"> Làm mới
+                        </button>
+                    </a>
                     <!-- Modal -->
                     <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
                          aria-hidden="true">
@@ -293,7 +300,7 @@
             <div class="row justify-content-center">
                 <div class="col-4  mb-1 mt-1">Mã đơn hàng: {{order.id}}</div>
                 <div class="col-4  mb-1 mt-1">Số điện thoại:
-                    <span ng-if="order.type" >{{order.phone}}</span>
+                    <span ng-if="order.type">{{order.phone}}</span>
                     <span ng-if="!order.type">{{order.customer.phone}}</span>
                 </div>
                 <div class="col-4  mb-1 mt-1">Tên khách hàng: {{order.customer.name}}</div>
@@ -623,7 +630,6 @@
             if (status == 2) {
                 for (var i = 0; i < $scope.order.orderDetails.length; i++) {
                     if ($scope.order.orderDetails[i].productDetail.product.status === 1) {
-                        // Hiển thị cảnh báo nếu đơn hàng không ở trạng thái chờ xác nhận mà người dùng muốn hủy đơn hàng
                         Swal.fire({
                             icon: 'warning',
                             title: 'Lưu ý!',
@@ -668,7 +674,6 @@
                     cancelButtonText: 'No'
                 }).then((result) => {
                     if (result.isConfirmed) {
-
                         // Nếu người dùng xác nhận, thực hiện submit form
                         Swal.fire({
                             icon: 'success',
@@ -676,7 +681,6 @@
                             text: 'Đã chuyển đổi trạng thái đơn hàng!'
                         }).then(() => {
                             setTimeout(function () {
-
                                 // Nếu người dùng xác nhận, gửi yêu cầu POST để thay đổi trạng thái đơn hàng
                                 $http.post("http://localhost:8080/admin/rest/order-detail/change-order-status/" + $scope.order.id + "/" + status)
                                     .then(function (response) {
