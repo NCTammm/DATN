@@ -33,4 +33,6 @@ public interface OrderService {
     Float calculateTotalPriceByOrderId(Integer orderId);
     Float totalPriceByIdOrder(Integer orderId);
     List<Order> getAllOrderByCustomerId(Integer customerId);
+
+    void updateOrderStatus(Integer orderId, Integer status);
 }

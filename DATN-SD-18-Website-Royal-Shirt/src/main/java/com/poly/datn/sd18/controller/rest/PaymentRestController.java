@@ -99,6 +99,8 @@ public class PaymentRestController {
             model.addAttribute("vnp_PayDate", vnp_PayDate);
             return "client/payment/success";
         }else {
+            Integer orderId = Integer.parseInt(vnp_TxnRef);
+            orderService.updateOrderStatus(orderId, 6);
             return "client/payment/error";
         }
     }
