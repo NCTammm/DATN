@@ -52,7 +52,7 @@ public class CartDetailRestController {
     @DeleteMapping("/rest/cart-detail/deleteAfterCheckout/{productDetailId}")
     public ResponseEntity<?> deleteAfterCheckout(@PathVariable("productDetailId") Integer productDetailId){
         Customer customer = (Customer) session.getAttribute("customer");
-        cartDetailService.deleteAfterCheckout(customer.getCart().getId(),productDetailId);
+        cartDetailService.deleteAfterCheckout(customer.getId(),productDetailId);
         return ResponseEntity.ok("Delete ProductDetailId " + productDetailId +" from CartDetail successfully!");
     }
 

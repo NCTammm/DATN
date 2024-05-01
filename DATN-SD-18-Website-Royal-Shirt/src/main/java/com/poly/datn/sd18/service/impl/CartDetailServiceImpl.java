@@ -139,8 +139,8 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Transactional
     @Override
-    public void deleteAfterCheckout(Integer cartId, Integer productDetailId) {
-        cartDetailRepository.deleteAfterCheckout(cartId,productDetailId);
+    public void deleteAfterCheckout(Integer customerId, Integer productDetailId) {
+        cartDetailRepository.deleteAfterCheckout(customerId,productDetailId);
     }
 
     @Override

@@ -104,10 +104,12 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Integer>
                                @Param("productDetailId") Integer productDetailId);
 
     @Modifying
-    @Query(value = "DELETE FROM [dbo].[cart_details]\n" +
-            "      WHERE [dbo].[cart_details].cart_id = :cartId AND " +
-            "            [dbo].[cart_details].product_detail_id = :productDetailId",nativeQuery = true)
-    void deleteAfterCheckout(@Param("cartId") Integer cartId,@Param("productDetailId") Integer productDetailId);
+    @Query(value = "DELETE [dbo].[cart_details]\n" +
+            "FROM [dbo].[cart_details]\n" +
+            "INNER JOIN [dbo].[carts] ON [dbo].[cart_details].cart_id = [dbo].[carts].id \n" +
+            "WHERE [dbo].[carts].customer_id = :customerId AND \n" +
+            "\t  [dbo].[cart_details].product_detail_id = :productDetailId",nativeQuery = true)
+    void deleteAfterCheckout(@Param("customerId") Integer customerId,@Param("productDetailId") Integer productDetailId);
 
     @Modifying
     @Transactional

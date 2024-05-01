@@ -25,7 +25,7 @@ public interface CartDetailService {
     CartDetailRestponse findCartDetailById(Integer cartDetailId);
     Integer quantityCartDetail(Integer customerId, Integer productDetailId);
 
-    void deleteAfterCheckout(Integer cartId, Integer productDetailId);
+    void deleteAfterCheckout(Integer customerId, Integer productDetailId);
 
     void deleteCartDetailByQuantityAndStatusProduct(Integer cartId);
 }
