@@ -633,7 +633,7 @@
                         Swal.fire({
                             icon: 'warning',
                             title: 'Lưu ý!',
-                            text: 'Sản phẩm ' + $scope.order.orderDetails[i].productDetail.product.name + ' trong đơn hàng đã ngưng kinh doanh!'
+                            text: 'Sản phẩm '  + $scope.order.orderDetails[i].productDetail.product.name + ' Kích thước: ' + $scope.order.orderDetails[i].productDetail.size.name + ' Màu: ' + $scope.order.orderDetails[i].productDetail.color.name + ' trong đơn hàng đã ngưng kinh doanh!'
                         });
                         return;
                     }
