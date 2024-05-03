@@ -177,11 +177,7 @@ async function addToCart(button) {
         Swal.fire({
             icon: 'error',
             title: 'Lỗi!',
-            text: "Hãy đăng nhập!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '/loginPage';
-            }
-        });
+            text: error
+        })
     }
 }
